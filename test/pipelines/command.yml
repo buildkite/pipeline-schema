@@ -1,0 +1,57 @@
+steps:
+  - type: "script"
+
+  - command: "blah.sh"
+
+  - type: "script"
+    command: "blah.sh"
+
+  - type: "command"
+    command: "blah.sh"
+
+  - type: "commands"
+    command: "blah.sh"
+
+  - command:
+      command: "blah.sh"
+
+  - script:
+      command: "blah.sh"
+
+  - commands:
+      command: "blah.sh"
+
+  - command: test
+    artifact_paths:
+      - "path-one"
+      - "path-two"
+
+  - command: test
+    artifact_paths: "path-one"
+
+  - command: test
+    plugins:
+      a-plugin#v1.0.0:
+        run: app
+
+  - command: test
+    env:
+      AN_ENV: value
+
+  - command: test
+    parallelism: 42
+  
+  - command: test
+    retry:
+      automatic:
+        - exit_status: -1
+        - exit_status: 255
+
+  - command: test
+    retry:
+      automatic:
+        exit_status: -1
+
+  - command: test
+    retry:
+      automatic: true

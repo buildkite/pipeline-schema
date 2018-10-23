@@ -1,0 +1,95 @@
+{
+  "title": "JSON schema for Buildkite pipeline configuration files",
+  "$schema": "http://json-schema.org/draft-06/schema",
+  "fileMatch": [ 
+    "buildkite.yml",
+    "buildkite.yaml",
+    "buildkite.json",
+    ".buildkite/pipeline.yml",
+    ".buildkite/pipeline.yaml",
+    ".buildkite/pipeline.json"
+  ],
+  "definitions": {
+    "commandStep": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "script", "command", "commands" ]
+        },
+        "command": {
+          "description": "The commands to run on the agent",
+          "anyOf": [
+            { "type": "array", "items": { "type": "string" } },
+            { "type": "string" }
+          ]
+        },
+        "commands": {
+          "description": "The commands to run on the agent",
+          "ref": "#/definitions/commandStep/properties/command"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nestedCommandStep": {
+      "type": "object",
+      "properties": {
+        "command": { "$ref": "#/definitions/commandStep" },
+        "script": { "$ref": "#/definitions/commandStep" },
+        "commands": { "$ref": "#/definitions/commandStep" }
+      },
+      "additionalProperties": false
+    },
+    "stringWaitStep": {
+      "type": "string",
+      "description": "Waits for previous steps to pass before continuing",
+      "enum": [ "wait" ]
+    },
+    "waitStep": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "wait", "waiter" ]
+        },
+        "continue_on_failure": {
+          "description": "Continue to the next steps, even if the previous group of steps fail",
+          "type": "boolean"
+        },
+        "wait": {
+          "description": "Waits for previous steps to pass before continuing",
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "enum": [ "" ] }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nestedWaitStep": {
+      "type": "object",
+      "properties": {
+        "wait": {
+          "description": "Waits for previous steps to pass before continuing",
+          "$ref": "#/definitions/waitStep"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "steps": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/commandStep" },
+          { "$ref": "#/definitions/nestedCommandStep" },
+          { "$ref": "#/definitions/stringWaitStep" },
+          { "$ref": "#/definitions/waitStep" },
+          { "$ref": "#/definitions/nestedWaitStep" }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

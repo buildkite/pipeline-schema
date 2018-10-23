@@ -1,0 +1,6 @@
+version: '3.6'
+services:
+  tests:
+    build: .
+    volumes:
+      - "../schema.json:/app/schema.json"

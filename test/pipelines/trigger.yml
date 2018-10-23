@@ -1,0 +1,11 @@
+steps:
+  - trigger: "a-slug"
+
+  - trigger: "a-slug"
+    label: "Triggered label"
+    branches: "a-branch"
+    async: true
+    build:
+      message: "A message"
+      commit: "A commit"
+      branch: "A branch"
