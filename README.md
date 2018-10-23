@@ -2,6 +2,8 @@
 
 The official [JSON Schema](https://json-schema.org) for Buildkite’s [pipeline file format](https://buildkite.com/docs/pipelines/defining-steps).
 
+* See [schema.json](schema.json)
+
 ## Testing
 
 If you have [Node 10+](https://nodejs.org/en/) installed:
