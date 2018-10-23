@@ -2,7 +2,18 @@
 
 The official [JSON Schema](https://json-schema.org) for Buildkite’s [pipeline file format](https://buildkite.com/docs/pipelines/defining-steps).
 
-* See [schema.json](schema.json)
+Useful for validation your pipeline.yml files using tools such as the [YAML VSCode Extension by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
+
+See:
+
+* [schema.json](schema.json)
+* [test/valid-pipelines](test/valid-pipelines)
+
+## Roadmap
+
+- [x] Figure out nested structures
+- [ ] Add all the step properties
+- [ ] Mark deprecate properties/styles
 
 ## Testing
 

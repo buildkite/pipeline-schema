@@ -2,4 +2,5 @@ steps:
   - label: "Tests"
     plugins:
       - docker-compose#v2.0.0:
+          config: test/docker-compose.yml
           run: tests

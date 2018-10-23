@@ -6,7 +6,7 @@ const fs = require('fs')
 const schema = require('../schema.json')
 
 const validate = (name) => {
-  const pipeline = yaml.safeLoad(fs.readFileSync(`./pipelines/${name}`, 'utf8'))
+  const pipeline = yaml.safeLoad(fs.readFileSync(`./valid-pipelines/${name}`, 'utf8'))
 
   const ajv = new Ajv({ allErrors: true })
   ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'))
