@@ -17,5 +17,5 @@ Or you can use [Docker Compose](https://docs.docker.com/compose/):
 
 ```shell
 cd test
-docker-compose run --rm tests
+docker-compose build && docker-compose run --rm tests
 ```
