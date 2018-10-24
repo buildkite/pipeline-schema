@@ -1,4 +1,4 @@
-# Buildkite Pipeline JSON Schema
+# Buildkite Pipeline JSON Schema ![Buildkite](https://img.shields.io/buildkite/7fc0b70eb527b66ebb782dd7411becfa14d2b972dab25b48c1/master.svg?label=Tests)
 
 The official [JSON Schema](https://json-schema.org) for Buildkite’s [pipeline file format](https://buildkite.com/docs/pipelines/defining-steps). Useful for linting/validating your pipeline.yml files using tools like [YAML VSCode Extension by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
 
