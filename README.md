@@ -2,6 +2,8 @@
 
 A [JSON Schema](https://json-schema.org) for Buildkite’s [pipeline file format](https://buildkite.com/docs/pipelines/defining-steps), covering all current, documented options. Useful for linting/validating your pipeline.yml files using tools like [YAML VSCode Extension by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
 
+![Screenshot of YAML VSCode Extension by Red Hat](vscode-screenshot.png)
+
 See:
 
 * [schema.json](schema.json)
