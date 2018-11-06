@@ -198,6 +198,9 @@
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
+        "name": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
         "prompt": {
           "type": "string",
           "description": "The instructional message displayed in the dialog box when the unblock step is activated",
@@ -295,6 +298,9 @@
           "$ref": "#/definitions/commonOptions/identifier"
         },
         "label": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "name": {
           "$ref": "#/definitions/commonOptions/label"
         },
         "parallelism": {
@@ -512,6 +518,9 @@
             },
             "label": {
               "$ref": "#/definitions/commonOptions/label"
+            },
+            "name": {
+              "$ref": "#/definitions/commonOptions/label"
             },    
             "message": {
               "type": "string",
@@ -551,6 +560,9 @@
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
+        "name": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
         "type": {
           "type": "string",
           "enum": [ "trigger" ]
@@ -580,10 +592,15 @@
           "$ref": "#/definitions/commonOptions/identifier"
         },
         "group": {
-          "$ref": "#/definitions/commonOptions/label"
+          "type": "string",
+          "description": "The name to give to this group of steps",
+          "examples": [ "Tests" ]
         },
         "label": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/groupStep/properties/group"
+        },
+        "name": {
+          "$ref": "#/definitions/groupStep/properties/label"
         },
         "steps": {
           "type": "array",

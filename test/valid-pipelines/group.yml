@@ -21,3 +21,8 @@ steps:
     identifier: "an-id"
     steps:
       - command: test
+
+  - type: "group"
+    name: "Tests"
+    steps:
+      - command: test
