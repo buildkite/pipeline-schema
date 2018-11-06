@@ -1,4 +1,6 @@
 steps:
+  # Different nesting formats
+
   - type: "script"
 
   - command: "blah.sh"
@@ -21,6 +23,18 @@ steps:
   - commands:
       command: "blah.sh"
 
+  # With only a plugins key
+
+  - plugins:
+      - a-plugin#v1.0.0:
+          run: app
+
+  # All the options
+
+  - command: test
+    agents:
+      os: "macOS"
+
   - command: test
     artifact_paths:
       - "path-one"
@@ -30,17 +44,32 @@ steps:
     artifact_paths: "path-one"
 
   - command: test
-    plugins:
-      a-plugin#v1.0.0:
-        run: app
+    branches: "master deploy-*"
+  
+  - command: test
+    concurrency: 1
+    concurrency_group: "my-group"
 
   - command: test
     env:
       AN_ENV: value
 
   - command: test
+    label: "Test"
+
+  - command: test
     parallelism: 42
-  
+
+  - command: test
+    plugins:
+      a-plugin#v1.0.0:
+        run: app
+
+  - command: test
+    plugins:
+      - a-plugin#v1.0.0:
+          run: app
+
   - command: test
     retry:
       automatic:
@@ -55,3 +84,12 @@ steps:
   - command: test
     retry:
       automatic: true
+
+  - command: test
+    skip: true
+
+  - command: test
+    skip: "Skipped"
+
+  - command: test
+    timeout_in_minutes: 40

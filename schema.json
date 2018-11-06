@@ -10,6 +10,208 @@
     ".buildkite/pipeline.json"
   ],
   "definitions": {
+    "commonOptions": {
+      "automaticRetry": {
+        "type": "object",
+        "properties": {
+          "exit_status": {
+            "description": "The exit status number that will cause this job to retry",
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [ "*" ]
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "description": "The number of times this job can be retried",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false
+      },
+      "branches": {
+        "description": "Which branches will include this step in their builds",
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        ],
+        "examples": [
+          "master",
+          [ "feature/*", "chore/*" ]
+        ]
+      },
+      "label": {
+        "type": "string",
+        "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
+        "examples": [ ":docker: Build" ]
+      }
+    },
+    "blockStep": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "type": "string",
+          "description": "The label of the block step"
+        },
+        "branches": {
+          "$ref": "#/definitions/commonOptions/branches"
+        },
+        "fields": {
+          "type": "array",
+          "description": "A list of input fields required to be filled out before unblocking the step",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The text input name",
+                    "examples": [
+                      "Release Name"
+                    ]
+                  },
+                  "key": {
+                    "type": "string",
+                    "description": "The meta-data key that stores the field's input",
+                    "pattern": "^[a-zA-Z0-9-]+$",
+                    "examples": [
+                      "release-name"
+                    ]
+                  },
+                  "hint": {
+                    "type": "string",
+                    "description": "The explanatory text that is shown after the label",
+                    "examples": [
+                      "What’s the code name for this release? :name_badge:"
+                    ]
+                  },
+                  "required": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether the field is required for form submission"
+                  },
+                  "default": {
+                    "type": "string",
+                    "description": "The value that is pre-filled in the text field",
+                    "examples": [
+                      "Flying Dolphin"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "string",
+                    "description": "The text input name",
+                    "examples": [
+                      "Release Stream"
+                    ]
+                  },
+                  "key": {
+                    "type": "string",
+                    "description": "The meta-data key that stores the field's input",
+                    "pattern": "^[a-zA-Z0-9-]+$",
+                    "examples": [
+                      "release-stream"
+                    ]
+                  },
+                  "default": {
+                    "type": "string",
+                    "description": "The value of the option that will be pre-selected in the dropdown",
+                    "examples": [ "beta" ]
+                  },
+                  "hint": {
+                    "type": "string",
+                    "description": "The explanatory text that is shown after the label",
+                    "examples": [
+                      "What’s the code name for this release? :name_badge:"
+                    ]
+                  },
+                  "options": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "The text displayed on the select list item",
+                          "examples": [ "Stable" ]
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The value to be stored as meta-data",
+                          "examples": [ "stable" ]
+                        },
+                        "hint": {
+                          "type": "string",
+                          "description": "The text displayed directly under the select field’s label",
+                          "examples": [
+                            "Which release stream does this belong in? :fork:"
+                          ]
+                        },
+                        "required": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "Whether the field is required for form submission"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether the field is required for form submission"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]  
+          }
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The instructional message displayed in the dialog box when the unblock step is activated",
+          "examples": [
+            "Release to production?"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "block" ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nestedBlockStep": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockStep"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stringBlockStep": {
+      "type": "string",
+      "description": "Pauses the execution of a build and waits on a user to unblock it",
+      "enum": [ "block" ]
+    },
     "commandStep": {
       "type": "object",
       "properties": {
@@ -27,6 +229,163 @@
         "commands": {
           "description": "The commands to run on the agent",
           "ref": "#/definitions/commandStep/properties/command"
+        },
+        "agents": {
+          "type": "object",
+          "description": "The query rules to target specific agents for this step",
+          "examples": [
+            { "queue": "deploy" },
+            { "ruby": "2*" }
+          ]
+        },
+        "artifact_paths": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          ],
+          "description": "The glob path/s of artifacts to upload once this step has finished running",
+          "examples": [
+            [ "screenshots/*" ],
+            [ "dist/myapp.zip", "dist/myapp.tgz" ]
+          ]
+        },
+        "branches": {
+          "$ref": "#/definitions/commonOptions/branches"
+        },
+        "concurrency": {
+          "type": "integer",
+          "description": "The maximum number of jobs created from this step that are allowed to run at the same time. If you use this attribute, you must also define concurrency_group.",
+          "examples": [
+            1
+          ]
+        },
+        "concurrency_group": {
+          "type": "string",
+          "description": "A unique name for the concurrency group that you are creating with the concurrency attribute",
+          "examples": [
+            "my-pipeline/deploy"
+          ]
+        },
+        "env": {
+          "type": "object",
+          "description": "Environment variables for this step",
+          "examples": [
+            { "NODE_ENV": "test" }
+          ]
+        },
+        "label": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "parallelism": {
+          "type": "integer",
+          "description": "The number of parallel jobs that will be created based on this step",
+          "examples": [
+            42
+          ]
+        },
+        "plugins": {
+          "anyOf": [
+            {
+              "type": "array",
+              "description": "Array of plugins for this step",
+              "items": {
+                "type": "object",
+                "maxProperties": 1,
+                "examples": [
+                  { "docker-compose#v1.0.0": { "run": "app" } }
+                ]
+              }    
+            },
+            {
+              "type": "object",
+              "description": "A map of plugins for this step. Deprecated: please use the array syntax."
+            }
+          ]
+        },
+        "retry": {
+          "type": "object",
+          "description": "The conditions for retrying this step.",
+          "properties": {
+            "automatic": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "$ref": "#/definitions/commonOptions/automaticRetry"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/commonOptions/automaticRetry"
+                  }
+                }
+              ],
+              "description": "Whether to allow a job to retry automatically. If set to true, the retry conditions are set to the default value.",
+              "default": [
+                {
+                  "exit_status": "*",
+                  "limit": 2
+                }
+              ]
+            },
+            "manual": {
+              "description": "Whether to allow a job to be retried manually",
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "allowed": {
+                      "type": "boolean",
+                      "description": "Whether or not this job can be retried manually",
+                      "default": true
+                    },
+                    "permit_on_passed": {
+                      "type": "boolean",
+                      "description": "Whether or not this job can be retried after it has passed",
+                      "default": true
+                    },
+                    "reason": {
+                      "type": "string",
+                      "description": "A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the allowed attribute is set to false.",
+                      "examples": [
+                        "No retries allowed on deploy steps"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "skip": {
+          "anyOf": [
+            { "type": "boolean" },
+            { "type": "string" }
+          ],
+          "description": "Whether this step should be skipped. You can specify a reason for using a string.",
+          "examples": [
+            true,
+            false,
+            "My reason"
+          ]
+        },
+        "timeout_in_minutes": {
+          "type": "integer",
+          "description": "The number of minutes to time out a job",
+          "minimum": 1,
+          "examples": [
+            60
+          ]
         }
       },
       "additionalProperties": false
@@ -43,7 +402,7 @@
     "stringWaitStep": {
       "type": "string",
       "description": "Waits for previous steps to pass before continuing",
-      "enum": [ "wait" ]
+      "enum": [ "wait", "waiter" ]
     },
     "waitStep": {
       "type": "object",
@@ -62,6 +421,12 @@
             { "type": "null" },
             { "type": "string", "enum": [ "" ] }
           ]
+        },
+        "waiter": {
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "enum": [ "" ] }
+          ]
         }
       },
       "additionalProperties": false
@@ -72,6 +437,73 @@
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
           "$ref": "#/definitions/waitStep"
+        },
+        "waiter": {
+          "$ref": "#/definitions/waitStep"
+        }
+      },
+      "additionalProperties": false
+    },
+    "triggerStep": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "trigger" ]
+        },
+        "trigger": {
+          "type": "string",
+          "description": "The slug of the pipeline to create a build"
+        },
+        "label": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "branches": {
+          "$ref": "#/definitions/commonOptions/branches"
+        },
+        "async": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to continue the build without waiting for the triggered step to complete"
+        },
+        "build": {
+          "type": "object",
+          "description": "Properties of the build that will be created when the step is triggered",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "The message for the build (supports emoji)",
+              "default": "The label of the trigger step"
+            },
+            "commit": {
+              "type": "string",
+              "description": "The commit hash for the build",
+              "default": "HEAD"
+            },
+            "branch": {
+              "type": "string",
+              "description": "The branch for the build",
+              "default": "master"
+            },
+            "meta_data": {
+              "type": "object",
+              "description": "Meta-data for the build"
+            },
+            "env": {
+              "type": "object",
+              "description": "Environment variables for the build"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "nestedTriggerStep": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "$ref": "#/definitions/triggerStep"
         }
       },
       "additionalProperties": false
@@ -82,11 +514,16 @@
       "type": "array",
       "items": {
         "anyOf": [
+          { "$ref": "#/definitions/blockStep" },
+          { "$ref": "#/definitions/nestedBlockStep" },
+          { "$ref": "#/definitions/stringBlockStep" },
           { "$ref": "#/definitions/commandStep" },
           { "$ref": "#/definitions/nestedCommandStep" },
           { "$ref": "#/definitions/stringWaitStep" },
           { "$ref": "#/definitions/waitStep" },
-          { "$ref": "#/definitions/nestedWaitStep" }
+          { "$ref": "#/definitions/nestedWaitStep" },
+          { "$ref": "#/definitions/triggerStep" },
+          { "$ref": "#/definitions/nestedTriggerStep" }
         ]
       }
     }

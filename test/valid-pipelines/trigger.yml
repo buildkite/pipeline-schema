@@ -1,11 +1,40 @@
 steps:
+  # Different nesting formats
+
   - trigger: "a-slug"
+
+  - type: "trigger"
+    trigger: "a-slug"
+
+  # All the options
+
+  - trigger: "a-slug"
+    async: true
+
+  - trigger: "a-slug"
+    branches: "a-branch"
+
+  - trigger: "a-slug"
+    build:
+      message: "A message"
+
+  - trigger: "a-slug"
+    build:
+      commit: "A commit"
+
+  - trigger: "a-slug"
+    build:
+      branch: "A branch"
+
+  - trigger: "a-slug"
+    build:
+      meta_data:
+        a-key: "a-val"
+
+  - trigger: "a-slug"
+    build:
+      env:
+        SOME_ENV: "some val"
 
   - trigger: "a-slug"
     label: "Triggered label"
-    branches: "a-branch"
-    async: true
-    build:
-      message: "A message"
-      commit: "A commit"
-      branch: "A branch"

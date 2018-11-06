@@ -1,14 +1,26 @@
 steps:
+  # Different nesting formats
+
   - wait
 
+  - waiter
+
   - type: "wait"
-    continue_on_failure: true
 
   - type: "waiter"
-    continue_on_failure: true
 
   - wait: ~
     continue_on_failure: true
 
+  - waiter: ~
+    continue_on_failure: true
+
   - wait:
       continue_on_failure: true
+
+  - waiter:
+      continue_on_failure: true
+
+  # All the options
+
+  # Nothing — they're all covered above

@@ -1,1 +1,47 @@
-steps: [ "TODO" ]
+steps:
+  # Different nesting formats
+
+  - block
+
+  - block: "A label"
+
+  - block:
+      fields:
+        - text: "Field 1"
+          key: "field-1"
+
+  - type: "block"
+    fields:
+      - text: "Field 1"
+        key: "field-1"
+
+  # All the options
+
+  - block: "A label"
+
+  - block: "A label"
+    prompt: "A prompt"
+    branches: master
+    fields:
+      - text: "Field 1"
+        key: "field-1"
+      - text: "Field 2"
+        key: "field-2"
+        required: false
+        default: "Field 2 Default"
+        hint: "Field 2 Hint"
+      - select: "Select 1"
+        key: "select-1"
+        options:
+          - label: "Select 1 Option 1"
+            value: "select-1-option-1"
+          - label: "Select 1 Option 2"
+            value: "select-1-option-2"
+      - select: "Select 2"
+        key: "select-2"
+        hint: "Select 2 Hint"
+        required: false
+        default: "select-2-option-1"
+        options:
+          - label: "Select 2 Option 1"
+            value: "select-2-option-1"
