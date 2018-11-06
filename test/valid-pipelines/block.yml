@@ -11,6 +11,7 @@ steps:
           key: "field-1"
 
   - type: "block"
+    label: "A label"
     fields:
       - text: "Field 1"
         key: "field-1"
