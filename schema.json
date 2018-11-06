@@ -631,6 +631,13 @@
     }
   },
   "properties": {
+    "env": {
+      "type": "object",
+      "description": "Environment variables for all the steps",
+      "examples": [
+        { "NODE_ENV": "test" }
+      ]
+    },
     "steps": {
       "description": "A list of steps",
       "type": "array",
