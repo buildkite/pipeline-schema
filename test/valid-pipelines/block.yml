@@ -21,8 +21,19 @@ steps:
   - block: "A label"
 
   - block: "A label"
-    prompt: "A prompt"
     branches: master
+
+  - block: "A label"
+    id: "an-id"
+
+  - block: "A label"
+    identifier: "an-id"
+
+  - block: "A label"
+    prompt: "A prompt"
+
+  - block: "A label"
+    prompt: "A prompt"
     fields:
       - text: "Field 1"
         key: "field-1"

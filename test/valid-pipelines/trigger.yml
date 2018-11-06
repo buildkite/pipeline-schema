@@ -37,4 +37,10 @@ steps:
         SOME_ENV: "some val"
 
   - trigger: "a-slug"
+    id: "an-id"
+
+  - trigger: "a-slug"
+    identifier: "an-id"
+
+  - trigger: "a-slug"
     label: "Triggered label"

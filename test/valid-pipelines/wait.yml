@@ -23,4 +23,8 @@ steps:
 
   # All the options
 
-  # Nothing — they're all covered above
+  - type: "waiter"
+    id: "an-id"
+
+  - type: "waiter"
+    identifier: "an-id"

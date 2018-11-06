@@ -55,6 +55,12 @@ steps:
       AN_ENV: value
 
   - command: test
+    id: "an-id"
+
+  - command: test
+    identifier: "an-id"
+
+  - command: test
     label: "Test"
 
   - command: test

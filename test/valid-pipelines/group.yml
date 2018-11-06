@@ -1,0 +1,23 @@
+steps:
+  # Different nesting formats
+
+  - group: "Tests"
+    steps:
+      - command: test
+
+  - type: "group"
+    label: "Tests"
+    steps:
+      - command: test
+
+  # All the options
+
+  - group: "Tests"
+    id: "an-id"
+    steps:
+      - command: test
+
+  - group: "Tests"
+    identifier: "an-id"
+    steps:
+      - command: test
