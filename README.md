@@ -14,7 +14,7 @@ See:
 - [x] Figure out nested structures
 - [x] Add all the step properties
 - [x] Mark deprecate properties/styles
-- [ ] Submit to http://schemastore.org/json/
+- [x] Submit to http://schemastore.org/json/
 
 ## Testing
 
