@@ -1,7 +1,7 @@
 {
   "title": "JSON schema for Buildkite pipeline configuration files",
   "$schema": "http://json-schema.org/draft-06/schema",
-  "fileMatch": [ 
+  "fileMatch": [
     "buildkite.yml",
     "buildkite.yaml",
     "buildkite.json",
@@ -192,7 +192,7 @@
                 },
                 "additionalProperties": false
               }
-            ]  
+            ]
           }
         },
         "id": {
@@ -327,11 +327,43 @@
                 "examples": [
                   { "docker-compose#v1.0.0": { "run": "app" } }
                 ]
-              }    
+              }
             },
             {
               "type": "object",
               "description": "A map of plugins for this step. Deprecated: please use the array syntax."
+            }
+          ]
+        },
+        "soft_fail": {
+          "description": "The conditions for marking the step as a soft-fail.",
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "exit_status": {
+                        "description": "The exit status number that will cause this job to soft-fail",
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [ "*" ]
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
             }
           ]
         },
@@ -418,7 +450,7 @@
         "type": {
           "type": "string",
           "enum": [ "script", "command", "commands" ]
-        }  
+        }
       },
       "additionalProperties": false
     },
@@ -527,7 +559,7 @@
             },
             "name": {
               "$ref": "#/definitions/commonOptions/label"
-            },    
+            },
             "message": {
               "type": "string",
               "description": "The message for the build (supports emoji)",
@@ -549,11 +581,11 @@
               "examples": [
                 "myapp-deploy"
               ]
-            },  
+            },
             "type": {
               "type": "string",
               "enum": [ "trigger" ]
-            }  
+            }
           },
           "additionalProperties": false
         },
