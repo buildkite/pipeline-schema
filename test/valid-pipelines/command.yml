@@ -45,7 +45,7 @@ steps:
 
   - command: test
     branches: "master deploy-*"
-  
+
   - command: test
     concurrency: 1
     concurrency_group: "my-group"
@@ -99,3 +99,17 @@ steps:
 
   - command: test
     timeout_in_minutes: 40
+
+  - command: test
+    soft_fail: true
+
+  - command: test
+    soft_fail: false
+
+  - command: test
+    soft_fail:
+      - exit_status: 1
+
+  - command: test
+    soft_fail:
+      - exit_status: "*"
