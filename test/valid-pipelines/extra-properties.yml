@@ -1,0 +1,6 @@
+test_label_property: &test_label_property
+  label: "Test"
+
+steps:
+  - command: test
+    <<: *test_label_property
