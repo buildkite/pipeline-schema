@@ -195,6 +195,11 @@
                       "What’s the code name for this release? :name_badge:"
                     ]
                   },
+                  "multiple": {
+                    "type": "boolean",
+                    "description": "Whether more than one option may be selected",
+                    "default": false
+                    },
                   "options": {
                     "type": "array",
                     "items": {

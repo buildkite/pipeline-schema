@@ -84,3 +84,14 @@ steps:
 
   - block: "A label"
     allow_dependency_failure: true
+
+  - block: "A label"
+    fields:
+      - select: "Multiple fields"
+        key: "multiple-fields"
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+          - label: "Option 2"
+            value: option-2
