@@ -28,3 +28,6 @@ steps:
 
   - type: "waiter"
     identifier: "an-id"
+
+  - type: waiter
+    if: build.message !~ /skip tests/

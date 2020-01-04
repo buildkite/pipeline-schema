@@ -62,6 +62,11 @@
         "description": "A string identifier",
         "examples": [ "an-id" ]
       },
+      "if": {
+        "type": "string",
+        "description": "A boolean expression that omits the step when false",
+        "examples": [ "build.message != 'skip me'", "build.branch == 'master'" ]
+      },
       "label": {
         "type": "string",
         "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
@@ -201,6 +206,9 @@
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
@@ -302,6 +310,9 @@
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
@@ -481,6 +492,9 @@
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
         "type": {
           "type": "string",
           "enum": [ "wait", "waiter" ]
@@ -594,6 +608,9 @@
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"

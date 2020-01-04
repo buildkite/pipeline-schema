@@ -44,3 +44,6 @@ steps:
 
   - trigger: "a-slug"
     label: "Triggered label"
+
+  - trigger: "a-slug"
+    if: build.message !~ /skip tests/

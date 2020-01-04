@@ -57,3 +57,6 @@ steps:
         options:
           - label: "Select 2 Option 1"
             value: "select-2-option-1"
+
+  - block: "A label"
+    if: build.message !~ /skip tests/
