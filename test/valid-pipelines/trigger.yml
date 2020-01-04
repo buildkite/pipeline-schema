@@ -47,3 +47,6 @@ steps:
 
   - trigger: "a-slug"
     if: build.message !~ /skip tests/
+
+  - trigger: "a-slug"
+    key: important-step

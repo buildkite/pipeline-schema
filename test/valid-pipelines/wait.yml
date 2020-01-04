@@ -31,3 +31,6 @@ steps:
 
   - type: waiter
     if: build.message !~ /skip tests/
+
+  - type: waiter
+    key: important-step

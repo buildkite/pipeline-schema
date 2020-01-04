@@ -67,6 +67,11 @@
         "description": "A boolean expression that omits the step when false",
         "examples": [ "build.message != 'skip me'", "build.branch == 'master'" ]
       },
+      "key": {
+        "type": "string",
+        "description": "A unique identifier for a step, must not resemble a UUID",
+        "examples": [ "deploy-staging", "test-integration" ]
+      },
       "label": {
         "type": "string",
         "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
@@ -209,6 +214,9 @@
         "if": {
           "$ref": "#/definitions/commonOptions/if"
         },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
+        },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
@@ -313,6 +321,9 @@
         },
         "if": {
           "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
@@ -495,6 +506,9 @@
         "if": {
           "$ref": "#/definitions/commonOptions/if"
         },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
+        },
         "type": {
           "type": "string",
           "enum": [ "wait", "waiter" ]
@@ -611,6 +625,9 @@
         },
         "if": {
           "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"

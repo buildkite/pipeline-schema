@@ -60,3 +60,6 @@ steps:
 
   - block: "A label"
     if: build.message !~ /skip tests/
+
+  - block: "A label"
+    key: important-step

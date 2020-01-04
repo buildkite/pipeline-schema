@@ -116,3 +116,6 @@ steps:
 
   - command: test
     if: build.message !~ /skip tests/
+
+  - command: test
+    key: important-step
