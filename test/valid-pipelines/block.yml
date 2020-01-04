@@ -63,3 +63,21 @@ steps:
 
   - block: "A label"
     key: important-step
+
+  - block: "A label"
+    depends_on: depend-on-me
+
+  - block: "A label"
+    depends_on:
+      - depend-on-me-1
+      - depend-on-me-2
+
+  - block: "A label"
+    depends_on:
+      - step: depend-on-me-1
+      - step: depend-on-me-2
+
+  - block: "A label"
+    depends_on:
+      - depend-on-me-1
+      - step: depend-on-me-2

@@ -50,3 +50,21 @@ steps:
 
   - trigger: "a-slug"
     key: important-step
+
+  - trigger: "a-slug"
+    depends_on: depend-on-me
+
+  - trigger: "a-slug"
+    depends_on:
+      - depend-on-me-1
+      - depend-on-me-2
+
+  - trigger: "a-slug"
+    depends_on:
+      - step: depend-on-me-1
+      - step: depend-on-me-2
+
+  - trigger: "a-slug"
+    depends_on:
+      - depend-on-me-1
+      - step: depend-on-me-2

@@ -57,6 +57,27 @@
           [ "feature/*", "chore/*" ]
         ]
       },
+      "dependsOn": {
+        "description": "The step keys for a step to depend on",
+        "anyOf": [
+          {"type": "string"},
+          {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {"type": "string"},
+                {
+                  "type": "object",
+                  "properties": {
+                    "step": { "type": "string" }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        ]
+      },
       "identifier": {
         "type": "string",
         "description": "A string identifier",
@@ -87,6 +108,9 @@
         },
         "branches": {
           "$ref": "#/definitions/commonOptions/branches"
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "fields": {
           "type": "array",
@@ -306,6 +330,9 @@
             "my-pipeline/deploy"
           ]
         },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
         "env": {
           "type": "object",
           "description": "Environment variables for this step",
@@ -497,6 +524,9 @@
           "description": "Continue to the next steps, even if the previous group of steps fail",
           "type": "boolean"
         },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
@@ -616,6 +646,9 @@
             }
           },
           "additionalProperties": false
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"

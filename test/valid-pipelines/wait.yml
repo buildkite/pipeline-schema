@@ -34,3 +34,21 @@ steps:
 
   - type: waiter
     key: important-step
+
+  - type: waiter
+    depends_on: depend-on-me
+
+  - type: waiter
+    depends_on:
+      - depend-on-me-1
+      - depend-on-me-2
+
+  - type: waiter
+    depends_on:
+      - step: depend-on-me-1
+      - step: depend-on-me-2
+
+  - type: waiter
+    depends_on:
+      - depend-on-me-1
+      - step: depend-on-me-2
