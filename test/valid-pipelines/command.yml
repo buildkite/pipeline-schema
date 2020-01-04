@@ -137,3 +137,6 @@ steps:
     depends_on:
       - depend-on-me-1
       - step: depend-on-me-2
+
+  - command: test
+    allow_dependency_failure: true

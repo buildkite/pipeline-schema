@@ -17,6 +17,11 @@
   ],
   "definitions": {
     "commonOptions": {
+      "allowDependencyFailure": {
+        "type": "boolean",
+        "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
+        "default": false
+      },
       "automaticRetry": {
         "type": "object",
         "properties": {
@@ -102,6 +107,9 @@
     "blockStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "block": {
           "type": "string",
           "description": "The label of the block step"
@@ -285,6 +293,9 @@
             { "queue": "deploy" },
             { "ruby": "2*" }
           ]
+        },
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
         },
         "artifact_paths": {
           "anyOf": [
@@ -520,6 +531,9 @@
     "waitStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
           "type": "boolean"
@@ -575,6 +589,9 @@
     "triggerStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "async": {
           "type": "boolean",
           "default": false,

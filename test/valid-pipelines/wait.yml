@@ -52,3 +52,6 @@ steps:
     depends_on:
       - depend-on-me-1
       - step: depend-on-me-2
+
+  - type: waiter
+    allow_dependency_failure: true
