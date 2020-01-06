@@ -83,6 +83,11 @@ steps:
       - step: depend-on-me-2
 
   - block: "A label"
+    depends_on:
+      - step: depend-on-me
+        allow_failure: true
+
+  - block: "A label"
     allow_dependency_failure: true
 
   - block: "A label"

@@ -74,7 +74,11 @@
                 {
                   "type": "object",
                   "properties": {
-                    "step": { "type": "string" }
+                    "step": { "type": "string" },
+                    "allow_failure": {
+                      "type": "boolean",
+                      "default": false
+                    }
                   },
                   "additionalProperties": false
                 }
