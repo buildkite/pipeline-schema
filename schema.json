@@ -17,6 +17,11 @@
   ],
   "definitions": {
     "commonOptions": {
+      "allowDependencyFailure": {
+        "type": "boolean",
+        "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
+        "default": false
+      },
       "automaticRetry": {
         "type": "object",
         "properties": {
@@ -57,10 +62,45 @@
           [ "feature/*", "chore/*" ]
         ]
       },
+      "dependsOn": {
+        "description": "The step keys for a step to depend on",
+        "anyOf": [
+          {"type": "string"},
+          {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {"type": "string"},
+                {
+                  "type": "object",
+                  "properties": {
+                    "step": { "type": "string" },
+                    "allow_failure": {
+                      "type": "boolean",
+                      "default": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        ]
+      },
       "identifier": {
         "type": "string",
         "description": "A string identifier",
         "examples": [ "an-id" ]
+      },
+      "if": {
+        "type": "string",
+        "description": "A boolean expression that omits the step when false",
+        "examples": [ "build.message != 'skip me'", "build.branch == 'master'" ]
+      },
+      "key": {
+        "type": "string",
+        "description": "A unique identifier for a step, must not resemble a UUID",
+        "examples": [ "deploy-staging", "test-integration" ]
       },
       "label": {
         "type": "string",
@@ -71,12 +111,18 @@
     "blockStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "block": {
           "type": "string",
           "description": "The label of the block step"
         },
         "branches": {
           "$ref": "#/definitions/commonOptions/branches"
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "fields": {
           "type": "array",
@@ -153,6 +199,11 @@
                       "What’s the code name for this release? :name_badge:"
                     ]
                   },
+                  "multiple": {
+                    "type": "boolean",
+                    "description": "Whether more than one option may be selected",
+                    "default": false
+                    },
                   "options": {
                     "type": "array",
                     "items": {
@@ -201,6 +252,12 @@
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
+        },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
@@ -246,6 +303,9 @@
             { "ruby": "2*" }
           ]
         },
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "artifact_paths": {
           "anyOf": [
             {
@@ -290,6 +350,9 @@
             "my-pipeline/deploy"
           ]
         },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
         "env": {
           "type": "object",
           "description": "Environment variables for this step",
@@ -302,6 +365,12 @@
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"
@@ -471,15 +540,27 @@
     "waitStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
           "type": "boolean"
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "type": {
           "type": "string",
@@ -517,6 +598,9 @@
     "triggerStep": {
       "type": "object",
       "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
         "async": {
           "type": "boolean",
           "default": false,
@@ -589,11 +673,20 @@
           },
           "additionalProperties": false
         },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "label": {
           "$ref": "#/definitions/commonOptions/label"

@@ -113,3 +113,35 @@ steps:
   - command: test
     soft_fail:
       - exit_status: "*"
+
+  - command: test
+    if: build.message !~ /skip tests/
+
+  - command: test
+    key: important-step
+
+  - command: test
+    depends_on: depend-on-me
+
+  - command: test
+    depends_on:
+      - depend-on-me-1
+      - depend-on-me-2
+
+  - command: test
+    depends_on:
+      - step: depend-on-me-1
+      - step: depend-on-me-2
+
+  - command: test
+    depends_on:
+      - depend-on-me-1
+      - step: depend-on-me-2
+
+  - command: test
+    depends_on:
+      - step: depend-on-me
+        allow_failure: true
+
+  - command: test
+    allow_dependency_failure: true
