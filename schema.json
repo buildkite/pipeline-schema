@@ -334,7 +334,7 @@
         },
         "commands": {
           "description": "The commands to run on the agent",
-          "ref": "#/definitions/commandStep/properties/command"
+          "$ref": "#/definitions/commandStep/properties/command"
         },
         "concurrency": {
           "type": "integer",
