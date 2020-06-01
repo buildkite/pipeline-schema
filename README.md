@@ -9,13 +9,6 @@ See:
 * [schema.json](schema.json)
 * [test/valid-pipelines](test/valid-pipelines)
 
-## Roadmap
-
-- [x] Figure out nested structures
-- [x] Add all the step properties
-- [x] Mark deprecate properties/styles
-- [x] Submit to http://schemastore.org/json/
-
 ## Testing
 
 If you have [Node 10+](https://nodejs.org/en/) installed:
