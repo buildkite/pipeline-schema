@@ -763,6 +763,14 @@
         { "NODE_ENV": "test" }
       ]
     },
+    "agents": {
+      "type": "object",
+      "description": "The query rules to target specific agents for this step",
+      "examples": [
+        { "queue": "deploy" },
+        { "ruby": "2*" }
+      ]
+    },
     "steps": {
       "description": "A list of steps",
       "type": "array",
