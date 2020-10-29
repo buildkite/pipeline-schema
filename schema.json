@@ -16,6 +16,17 @@
     ".buildkite/pipeline.*.json"
   ],
   "definitions": {
+    "stringOrArrayString": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      ]
+    },
     "commonOptions": {
       "allowDependencyFailure": {
         "type": "boolean",
@@ -48,15 +59,7 @@
       },
       "branches": {
         "description": "Which branches will include this step in their builds",
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "array",
-            "items": { "type": "string" }
-          }
-        ],
+        "$ref": "#/definitions/stringOrArrayString",
         "examples": [
           "master",
           [ "feature/*", "chore/*" ]
@@ -322,15 +325,7 @@
           "$ref": "#/definitions/commonOptions/allowDependencyFailure"
         },
         "artifact_paths": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          ],
+          "$ref": "#/definitions/stringOrArrayString",
           "description": "The glob path/s of artifacts to upload once this step has finished running",
           "examples": [
             [ "screenshots/*" ],
