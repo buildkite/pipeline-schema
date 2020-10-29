@@ -87,6 +87,15 @@
           }
         ]
       },
+      "env": {
+        "type": "object",
+        "patternProperties": {
+          "^.*$": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "identifier": {
         "type": "string",
         "description": "A string identifier",
@@ -297,6 +306,12 @@
       "properties": {
         "agents": {
           "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
           "description": "The query rules to target specific agents for this step",
           "examples": [
             { "queue": "deploy" },
@@ -354,7 +369,7 @@
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "env": {
-          "type": "object",
+          "$ref": "#/definitions/commonOptions/env",
           "description": "Environment variables for this step",
           "examples": [
             { "NODE_ENV": "test" }
@@ -393,6 +408,11 @@
               "items": {
                 "type": "object",
                 "maxProperties": 1,
+                "patternProperties": {
+                  "^.*$": {
+                    "type": "any"
+                  }
+                },
                 "examples": [
                   { "docker-compose#v1.0.0": { "run": "app" } }
                 ]
@@ -400,7 +420,12 @@
             },
             {
               "type": "object",
-              "description": "A map of plugins for this step. Deprecated: please use the array syntax."
+              "description": "A map of plugins for this step. Deprecated: please use the array syntax.",
+              "patternProperties": {
+                "^.*$": {
+                  "type": "any"
+                }
+              }
             }
           ]
         },
@@ -632,7 +657,7 @@
               ]
             },
             "env": {
-              "type": "object",
+              "$ref": "#/definitions/commonOptions/env",
               "description": "Environment variables for the build",
               "examples": [
                 { "NODE_ENV": "test" }
@@ -654,6 +679,12 @@
             },
             "meta_data": {
               "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
               "description": "Meta-data for the build",
               "examples": [
                 { "server": "i-b244e37160c" }
@@ -715,6 +746,7 @@
       "additionalProperties": false
     },
     "groupStep": {
+      "type": "object",
       "properties": {
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
@@ -755,9 +787,10 @@
       "additionalProperties": false
     }
   },
+  "type": "object",
   "properties": {
     "env": {
-      "type": "object",
+      "$ref": "#/definitions/commonOptions/env",
       "description": "Environment variables for all the steps",
       "examples": [
         { "NODE_ENV": "test" }
