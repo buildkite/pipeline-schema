@@ -410,7 +410,7 @@
                 "maxProperties": 1,
                 "patternProperties": {
                   "^.*$": {
-                    "type": "any"
+                    "type": ["number","string","boolean","object","array", "null"]
                   }
                 },
                 "examples": [
@@ -423,7 +423,7 @@
               "description": "A map of plugins for this step. Deprecated: please use the array syntax.",
               "patternProperties": {
                 "^.*$": {
-                  "type": "any"
+                  "type": ["number","string","boolean","object","array", "null"]
                 }
               }
             }
