@@ -92,12 +92,7 @@
       },
       "env": {
         "type": "object",
-        "patternProperties": {
-          "^.*$": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
+        "additionalProperties": {"type": "string"}
       },
       "identifier": {
         "type": "string",
@@ -309,12 +304,7 @@
       "properties": {
         "agents": {
           "type": "object",
-          "patternProperties": {
-            "^.*$": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false,
+          "additionalProperties": {"type": "string"},
           "description": "The query rules to target specific agents for this step",
           "examples": [
             { "queue": "deploy" },
@@ -403,10 +393,8 @@
               "items": {
                 "type": "object",
                 "maxProperties": 1,
-                "patternProperties": {
-                  "^.*$": {
-                    "type": ["number","string","boolean","object","array", "null"]
-                  }
+                "additionalProperties": {
+                  "type": ["number","string","boolean","object","array", "null"]
                 },
                 "examples": [
                   { "docker-compose#v1.0.0": { "run": "app" } }
@@ -416,10 +404,8 @@
             {
               "type": "object",
               "description": "A map of plugins for this step. Deprecated: please use the array syntax.",
-              "patternProperties": {
-                "^.*$": {
-                  "type": ["number","string","boolean","object","array", "null"]
-                }
+              "additionalProperties": {
+                "type": ["number","string","boolean","object","array", "null"]
               }
             }
           ]
@@ -674,12 +660,7 @@
             },
             "meta_data": {
               "type": "object",
-              "patternProperties": {
-                "^.*$": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false,
+              "additionalProperties": {"type": "string"},
               "description": "Meta-data for the build",
               "examples": [
                 { "server": "i-b244e37160c" }
