@@ -188,9 +188,17 @@
                     ]
                   },
                   "default": {
-                    "type": "string",
-                    "description": "The value of the option that will be pre-selected in the dropdown",
-                    "examples": [ "beta" ]
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      }
+                    ],
+                    "description": "The value of the option(s) that will be pre-selected in the dropdown",
+                    "examples": [ "beta" , [ "alpha" , "beta" ] ]
                   },
                   "hint": {
                     "type": "string",
