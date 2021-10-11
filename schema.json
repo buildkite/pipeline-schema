@@ -22,6 +22,25 @@
         "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
         "default": false
       },
+      "agentsObject": {
+        "type": "object",
+        "description": "Query rules to target specific agents",
+        "examples": [
+          { "queue": "deploy" },
+          { "ruby": "2*" }
+        ]
+      },
+      "agentsList": {
+        "type": "array",
+        "description": "Query rules to target specific agents in k=v format",
+        "examples": [
+          "queue=default",
+          "xcode=true"
+        ],
+        "items": {
+          "type": "string"
+        }
+      },
       "automaticRetry": {
         "type": "object",
         "properties": {
@@ -296,11 +315,9 @@
       "type": "object",
       "properties": {
         "agents": {
-          "type": "object",
-          "description": "The query rules to target specific agents for this step",
-          "examples": [
-            { "queue": "deploy" },
-            { "ruby": "2*" }
+          "oneOf": [
+            { "$ref": "#/definitions/commonOptions/agentsObject" },
+            { "$ref": "#/definitions/commonOptions/agentsList" }
           ]
         },
         "allow_dependency_failure": {
