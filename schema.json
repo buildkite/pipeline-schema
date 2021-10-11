@@ -798,6 +798,9 @@
         { "NODE_ENV": "test" }
       ]
     },
+    "notify": {
+      "$ref": "#/definitions/commonOptions/notify"
+    },
     "steps": {
       "description": "A list of steps",
       "type": "array",
