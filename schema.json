@@ -298,6 +298,53 @@
       "description": "Pauses the execution of a build and waits on a user to unblock it",
       "enum": [ "block" ]
     },
+    "inputStep": {
+      "type": "object",
+      "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
+        "input": {
+          "type": "string",
+          "description": "The label of the input step"
+        },
+        "branches": {
+          "$ref": "#/definitions/commonOptions/branches"
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
+        "fields": {
+          "$ref": "#/definitions/commonOptions/fields"
+        },
+        "id": {
+          "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "identifier": {
+          "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
+        },
+        "label": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "name": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "prompt": {
+          "$ref": "#/definitions/commonOptions/prompt"
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "input" ]
+        }
+      },
+      "additionalProperties": false
+    },
     "commandStep": {
       "type": "object",
       "properties": {
