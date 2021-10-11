@@ -118,6 +118,11 @@
           "type": "string",
           "description": "The label of the block step"
         },
+        "blocked_state": {
+          "type": "string",
+          "description": "The state that the build is set to when the build is blocked by this block step",
+          "enum": [ "passed", "failed", "running" ]
+        },
         "branches": {
           "$ref": "#/definitions/commonOptions/branches"
         },
