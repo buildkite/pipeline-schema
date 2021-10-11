@@ -783,6 +783,9 @@
         { "NODE_ENV": "test" }
       ]
     },
+    "agents": {
+      "$ref": "#/definitions/commonOptions/agents"
+    },
     "steps": {
       "description": "A list of steps",
       "type": "array",
