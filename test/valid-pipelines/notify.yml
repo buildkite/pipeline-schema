@@ -1,0 +1,93 @@
+notify:
+  - email: dev@acmeinc.com
+
+  - email: dev@acmeinc.com
+    if: "build.state == 'failed'"
+
+  - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
+
+  - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
+    if: "build.state == 'failed'"
+
+  - slack: "#general"
+  - slack: "@someone"
+  - slack: "@someone"
+    if: "build.state == 'failed'"
+
+  - slack: "buildkite-community#general"
+  - slack: "buildkite-community@someone"
+  - slack: "buildkite-community@someone"
+    if: "build.state == 'failed'"
+
+  - slack:
+      channels:
+        - "buildkite-community#foo"
+        - "#general2"
+
+  - slack:
+      channels:
+        - "important-business#announcements"
+      message: "CI announcement"
+
+  - slack:
+      channels:
+        - "important-business#announcements"
+      message: "CI announcement"
+    if: "build.state == 'failed'"
+
+  - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
+  - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
+    if: "build.state == 'failed'"
+
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+    if: "build.state == 'failed'"
+
+steps:
+
+  - command: "blah.sh"
+
+    notify:
+      - email: dev@acmeinc.com
+
+      - email: dev@acmeinc.com
+        if: "build.state == 'failed'"
+
+      - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
+
+      - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
+        if: "build.state == 'failed'"
+
+      - slack: "#general"
+      - slack: "@someone"
+      - slack: "@someone"
+        if: "build.state == 'failed'"
+
+      - slack: "buildkite-community#general"
+      - slack: "buildkite-community@someone"
+      - slack: "buildkite-community@someone"
+        if: "build.state == 'failed'"
+
+      - slack:
+          channels:
+            - "buildkite-community#foo"
+            - "#general2"
+
+      - slack:
+          channels:
+            - "important-business#announcements"
+          message: "CI announcement"
+
+      - slack:
+          channels:
+            - "important-business#announcements"
+          message: "CI announcement"
+        if: "build.state == 'failed'"
+
+      - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
+      - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
+        if: "build.state == 'failed'"
+
+      - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+      - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+        if: "build.state == 'failed'"
