@@ -106,6 +106,128 @@
         "type": "string",
         "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
         "examples": [ ":docker: Build" ]
+      },
+      "fields": {
+        "type": "array",
+        "description": "A list of input fields required to be filled out before unblocking the step",
+        "items": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "The text input name",
+                  "examples": [
+                    "Release Name"
+                  ]
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The meta-data key that stores the field's input",
+                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "examples": [
+                    "release-name"
+                  ]
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "The explanatory text that is shown after the label",
+                  "examples": [
+                    "What’s the code name for this release? :name_badge:"
+                  ]
+                },
+                "required": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the field is required for form submission"
+                },
+                "default": {
+                  "type": "string",
+                  "description": "The value that is pre-filled in the text field",
+                  "examples": [
+                    "Flying Dolphin"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "select": {
+                  "type": "string",
+                  "description": "The text input name",
+                  "examples": [
+                    "Release Stream"
+                  ]
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The meta-data key that stores the field's input",
+                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "examples": [
+                    "release-stream"
+                  ]
+                },
+                "default": {
+                  "type": "string",
+                  "description": "The value of the option that will be pre-selected in the dropdown",
+                  "examples": [ "beta" ]
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "The explanatory text that is shown after the label",
+                  "examples": [
+                    "What’s the code name for this release? :name_badge:"
+                  ]
+                },
+                "multiple": {
+                  "type": "boolean",
+                  "description": "Whether more than one option may be selected",
+                  "default": false
+                  },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string",
+                        "description": "The text displayed on the select list item",
+                        "examples": [ "Stable" ]
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "The value to be stored as meta-data",
+                        "examples": [ "stable" ]
+                      },
+                      "hint": {
+                        "type": "string",
+                        "description": "The text displayed directly under the select field’s label",
+                        "examples": [
+                          "Which release stream does this belong in? :fork:"
+                        ]
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether the field is required for form submission"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the field is required for form submission"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
       }
     },
     "blockStep": {
@@ -125,126 +247,7 @@
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "fields": {
-          "type": "array",
-          "description": "A list of input fields required to be filled out before unblocking the step",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "description": "The text input name",
-                    "examples": [
-                      "Release Name"
-                    ]
-                  },
-                  "key": {
-                    "type": "string",
-                    "description": "The meta-data key that stores the field's input",
-                    "pattern": "^[a-zA-Z0-9-]+$",
-                    "examples": [
-                      "release-name"
-                    ]
-                  },
-                  "hint": {
-                    "type": "string",
-                    "description": "The explanatory text that is shown after the label",
-                    "examples": [
-                      "What’s the code name for this release? :name_badge:"
-                    ]
-                  },
-                  "required": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether the field is required for form submission"
-                  },
-                  "default": {
-                    "type": "string",
-                    "description": "The value that is pre-filled in the text field",
-                    "examples": [
-                      "Flying Dolphin"
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "select": {
-                    "type": "string",
-                    "description": "The text input name",
-                    "examples": [
-                      "Release Stream"
-                    ]
-                  },
-                  "key": {
-                    "type": "string",
-                    "description": "The meta-data key that stores the field's input",
-                    "pattern": "^[a-zA-Z0-9-]+$",
-                    "examples": [
-                      "release-stream"
-                    ]
-                  },
-                  "default": {
-                    "type": "string",
-                    "description": "The value of the option that will be pre-selected in the dropdown",
-                    "examples": [ "beta" ]
-                  },
-                  "hint": {
-                    "type": "string",
-                    "description": "The explanatory text that is shown after the label",
-                    "examples": [
-                      "What’s the code name for this release? :name_badge:"
-                    ]
-                  },
-                  "multiple": {
-                    "type": "boolean",
-                    "description": "Whether more than one option may be selected",
-                    "default": false
-                    },
-                  "options": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "label": {
-                          "type": "string",
-                          "description": "The text displayed on the select list item",
-                          "examples": [ "Stable" ]
-                        },
-                        "value": {
-                          "type": "string",
-                          "description": "The value to be stored as meta-data",
-                          "examples": [ "stable" ]
-                        },
-                        "hint": {
-                          "type": "string",
-                          "description": "The text displayed directly under the select field’s label",
-                          "examples": [
-                            "Which release stream does this belong in? :fork:"
-                          ]
-                        },
-                        "required": {
-                          "type": "boolean",
-                          "default": true,
-                          "description": "Whether the field is required for form submission"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether the field is required for form submission"
-                  }
-                },
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/definitions/commonOptions/fields"
         },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
