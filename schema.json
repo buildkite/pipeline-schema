@@ -122,9 +122,25 @@
                 "email": {
                   "type": "string"
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "basecamp_campfire": {
                   "type": "string"
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "slack": {
                   "anyOf": [
                     {
@@ -146,12 +162,36 @@
                     }
                   ]
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "webhook": {
                   "type": "string"
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "pagerduty_change_event": {
                   "type": "string"
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "github_commit_status": {
                   "type": "object",
                   "properties": {
@@ -161,6 +201,14 @@
                     }
                   }
                 },
+                "if": {
+                  "$ref": "#/definitions/commonOptions/if"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
                 "github_check": {
                   "type": "object",
                   "properties": {
