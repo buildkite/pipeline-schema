@@ -125,7 +125,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -136,7 +137,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -165,7 +167,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -176,7 +179,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -187,7 +191,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -204,7 +209,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             {
               "type": "object",
@@ -221,7 +227,8 @@
                 "if": {
                   "$ref": "#/definitions/commonOptions/if"
                 }
-              }
+              },
+              "additionalProperties": false
             }
           ]
         }
