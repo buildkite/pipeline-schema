@@ -22,6 +22,9 @@ describe('schema.json', function() {
   it('should validate block steps', function () {
     validate('block.yml')
   })
+  it('should validate input steps', function () {
+    validate('input.yml')
+  })
   it('should validate command steps', function() {
     validate('command.yml')
   })
