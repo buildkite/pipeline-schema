@@ -391,10 +391,17 @@
               "type": "array",
               "description": "Array of plugins for this step",
               "items": {
-                "type": "object",
-                "maxProperties": 1,
-                "examples": [
-                  { "docker-compose#v1.0.0": { "run": "app" } }
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "maxProperties": 1,
+                    "examples": [
+                      { "docker-compose#v1.0.0": { "run": "app" } }
+                    ]
+                  }
                 ]
               }
             },

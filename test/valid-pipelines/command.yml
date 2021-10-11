@@ -73,6 +73,10 @@ steps:
 
   - command: test
     plugins:
+      - a-plugin#v1.0.0
+
+  - command: test
+    plugins:
       - a-plugin#v1.0.0:
           run: app
 
