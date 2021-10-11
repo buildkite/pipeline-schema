@@ -22,6 +22,12 @@
         "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
         "default": false
       },
+      "agents": {
+        "oneOf": [
+          { "$ref": "#/definitions/commonOptions/agentsObject" },
+          { "$ref": "#/definitions/commonOptions/agentsList" }
+        ]
+      },
       "agentsObject": {
         "type": "object",
         "description": "Query rules to target specific agents",
@@ -315,10 +321,7 @@
       "type": "object",
       "properties": {
         "agents": {
-          "oneOf": [
-            { "$ref": "#/definitions/commonOptions/agentsObject" },
-            { "$ref": "#/definitions/commonOptions/agentsList" }
-          ]
+          "$ref": "#/definitions/commonOptions/agents"
         },
         "allow_dependency_failure": {
           "$ref": "#/definitions/commonOptions/allowDependencyFailure"
