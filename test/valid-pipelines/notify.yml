@@ -43,9 +43,11 @@ notify:
   - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
     if: "build.state == 'failed'"
 
+  - 'github_check'
+  - 'github_commit_status'
+
   - github_commit_status:
       context: "my-custom-status"
-
   - github_commit_status:
       context: "my-custom-status"
     if: "build.state == 'failed'"
@@ -98,6 +100,9 @@ steps:
       - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
       - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
         if: "build.state == 'failed'"
+
+      - 'github_check'
+      - 'github_commit_status'
 
       - github_commit_status:
         context: "my-custom-status"
