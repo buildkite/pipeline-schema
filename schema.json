@@ -345,6 +345,20 @@
       },
       "additionalProperties": false
     },
+    "nestedInputStep": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "$ref": "#/definitions/inputStep"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stringInputStep": {
+      "type": "string",
+      "description": "Pauses the execution of a build and waits on a user to unblock it",
+      "enum": [ "input" ]
+    },
     "commandStep": {
       "type": "object",
       "properties": {
@@ -824,6 +838,9 @@
           { "$ref": "#/definitions/blockStep" },
           { "$ref": "#/definitions/nestedBlockStep" },
           { "$ref": "#/definitions/stringBlockStep" },
+          { "$ref": "#/definitions/inputStep" },
+          { "$ref": "#/definitions/nestedInputStep" },
+          { "$ref": "#/definitions/stringInputStep" },
           { "$ref": "#/definitions/commandStep" },
           { "$ref": "#/definitions/nestedCommandStep" },
           { "$ref": "#/definitions/stringWaitStep" },
