@@ -264,6 +264,154 @@
             }
           ]
         }
+      },
+      "fields": {
+        "type": "array",
+        "description": "A list of input fields required to be filled out before unblocking the step",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "The text input name",
+                  "examples": [
+                    "Release Name"
+                  ]
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The meta-data key that stores the field's input",
+                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "examples": [
+                    "release-name"
+                  ]
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "The explanatory text that is shown after the label",
+                  "examples": [
+                    "What’s the code name for this release? :name_badge:"
+                  ]
+                },
+                "required": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the field is required for form submission"
+                },
+                "default": {
+                  "type": "string",
+                  "description": "The value that is pre-filled in the text field",
+                  "examples": [
+                    "Flying Dolphin"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "key"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "select": {
+                  "type": "string",
+                  "description": "The text input name",
+                  "examples": [
+                    "Release Stream"
+                  ]
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The meta-data key that stores the field's input",
+                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "examples": [
+                    "release-stream"
+                  ]
+                },
+                "default": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  ],
+                  "description": "The value of the option(s) that will be pre-selected in the dropdown",
+                  "examples": [ "beta" , [ "alpha" , "beta" ] ]
+                },
+                "hint": {
+                  "type": "string",
+                  "description": "The explanatory text that is shown after the label",
+                  "examples": [
+                    "What’s the code name for this release? :name_badge:"
+                  ]
+                },
+                "multiple": {
+                  "type": "boolean",
+                  "description": "Whether more than one option may be selected",
+                  "default": false
+                  },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string",
+                        "description": "The text displayed on the select list item",
+                        "examples": [ "Stable" ]
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "The value to be stored as meta-data",
+                        "examples": [ "stable" ]
+                      },
+                      "hint": {
+                        "type": "string",
+                        "description": "The text displayed directly under the select field’s label",
+                        "examples": [
+                          "Which release stream does this belong in? :fork:"
+                        ]
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether the field is required for form submission"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "label",
+                      "value"
+                    ]
+                  }
+                },
+                "required": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the field is required for form submission"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "key",
+                "options"
+              ]
+            }
+          ]
+        }
+      },
+      "prompt": {
+        "type": "string",
+        "description": "The instructional message displayed in the dialog box when the unblock step is activated",
+        "examples": [
+          "Release to production?"
+        ]
       }
     },
     "blockStep": {
@@ -288,134 +436,7 @@
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "fields": {
-          "type": "array",
-          "description": "A list of input fields required to be filled out before unblocking the step",
-          "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "description": "The text input name",
-                    "examples": [
-                      "Release Name"
-                    ]
-                  },
-                  "key": {
-                    "type": "string",
-                    "description": "The meta-data key that stores the field's input",
-                    "pattern": "^[a-zA-Z0-9-]+$",
-                    "examples": [
-                      "release-name"
-                    ]
-                  },
-                  "hint": {
-                    "type": "string",
-                    "description": "The explanatory text that is shown after the label",
-                    "examples": [
-                      "What’s the code name for this release? :name_badge:"
-                    ]
-                  },
-                  "required": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether the field is required for form submission"
-                  },
-                  "default": {
-                    "type": "string",
-                    "description": "The value that is pre-filled in the text field",
-                    "examples": [
-                      "Flying Dolphin"
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "select": {
-                    "type": "string",
-                    "description": "The text input name",
-                    "examples": [
-                      "Release Stream"
-                    ]
-                  },
-                  "key": {
-                    "type": "string",
-                    "description": "The meta-data key that stores the field's input",
-                    "pattern": "^[a-zA-Z0-9-]+$",
-                    "examples": [
-                      "release-stream"
-                    ]
-                  },
-                  "default": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      }
-                    ],
-                    "description": "The value of the option(s) that will be pre-selected in the dropdown",
-                    "examples": [ "beta" , [ "alpha" , "beta" ] ]
-                  },
-                  "hint": {
-                    "type": "string",
-                    "description": "The explanatory text that is shown after the label",
-                    "examples": [
-                      "What’s the code name for this release? :name_badge:"
-                    ]
-                  },
-                  "multiple": {
-                    "type": "boolean",
-                    "description": "Whether more than one option may be selected",
-                    "default": false
-                    },
-                  "options": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "label": {
-                          "type": "string",
-                          "description": "The text displayed on the select list item",
-                          "examples": [ "Stable" ]
-                        },
-                        "value": {
-                          "type": "string",
-                          "description": "The value to be stored as meta-data",
-                          "examples": [ "stable" ]
-                        },
-                        "hint": {
-                          "type": "string",
-                          "description": "The text displayed directly under the select field’s label",
-                          "examples": [
-                            "Which release stream does this belong in? :fork:"
-                          ]
-                        },
-                        "required": {
-                          "type": "boolean",
-                          "default": true,
-                          "description": "Whether the field is required for form submission"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Whether the field is required for form submission"
-                  }
-                },
-                "additionalProperties": false
-              }
-            ]
-          }
+          "$ref": "#/definitions/commonOptions/fields"
         },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
@@ -436,11 +457,7 @@
           "$ref": "#/definitions/commonOptions/label"
         },
         "prompt": {
-          "type": "string",
-          "description": "The instructional message displayed in the dialog box when the unblock step is activated",
-          "examples": [
-            "Release to production?"
-          ]
+          "$ref": "#/definitions/commonOptions/prompt"
         },
         "type": {
           "type": "string",
@@ -462,6 +479,67 @@
       "type": "string",
       "description": "Pauses the execution of a build and waits on a user to unblock it",
       "enum": [ "block" ]
+    },
+    "inputStep": {
+      "type": "object",
+      "properties": {
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
+        "input": {
+          "type": "string",
+          "description": "The label of the input step"
+        },
+        "branches": {
+          "$ref": "#/definitions/commonOptions/branches"
+        },
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
+        "fields": {
+          "$ref": "#/definitions/commonOptions/fields"
+        },
+        "id": {
+          "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "identifier": {
+          "$ref": "#/definitions/commonOptions/identifier"
+        },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
+        },
+        "label": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "name": {
+          "$ref": "#/definitions/commonOptions/label"
+        },
+        "prompt": {
+          "$ref": "#/definitions/commonOptions/prompt"
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "input" ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "nestedInputStep": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "$ref": "#/definitions/inputStep"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stringInputStep": {
+      "type": "string",
+      "description": "Pauses the execution of a build and waits on a user to unblock it",
+      "enum": [ "input" ]
     },
     "commandStep": {
       "type": "object",
@@ -1029,6 +1107,9 @@
           { "$ref": "#/definitions/blockStep" },
           { "$ref": "#/definitions/nestedBlockStep" },
           { "$ref": "#/definitions/stringBlockStep" },
+          { "$ref": "#/definitions/inputStep" },
+          { "$ref": "#/definitions/nestedInputStep" },
+          { "$ref": "#/definitions/stringInputStep" },
           { "$ref": "#/definitions/commandStep" },
           { "$ref": "#/definitions/nestedCommandStep" },
           { "$ref": "#/definitions/stringWaitStep" },
