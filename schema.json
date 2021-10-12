@@ -107,7 +107,7 @@
         "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
         "examples": [ ":docker: Build" ]
       },
-      "notify": {
+      "buildNotify": {
         "type": "array",
         "description": "Array of notification options for this step",
         "items": {
@@ -505,7 +505,130 @@
           "$ref": "#/definitions/commonOptions/label"
         },
         "notify": {
-          "$ref": "#/definitions/commonOptions/notify"
+          "type": "array",
+          "description": "Array of notification options for this step",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["github_check", "github_commit_status"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "basecamp_campfire": {
+                    "type": "string"
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "slack": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "channels": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "webhook": {
+                    "type": "string"
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "pagerduty_change_event": {
+                    "type": "string"
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "github_commit_status": {
+                    "type": "object",
+                    "properties": {
+                      "context": {
+                        "description": "GitHub commit status name",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "github_check": {
+                    "type": "object",
+                    "properties": {
+                      "context": {
+                        "description": "GitHub commit status name",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "if": {
+                    "$ref": "#/definitions/commonOptions/if"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
         },
         "parallelism": {
           "type": "integer",
@@ -893,7 +1016,7 @@
       ]
     },
     "notify": {
-      "$ref": "#/definitions/commonOptions/notify"
+      "$ref": "#/definitions/commonOptions/buildNotify"
     },
     "steps": {
       "description": "A list of steps",
