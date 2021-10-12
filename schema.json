@@ -237,7 +237,7 @@
         "type": "array",
         "description": "A list of input fields required to be filled out before unblocking the step",
         "items": {
-          "anyOf": [
+          "oneOf": [
             {
               "type": "object",
               "properties": {
@@ -297,7 +297,7 @@
                   ]
                 },
                 "default": {
-                  "anyOf": [
+                  "oneOf": [
                     {
                       "type": "string"
                     },
