@@ -22,6 +22,31 @@
         "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
         "default": false
       },
+      "agents": {
+        "oneOf": [
+          { "$ref": "#/definitions/commonOptions/agentsObject" },
+          { "$ref": "#/definitions/commonOptions/agentsList" }
+        ]
+      },
+      "agentsObject": {
+        "type": "object",
+        "description": "Query rules to target specific agents",
+        "examples": [
+          { "queue": "deploy" },
+          { "ruby": "2*" }
+        ]
+      },
+      "agentsList": {
+        "type": "array",
+        "description": "Query rules to target specific agents in k=v format",
+        "examples": [
+          "queue=default",
+          "xcode=true"
+        ],
+        "items": {
+          "type": "string"
+        }
+      },
       "automaticRetry": {
         "type": "object",
         "properties": {
@@ -85,6 +110,13 @@
               ]
             }
           }
+        ]
+      },
+      "env": {
+        "type": "object",
+        "description": "Environment variables for this step",
+        "examples": [
+          { "NODE_ENV": "test" }
         ]
       },
       "identifier": {
@@ -435,12 +467,7 @@
       "type": "object",
       "properties": {
         "agents": {
-          "type": "object",
-          "description": "The query rules to target specific agents for this step",
-          "examples": [
-            { "queue": "deploy" },
-            { "ruby": "2*" }
-          ]
+          "$ref": "#/definitions/commonOptions/agents"
         },
         "allow_dependency_failure": {
           "$ref": "#/definitions/commonOptions/allowDependencyFailure"
@@ -493,11 +520,7 @@
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "env": {
-          "type": "object",
-          "description": "Environment variables for this step",
-          "examples": [
-            { "NODE_ENV": "test" }
-          ]
+          "$ref": "#/definitions/commonOptions/env"
         },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
@@ -869,11 +892,7 @@
               ]
             },
             "env": {
-              "type": "object",
-              "description": "Environment variables for the build",
-              "examples": [
-                { "NODE_ENV": "test" }
-              ]
+              "$ref": "#/definitions/commonOptions/env"
             },
             "label": {
               "$ref": "#/definitions/commonOptions/label"
@@ -994,11 +1013,10 @@
   },
   "properties": {
     "env": {
-      "type": "object",
-      "description": "Environment variables for all the steps",
-      "examples": [
-        { "NODE_ENV": "test" }
-      ]
+      "$ref": "#/definitions/commonOptions/env"
+    },
+    "agents": {
+      "$ref": "#/definitions/commonOptions/agents"
     },
     "notify": {
       "$ref": "#/definitions/commonOptions/buildNotify"

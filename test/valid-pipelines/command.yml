@@ -36,6 +36,10 @@ steps:
       os: "macOS"
 
   - command: test
+    agents:
+      - "os=macOS"
+
+  - command: test
     artifact_paths:
       - "path-one"
       - "path-two"
