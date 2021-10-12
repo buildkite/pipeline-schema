@@ -516,18 +516,6 @@
               {
                 "type": "object",
                 "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "if": {
-                    "$ref": "#/definitions/commonOptions/if"
-                  }
-                },
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
                   "basecamp_campfire": {
                     "type": "string"
                   },
@@ -560,30 +548,6 @@
                         }
                       }
                     ]
-                  },
-                  "if": {
-                    "$ref": "#/definitions/commonOptions/if"
-                  }
-                },
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "webhook": {
-                    "type": "string"
-                  },
-                  "if": {
-                    "$ref": "#/definitions/commonOptions/if"
-                  }
-                },
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "pagerduty_change_event": {
-                    "type": "string"
                   },
                   "if": {
                     "$ref": "#/definitions/commonOptions/if"
