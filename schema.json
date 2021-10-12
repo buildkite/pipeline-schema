@@ -748,6 +748,14 @@
         "type": {
           "type": "string",
           "enum": [ "script", "command", "commands" ]
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Priority of the job, higher priorities are assigned to agents",
+          "examples": [
+            -1,
+            1
+          ]
         }
       },
       "additionalProperties": false
