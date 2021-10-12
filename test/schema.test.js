@@ -43,4 +43,7 @@ describe('schema.json', function() {
   it('should validate wait steps', function() {
     validate('wait.yml')
   })
+  it('should validate notify', function() {
+    validate('notify.yml')
+  })
 })
