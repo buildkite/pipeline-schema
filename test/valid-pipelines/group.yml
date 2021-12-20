@@ -26,3 +26,13 @@ steps:
     name: "Tests"
     steps:
       - command: test
+
+  - group: "Tests"
+    depends_on: "an-id"
+    steps:
+      - command: test
+
+  - group: "Tests"
+    key: "a-key"
+    steps:
+      - command: test
