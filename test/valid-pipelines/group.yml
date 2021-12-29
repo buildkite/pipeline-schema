@@ -36,3 +36,10 @@ steps:
     key: "a-key"
     steps:
       - command: test
+
+  - group: "Tests"
+    steps:
+      - wait
+      - key: "waiter"
+        type: "wait"
+      - wait: { key: "waiter2", type: "wait" }

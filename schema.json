@@ -1089,7 +1089,10 @@
               { "$ref": "#/definitions/commandStep" },
               { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" }
+              { "$ref": "#/definitions/nestedTriggerStep" },
+              { "$ref": "#/definitions/stringWaitStep" },
+              { "$ref": "#/definitions/waitStep" },
+              { "$ref": "#/definitions/nestedWaitStep" }    
             ]
           },
           "minSize": 1
