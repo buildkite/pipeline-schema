@@ -1057,16 +1057,22 @@
     },
     "groupStep": {
       "properties": {
+        "depends_on": {
+          "$ref": "#/definitions/commonOptions/dependsOn"
+        },
+        "group": {
+          "type": "string",
+          "description": "The name to give to this group of steps",
+          "examples": [ "Tests" ]
+        },
         "id": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
-        "group": {
-          "type": "string",
-          "description": "The name to give to this group of steps",
-          "examples": [ "Tests" ]
+        "key": {
+          "$ref": "#/definitions/commonOptions/key"
         },
         "label": {
           "$ref": "#/definitions/groupStep/properties/group"
@@ -1083,7 +1089,10 @@
               { "$ref": "#/definitions/commandStep" },
               { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" }
+              { "$ref": "#/definitions/nestedTriggerStep" },
+              { "$ref": "#/definitions/stringWaitStep" },
+              { "$ref": "#/definitions/waitStep" },
+              { "$ref": "#/definitions/nestedWaitStep" }    
             ]
           },
           "minSize": 1
