@@ -76,3 +76,9 @@ steps:
 
   - trigger: "a-slug"
     allow_dependency_failure: true
+
+  - trigger: "a-slug"
+    skip: true
+
+  - trigger: "a-slug"
+    skip: "reason for skipping"
