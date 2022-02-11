@@ -3,7 +3,7 @@
     "test": "mocha *.test.js"
   },
   "dependencies": {
-    "ajv": "^6.5.4",
+    "ajv": "^6.12.3",
     "chai": "^4.2.0",
     "js-yaml": "^3.13.1",
     "mocha": "^5.2.0"
