@@ -412,6 +412,18 @@
         "examples": [
           "Release to production?"
         ]
+      },
+      "skip": {
+        "anyOf": [
+          { "type": "boolean" },
+          { "type": "string" }
+        ],
+        "description": "Whether this step should be skipped. You can specify a reason for using a string.",
+        "examples": [
+          true,
+          false,
+          "My reason"
+        ]
       }
     },
     "blockStep": {
@@ -834,16 +846,7 @@
           }
         },
         "skip": {
-          "anyOf": [
-            { "type": "boolean" },
-            { "type": "string" }
-          ],
-          "description": "Whether this step should be skipped. You can specify a reason for using a string.",
-          "examples": [
-            true,
-            false,
-            "My reason"
-          ]
+          "$ref": "#/definitions/commonOptions/skip"
         },
         "timeout_in_minutes": {
           "type": "integer",
@@ -1042,6 +1045,9 @@
         "trigger": {
           "type": "string",
           "description": "The slug of the pipeline to create a build"
+        },
+        "skip": {
+          "$ref": "#/definitions/commonOptions/skip"
         }
       },
       "additionalProperties": false
