@@ -46,4 +46,7 @@ describe('schema.json', function() {
   it('should validate notify', function() {
     validate('notify.yml')
   })
+  it('should validate matrix', function() {
+    validate('matrix.yml')
+  })
 })

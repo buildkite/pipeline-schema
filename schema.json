@@ -406,6 +406,13 @@
           ]
         }
       },
+      "matrixElement": {
+        "oneOf": [
+          {"type": "string"},
+          {"type": "integer"},
+          {"type": "boolean"}
+        ]
+      },
       "prompt": {
         "type": "string",
         "description": "The instructional message displayed in the dialog box when the unblock step is activated",
@@ -423,6 +430,38 @@
           true,
           false,
           "My reason"
+        ]
+      },
+      "softFail": {
+        "description": "The conditions for marking the step as a soft-fail.",
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "exit_status": {
+                      "description": "The exit status number that will cause this job to soft-fail",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [ "*" ]
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
         ]
       }
     },
@@ -627,6 +666,98 @@
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
+        "matrix": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "List of elements for simple single-dimension Build Matrix",
+              "items": { "$ref": "#/definitions/commonOptions/matrixElement" },
+              "examples": [
+                ["linux", "freebsd"]
+              ]
+            },
+            {
+              "type": "object",
+              "description": "Configuration for multi-dimension Build Matrix",
+              "properties": {
+                "setup": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "description": "List of elements for single-dimension Build Matrix",
+                      "items": { "$ref": "#/definitions/commonOptions/matrixElement" },
+                      "examples": [
+                        ["linux", "freebsd"]
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "description": "Mapping of Build Matrix dimension names to their lists of elements",
+                      "propertyNames": {
+                        "type": "string",
+                        "description": "Build Matrix dimension name",
+                        "pattern": "^[a-zA-Z0-9_]+$"
+                      },
+                      "additionalProperties": {
+                        "type": "array",
+                        "description": "List of elements for this Build Matrix dimension",
+                        "items": { "$ref": "#/definitions/commonOptions/matrixElement" }
+                      },
+                      "examples": [
+                        {
+                          "os": ["linux", "freebsd"],
+                          "arch": ["arm64", "riscv"]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "adjustments": {
+                  "type": "array",
+                  "description": "List of Build Matrix adjustments",
+                  "items": {
+                    "type": "object",
+                    "description": "An adjustment to a Build Matrix",
+                    "properties": {
+                      "with": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "List of existing or new elements for single-dimension Build Matrix",
+                            "items": { "$ref": "#/definitions/commonOptions/matrixElement" }
+                          },
+                          {
+                            "type": "object",
+                            "description": "Specification of a new or existing Build Matrix combination",
+                            "propertyNames": {
+                              "type": "string",
+                              "description": "Build Matrix dimension name"
+                            },
+                            "additionalProperties": {
+                              "type": "string",
+                              "description": "Build Matrix dimension element"
+                            },
+                            "examples": [
+                              { "os": "linux", "arch": "arm64" }
+                            ]
+                          }
+                        ]
+                      },
+                      "skip": {
+                        "$ref": "#/definitions/commonOptions/skip"
+                      },
+                      "soft_fail": {
+                        "$ref": "#/definitions/commonOptions/softFail"
+                      }
+                    },
+                    "required": ["with"]
+                  }
+                }
+              },
+              "required": ["setup"]
+            }
+          ]
+        },
         "name": {
           "$ref": "#/definitions/commonOptions/label"
         },
@@ -754,36 +885,7 @@
           ]
         },
         "soft_fail": {
-          "description": "The conditions for marking the step as a soft-fail.",
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "exit_status": {
-                        "description": "The exit status number that will cause this job to soft-fail",
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "enum": [ "*" ]
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          ]
+          "$ref": "#/definitions/commonOptions/softFail"
         },
         "retry": {
           "type": "object",
