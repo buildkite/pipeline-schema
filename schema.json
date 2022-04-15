@@ -648,7 +648,7 @@
         "concurrency_method": {
           "type": "string",
           "enum": ["ordered", "eager"]
-          "description": "How concurrency is controled, allows values are 'ordered' (default) and 'eager'",
+          "description": "Control command order, allowed values are 'ordered' (default) and 'eager'.  If you use this attribute, you must also define concurrency_group and concurrency.",
           "examples": [
             "ordered"
           ]
