@@ -645,6 +645,14 @@
             "my-pipeline/deploy"
           ]
         },
+        "concurrency_method": {
+          "type": "string",
+          "enum": ["ordered", "eager"]
+          "description": "How concurrency is controled, allows values are 'ordered' (default) and 'eager'",
+          "examples": [
+            "ordered"
+          ]
+        },
         "depends_on": {
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
