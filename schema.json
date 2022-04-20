@@ -1194,6 +1194,7 @@
           "items": {
             "anyOf": [
               { "$ref": "#/definitions/stringBlockStep" },
+              { "$ref": "#/definitions/blockStep" },
               { "$ref": "#/definitions/commandStep" },
               { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/triggerStep" },

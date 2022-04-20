@@ -105,9 +105,13 @@ steps:
       - select: "Multiple fields with multiple default"
         key: "multiple-fields"
         multiple: true
-        default: [ "option-1" , "option-2" ]
+        default: ["option-1", "option-2"]
         options:
           - label: "Option 1"
             value: option-1
           - label: "Option 2"
             value: option-2
+
+  - group: "Tests"
+    steps:
+      - block: "A label"
