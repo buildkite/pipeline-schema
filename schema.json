@@ -645,6 +645,14 @@
             "my-pipeline/deploy"
           ]
         },
+        "concurrency_method": {
+          "type": "string",
+          "enum": ["ordered", "eager"]
+          "description": "Control command order, allowed values are 'ordered' (default) and 'eager'.  If you use this attribute, you must also define concurrency_group and concurrency.",
+          "examples": [
+            "ordered"
+          ]
+        },
         "depends_on": {
           "$ref": "#/definitions/commonOptions/dependsOn"
         },

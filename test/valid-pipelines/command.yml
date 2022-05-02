@@ -53,6 +53,7 @@ steps:
   - command: test
     concurrency: 1
     concurrency_group: "my-group"
+    concurrency_method: "eager"
 
   - command: test
     env:
