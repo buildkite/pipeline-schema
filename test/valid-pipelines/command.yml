@@ -153,6 +153,9 @@ steps:
         allow_failure: true
 
   - command: test
+    depends_on: ~
+
+  - command: test
     allow_dependency_failure: true
 
   - command: foo
