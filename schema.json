@@ -90,6 +90,7 @@
       "dependsOn": {
         "description": "The step keys for a step to depend on",
         "anyOf": [
+          {"type": "null"},          
           {"type": "string"},
           {
             "type": "array",
