@@ -1,5 +1,5 @@
 {
-  "title": "JSON schema for Buildkite pipeline configuration files",
+  "title": "Pipeline",
   "$schema": "http://json-schema.org/draft-06/schema",
   "fileMatch": [
     "buildkite.yml",
