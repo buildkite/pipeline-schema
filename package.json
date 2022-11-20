@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "generate": "npm exec json2ts --in schema.json --out schema.ts && npx ts-auto-guard --export-all schema.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "json-schema-to-typescript": "^11.0.2",
+    "ts-auto-guard": "^4.1.0",
+    "typescript": "^4.9.3"
+  }
+}
