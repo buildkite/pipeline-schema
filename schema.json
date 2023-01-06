@@ -284,7 +284,7 @@
                 "key": {
                   "type": "string",
                   "description": "The meta-data key that stores the field's input",
-                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "pattern": "^[a-zA-Z0-9-_]+$",
                   "examples": [
                     "release-name"
                   ]
@@ -327,7 +327,7 @@
                 "key": {
                   "type": "string",
                   "description": "The meta-data key that stores the field's input",
-                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "pattern": "^[a-zA-Z0-9-_]+$",
                   "examples": [
                     "release-stream"
                   ]
@@ -464,6 +464,10 @@
             }
           }
         ]
+      },
+      "cancelOnBuildFailing": {
+        "description": "The condition for canceling the job as soon as the build is marked as failing.",
+        "type": "boolean"
       }
     },
     "blockStep": {
@@ -705,7 +709,7 @@
                       "propertyNames": {
                         "type": "string",
                         "description": "Build Matrix dimension name",
-                        "pattern": "^[a-zA-Z0-9_]+$"
+                        "pattern": "^[a-zA-Z0-9-_]+$"
                       },
                       "additionalProperties": {
                         "type": "array",
@@ -895,6 +899,9 @@
         },
         "soft_fail": {
           "$ref": "#/definitions/commonOptions/softFail"
+        },
+        "cancel_on_build_failing": {
+          "$ref": "#/definitions/commonOptions/cancelOnBuildFailing"
         },
         "retry": {
           "type": "object",
