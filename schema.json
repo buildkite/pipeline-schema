@@ -67,6 +67,18 @@
             "description": "The number of times this job can be retried",
             "minimum": 1,
             "maximum": 10
+          },
+          "signal_reason": {
+            "description": "The exit signal reason, if any, that may be retried",
+            "type": "string",
+            "enum": [
+              "*",
+              "none",
+              "agent_refused",
+              "agent_stop",
+              "cancel",
+              "process_run_error"
+            ]
           }
         },
         "additionalProperties": false
