@@ -704,7 +704,7 @@
                       "propertyNames": {
                         "type": "string",
                         "description": "Build Matrix dimension name",
-                        "pattern": "^[a-zA-Z0-9-_]+$"
+                        "pattern": "^[a-zA-Z0-9_]+$"
                       },
                       "additionalProperties": {
                         "type": "array",
