@@ -162,3 +162,6 @@ steps:
     priority: -1
   - command: foo
     priority: 100
+
+  - command: test
+    cancel_on_build_failing: true
