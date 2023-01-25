@@ -51,3 +51,21 @@ steps:
             shape:
               - triangle
               - hexagon
+
+# `setup` property name formats
+
+  - command: "Alphanumeric, leading numbers: {{matrix.123color}}"
+    label: "{{matrix.123color}}"
+    matrix:
+      setup:
+        123color:
+          - green
+          - blue
+
+  - command: "Underscored: {{matrix.color_123}}"
+    label: "{{matrix.color_123}}"
+    matrix:
+      setup:
+        color_123:
+          - green
+          - blue

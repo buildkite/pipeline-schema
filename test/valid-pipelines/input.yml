@@ -100,3 +100,65 @@ steps:
             value: option-1
           - label: "Option 2"
             value: option-2
+
+# Key formats
+
+  - input: "Tests for key formatting"
+    fields:
+      # Text fields
+
+      - text: "Alphanumeric key, leading characters alpha"
+        key: aBc123
+      - text: "Alphanumeric key, leading characters numeric"
+        key: 123aBc
+
+      - text: "Underscored key"
+        key: underscored_key
+      - text: "Underscored key, leading underscore"
+        key: _underscored_key
+
+      - text: "Dasherized key"
+        key: dasherized-key
+      - text: "Dasherized key, leading dash"
+        key: -dasherized-key
+
+      # Select fields
+
+      - select: "Alphanumeric key, leading characters alpha"
+        key: aBc123
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+      - select: "Alphanumeric key, leading characters numeric"
+        key: 123aBc
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+
+      - select: "Underscored key"
+        key: underscored_key
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+      - select: "Underscored key, leading underscore"
+        key: _underscored_key
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+
+      - select: "Dasherized key"
+        key: dasherized-key
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1
+      - select: "Dasherized key, leading dash"
+        key: -dasherized-key
+        multiple: true
+        options:
+          - label: "Option 1"
+            value: option-1

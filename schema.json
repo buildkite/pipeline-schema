@@ -296,7 +296,7 @@
                 "key": {
                   "type": "string",
                   "description": "The meta-data key that stores the field's input",
-                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "pattern": "^[a-zA-Z0-9-_]+$",
                   "examples": [
                     "release-name"
                   ]
@@ -339,7 +339,7 @@
                 "key": {
                   "type": "string",
                   "description": "The meta-data key that stores the field's input",
-                  "pattern": "^[a-zA-Z0-9-]+$",
+                  "pattern": "^[a-zA-Z0-9-_]+$",
                   "examples": [
                     "release-stream"
                   ]
