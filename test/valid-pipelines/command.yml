@@ -89,7 +89,10 @@ steps:
     retry:
       automatic:
         - exit_status: -1
+          signal_reason: none
         - exit_status: 255
+        - exit_status: 3
+          limit: 3
 
   - command: test
     retry:
