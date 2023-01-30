@@ -90,6 +90,7 @@ steps:
       automatic:
         - exit_status: -1
           signal_reason: none
+        - signal: kill
         - exit_status: 255
         - exit_status: 3
           limit: 3

@@ -68,6 +68,16 @@
             "minimum": 1,
             "maximum": 10
           },
+          "signal": {
+            "description": "The exit signal, if any, that may be retried",
+            "type": "string",
+            "examples": [
+              "*",
+              "none",
+              "SIGKILL",
+              "term"
+            ]
+          },
           "signal_reason": {
             "description": "The exit signal reason, if any, that may be retried",
             "type": "string",
