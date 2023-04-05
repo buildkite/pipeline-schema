@@ -82,3 +82,17 @@ steps:
 
   - trigger: "a-slug"
     skip: "reason for skipping"
+
+  - trigger: "a-slug"
+    soft_fail: true
+
+  - trigger: "a-slug"
+    soft_fail: false
+
+  - trigger: "a-slug"
+    soft_fail:
+      - exit_status: 1
+
+  - trigger: "a-slug"
+    soft_fail:
+      - exit_status: "*"
