@@ -1221,6 +1221,9 @@
         "identifier": {
           "$ref": "#/definitions/commonOptions/identifier"
         },
+        "if": {
+          "$ref": "#/definitions/commonOptions/if"
+        },
         "key": {
           "$ref": "#/definitions/commonOptions/key"
         },
