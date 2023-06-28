@@ -24,3 +24,11 @@ Or you can use [Docker Compose](https://docs.docker.com/compose/):
 cd test
 docker-compose build && docker-compose run --rm tests
 ```
+
+## Contributing
+
+See [./CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## Contributors
+
+Many thanks to our fine contributors! A full list can be found [here](https://github.com/buildkite/pipeline-schema/graphs/contributors), but you're all amazing, and we greatly appreciate your input ❤️
