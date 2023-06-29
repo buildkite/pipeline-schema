@@ -43,3 +43,16 @@ steps:
       - key: "waiter"
         type: "wait"
       - wait: { key: "waiter2", type: "wait" }
+
+  - group: "Tests"
+    steps:
+      - input
+      - input: "A label"
+      - key: "input"
+        type: "input"
+      - input: { key: "input2", type: "input" }
+
+  - group: "Tests"
+    steps:
+      - command: test
+    if: build.message !~ /skip tests/
