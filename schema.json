@@ -117,7 +117,7 @@
       "dependsOn": {
         "description": "The step keys for a step to depend on",
         "anyOf": [
-          {"type": "null"},          
+          {"type": "null"},
           {"type": "string"},
           {
             "type": "array",
@@ -321,6 +321,13 @@
                   "description": "The explanatory text that is shown after the label",
                   "examples": [
                     "What’s the code name for this release? :name_badge:"
+                  ]
+                },
+                "format": {
+                  "type": "string",
+                  "description": "The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the HTML5 pattern attribute.  ",
+                  "examples": [
+                    "[0-9a-f]+"
                   ]
                 },
                 "required": {
@@ -1249,7 +1256,7 @@
               { "$ref": "#/definitions/nestedInputStep" },
               { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/nestedWaitStep" }    
+              { "$ref": "#/definitions/nestedWaitStep" }
             ]
           },
           "minSize": 1
