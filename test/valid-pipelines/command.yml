@@ -169,3 +169,19 @@ steps:
 
   - command: test
     cancel_on_build_failing: true
+
+  - command: "echo {{matrix}}"
+    env: { FOO: "bar" }
+    plugins:
+      - docker#v3.0.0:
+          image: "alpine"
+          always-pull: true
+    matrix: [one two three]
+    signature:
+      value: "not a real signature value"
+      algorithm: "HS256"
+      signed_fields:
+        - command
+        - env::FOO
+        - plugins
+        - matrix

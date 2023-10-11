@@ -117,7 +117,7 @@
       "dependsOn": {
         "description": "The step keys for a step to depend on",
         "anyOf": [
-          {"type": "null"},          
+          {"type": "null"},
           {"type": "string"},
           {
             "type": "array",
@@ -705,6 +705,29 @@
         "label": {
           "$ref": "#/definitions/commonOptions/label"
         },
+        "signature": {
+          "type": "object",
+          "description": "The signature of the command step, generally injected by agents at pipeline upload",
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "description": "The algorithm used to generate the signature",
+              "examples": [ "HS512", "EdDSA", "PS256" ]
+            },
+            "value": {
+              "type": "string",
+              "description": "The signature value, a JWS compact signature with a detached body"
+            },
+            "signed_fields": {
+              "type": "array",
+              "description": "The fields that were signed to form the signature value",
+              "items": {
+                "type": "string"
+              },
+              "examples": [["command", "matrix", "plugins", "env::SOME_ENV_VAR"]]
+            }
+          }
+        },
         "matrix": {
           "oneOf": [
             {
@@ -1249,7 +1272,7 @@
               { "$ref": "#/definitions/nestedInputStep" },
               { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/nestedWaitStep" }    
+              { "$ref": "#/definitions/nestedWaitStep" }
             ]
           },
           "minSize": 1
