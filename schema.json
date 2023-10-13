@@ -15,6 +15,9 @@
     ".buildkite/pipeline.*.yaml",
     ".buildkite/pipeline.*.json"
   ],
+  "required": [
+    "steps"
+  ],
   "definitions": {
     "commonOptions": {
       "allowDependencyFailure": {
@@ -1275,9 +1278,6 @@
               { "$ref": "#/definitions/nestedWaitStep" }
             ]
           },
-          "required": [
-            "steps"
-          ],
           "minSize": 1
         },
         "type": {
