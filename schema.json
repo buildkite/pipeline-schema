@@ -1259,6 +1259,12 @@
         "name": {
           "$ref": "#/definitions/groupStep/properties/label"
         },
+        "allow_dependency_failure": {
+          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+        },
+        "notify": {
+          "$ref": "#/definitions/commonOptions/buildNotify"
+        },
         "steps": {
           "type": "array",
           "description": "A list of steps",
