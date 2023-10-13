@@ -1287,7 +1287,7 @@
           "minSize": 1
         },
         "type": {
-          "type": "string",
+          "type": ["string", "null"],
           "enum": [ "group" ]
         }
       },
