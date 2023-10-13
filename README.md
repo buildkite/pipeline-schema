@@ -27,7 +27,7 @@ docker-compose build && docker-compose run --rm tests
 
 ## Contributing
 
-See [./CONTRIBUTING.md](./CONTRIBUTING.md)
+See [./contributing.md](./contributing.md)
 
 ## Contributors
 
