@@ -10,6 +10,13 @@ steps:
     steps:
       - command: test
 
+  # Null group name
+
+  - group: ~
+    label: "Tests"
+    steps:
+      - command: test
+
   # All the options
 
   - group: "Tests"
@@ -56,3 +63,14 @@ steps:
     steps:
       - command: test
     if: build.message !~ /skip tests/
+
+  - group: "Tests"
+    steps:
+      - command: test
+    allow_dependency_failure: true
+
+  - group: "Tests"
+    steps:
+      - command: test
+    notify:
+      - email: dev@acmeinc.com
