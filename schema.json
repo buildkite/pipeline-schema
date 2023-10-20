@@ -1237,7 +1237,7 @@
           "$ref": "#/definitions/commonOptions/dependsOn"
         },
         "group": {
-          "type": "string",
+          "type": [ "string", "null" ],
           "description": "The name to give to this group of steps",
           "examples": [ "Tests" ]
         },
@@ -1287,7 +1287,7 @@
           "minSize": 1
         },
         "type": {
-          "type": ["string", "null"],
+          "type": [ "string" ],
           "enum": [ "group" ]
         }
       },

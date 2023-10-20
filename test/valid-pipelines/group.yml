@@ -10,6 +10,13 @@ steps:
     steps:
       - command: test
 
+  # Null group name
+
+  - group: ~
+    label: "Tests"
+    steps:
+      - command: test
+
   # All the options
 
   - group: "Tests"
