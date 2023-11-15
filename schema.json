@@ -163,6 +163,7 @@
       "key": {
         "type": "string",
         "description": "A unique identifier for a step, must not resemble a UUID",
+        "pattern": "^[a-zA-Z0-9-_:]+$",
         "examples": [ "deploy-staging", "test-integration" ]
       },
       "label": {
