@@ -325,7 +325,8 @@
                 },
                 "format": {
                   "type": "string",
-                  "description": "The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the HTML5 pattern attribute.  ",
+                  "description": "The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the HTML5 pattern attribute.",
+                  "format": "regex",
                   "examples": [
                     "[0-9a-f]+"
                   ]
