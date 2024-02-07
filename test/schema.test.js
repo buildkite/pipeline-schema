@@ -9,7 +9,6 @@ const validate = (name) => {
   const pipeline = yaml.safeLoad(fs.readFileSync(`./valid-pipelines/${name}`, 'utf8'))
 
   const ajv = new Ajv({ allErrors: true })
-  ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'))
   var validate = ajv.compile(schema)
 
   var valid = validate(pipeline)

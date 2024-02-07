@@ -1,6 +1,5 @@
 steps:
   # Different nesting formats
-
   - input
 
   - input: "A label"
@@ -17,7 +16,6 @@ steps:
         key: "field-1"
 
   # All the options
-
   - input: "A label"
 
   - input: "A label"
@@ -101,12 +99,24 @@ steps:
           - label: "Option 2"
             value: option-2
 
-# Key formats
+  # Text field formats
+  - input: "A label"
+    prompt: "A prompt"
+    fields:
+      - text: "Formatted field 1"
+        key: "formatted-field-1"
+        format: "\\d{4,4}"
+      - text: "Formatted field 2"
+        key: "formatted-field-2"
+        format: "[0-9]{3}"
+      - text: "Formatted field 3"
+        key: "formatted-field-3"
+        format: "[0-9a-f]+"
 
+  # Key formats
   - input: "Tests for key formatting"
     fields:
       # Text fields
-
       - text: "Alphanumeric key, leading characters alpha"
         key: aBc123
       - text: "Alphanumeric key, leading characters numeric"
@@ -123,7 +133,6 @@ steps:
         key: -dasherized-key
 
       # Select fields
-
       - select: "Alphanumeric key, leading characters alpha"
         key: aBc123
         multiple: true
