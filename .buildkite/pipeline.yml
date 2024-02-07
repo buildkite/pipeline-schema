@@ -1,6 +1,7 @@
 steps:
-  - label: "Tests"
+  - name: ":mocha: Test"
+    command: npm test
     plugins:
-      - docker-compose#v2.0.0:
+      - docker-compose#v3.9.0:
           config: test/docker-compose.yml
           run: tests
