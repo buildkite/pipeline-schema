@@ -90,7 +90,8 @@
               "agent_refused",
               "agent_stop",
               "cancel",
-              "process_run_error"
+              "process_run_error",
+              "signature_rejected"
             ]
           }
         },
