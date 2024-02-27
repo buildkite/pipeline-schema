@@ -1,7 +1,11 @@
 steps:
-  - name: ":mocha: Test"
-    command: npm test
+  - name: ":vitest: Test"
+    command: npx vitest --run
     plugins:
       - docker-compose#v4.16.0:
-          config: test/docker-compose.yml
-          run: tests
+          run: app
+  - name: ":prettier: Prettier"
+    command: npx prettier . --check
+    plugins:
+      - docker-compose#v4.16.0:
+          run: app
