@@ -26,12 +26,11 @@ steps:
           - triangle
           - hexagon
       adjustments:
-        - with: {color: blue, shape: triangle}
+        - with: { color: blue, shape: triangle }
           skip: true
-        - with: {color: green, shape: triangle}
+        - with: { color: green, shape: triangle }
           skip: "look, hexagons are just better"
-        - with: {color: purple, shape: octagon}
-
+        - with: { color: purple, shape: octagon }
 
   - group: matrices
     steps:
@@ -52,7 +51,7 @@ steps:
               - triangle
               - hexagon
 
-# `setup` property name formats
+  # `setup` property name formats
 
   - command: "Alphanumeric, leading numbers: {{matrix.123color}}"
     label: "{{matrix.123color}}"
