@@ -969,7 +969,7 @@
               "anyOf": [
                 {
                   "type": ["boolean", "string"],
-                  "pattern": "^(true|false|yes|no)$"
+                  "pattern": "^(true|false)$"
                 },
                 {
                   "$ref": "#/definitions/commonOptions/automaticRetry"
@@ -994,20 +994,20 @@
               "anyOf": [
                 {
                   "type": ["boolean", "string"],
-                  "pattern": "^(true|false|yes|no)$"
+                  "pattern": "^(true|false)$"
                 },
                 {
                   "type": "object",
                   "properties": {
                     "allowed": {
                       "type": ["boolean", "string"],
-                      "pattern": "^(true|false|yes|no)$",
+                      "pattern": "^(true|false)$",
                       "description": "Whether or not this job can be retried manually",
                       "default": true
                     },
                     "permit_on_passed": {
                       "type": ["boolean", "string"],
-                      "pattern": "^(true|false|yes|no)$",
+                      "pattern": "^(true|false)$",
                       "description": "Whether or not this job can be retried after it has passed",
                       "default": true
                     },
