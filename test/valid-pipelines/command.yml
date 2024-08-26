@@ -187,9 +187,10 @@ steps:
         - matrix
 
   # With caching
-  # All the options
-
   - command: use cache
     cache:
       - "dist/"
       - "./src/target/"
+
+  - command: use cache
+    cache: "dist/"
