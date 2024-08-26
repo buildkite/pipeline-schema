@@ -122,11 +122,38 @@
           {
             "type": "array",
             "items": { "type": "string" }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "anyOf": [
+                  { "type": "string" },
+                  {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                ]
+              },
+              "size": {
+                "type": "string",
+                "pattern": "^\\d+g$"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["paths"]
           }
         ],
         "examples": [
           "dist/",
-          [ ".build/*", "assets/*" ]
+          [ ".build/*", "assets/*" ],
+          {
+            "name": "cool-cache",
+            "size": "20g",
+            "paths": ["/path/one", "/path/two"]
+          }
         ]
       },
       "cancelOnBuildFailing": {
