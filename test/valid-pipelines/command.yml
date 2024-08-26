@@ -185,3 +185,11 @@ steps:
         - env::FOO
         - plugins
         - matrix
+
+  # With caching
+  # All the options
+
+  - command: use cache
+    cache:
+      - "dist/"
+      - "./src/target/"
