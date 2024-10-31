@@ -19,7 +19,6 @@
     "steps"
   ],
   "definitions": {
-    "commonOptions": {
       "allowDependencyFailure": {
         "type": "boolean",
         "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
@@ -27,8 +26,8 @@
       },
       "agents": {
         "oneOf": [
-          { "$ref": "#/definitions/commonOptions/agentsObject" },
-          { "$ref": "#/definitions/commonOptions/agentsList" }
+          { "$ref": "#/definitions/agentsObject" },
+          { "$ref": "#/definitions/agentsList" }
         ]
       },
       "agentsObject": {
@@ -230,7 +229,7 @@
                   "type": "string"
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -242,7 +241,7 @@
                   "type": "string"
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -272,7 +271,7 @@
                   ]
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -284,7 +283,7 @@
                   "type": "string"
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -296,7 +295,7 @@
                   "type": "string"
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -314,7 +313,7 @@
                   }
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -332,7 +331,7 @@
                   }
                 },
                 "if": {
-                  "$ref": "#/definitions/commonOptions/if"
+                  "$ref": "#/definitions/if"
                 }
               },
               "additionalProperties": false
@@ -546,13 +545,12 @@
             }
           }
         ]
-      }
-    },
+      },
     "blockStep": {
       "type": "object",
       "properties": {
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "block": {
           "type": "string",
@@ -564,34 +562,34 @@
           "enum": [ "passed", "failed", "running" ]
         },
         "branches": {
-          "$ref": "#/definitions/commonOptions/branches"
+          "$ref": "#/definitions/branches"
         },
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "fields": {
-          "$ref": "#/definitions/commonOptions/fields"
+          "$ref": "#/definitions/fields"
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "label": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "name": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "prompt": {
-          "$ref": "#/definitions/commonOptions/prompt"
+          "$ref": "#/definitions/prompt"
         },
         "type": {
           "type": "string",
@@ -618,41 +616,41 @@
       "type": "object",
       "properties": {
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "input": {
           "type": "string",
           "description": "The label of the input step"
         },
         "branches": {
-          "$ref": "#/definitions/commonOptions/branches"
+          "$ref": "#/definitions/branches"
         },
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "fields": {
-          "$ref": "#/definitions/commonOptions/fields"
+          "$ref": "#/definitions/fields"
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "label": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "name": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "prompt": {
-          "$ref": "#/definitions/commonOptions/prompt"
+          "$ref": "#/definitions/prompt"
         },
         "type": {
           "type": "string",
@@ -679,10 +677,10 @@
       "type": "object",
       "properties": {
         "agents": {
-          "$ref": "#/definitions/commonOptions/agents"
+          "$ref": "#/definitions/agents"
         },
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "artifact_paths": {
           "anyOf": [
@@ -701,10 +699,13 @@
           ]
         },
         "branches": {
-          "$ref": "#/definitions/commonOptions/branches"
+          "$ref": "#/definitions/branches"
+        },
+        "cache": {
+          "$ref": "#/definitions/cache"
         },
         "cancel_on_build_failing": {
-          "$ref": "#/definitions/commonOptions/cancelOnBuildFailing"
+          "$ref": "#/definitions/cancelOnBuildFailing"
         },
         "command": {
           "description": "The commands to run on the agent",
@@ -740,25 +741,25 @@
           ]
         },
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "env": {
-          "$ref": "#/definitions/commonOptions/env"
+          "$ref": "#/definitions/env"
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "label": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "signature": {
           "type": "object",
@@ -788,7 +789,7 @@
             {
               "type": "array",
               "description": "List of elements for simple single-dimension Build Matrix",
-              "items": { "$ref": "#/definitions/commonOptions/matrixElement" },
+              "items": { "$ref": "#/definitions/matrixElement" },
               "examples": [
                 ["linux", "freebsd"]
               ]
@@ -802,7 +803,7 @@
                     {
                       "type": "array",
                       "description": "List of elements for single-dimension Build Matrix",
-                      "items": { "$ref": "#/definitions/commonOptions/matrixElement" },
+                      "items": { "$ref": "#/definitions/matrixElement" },
                       "examples": [
                         ["linux", "freebsd"]
                       ]
@@ -818,7 +819,7 @@
                       "additionalProperties": {
                         "type": "array",
                         "description": "List of elements for this Build Matrix dimension",
-                        "items": { "$ref": "#/definitions/commonOptions/matrixElement" }
+                        "items": { "$ref": "#/definitions/matrixElement" }
                       },
                       "examples": [
                         {
@@ -841,7 +842,7 @@
                           {
                             "type": "array",
                             "description": "List of existing or new elements for single-dimension Build Matrix",
-                            "items": { "$ref": "#/definitions/commonOptions/matrixElement" }
+                            "items": { "$ref": "#/definitions/matrixElement" }
                           },
                           {
                             "type": "object",
@@ -861,10 +862,10 @@
                         ]
                       },
                       "skip": {
-                        "$ref": "#/definitions/commonOptions/skip"
+                        "$ref": "#/definitions/skip"
                       },
                       "soft_fail": {
-                        "$ref": "#/definitions/commonOptions/softFail"
+                        "$ref": "#/definitions/softFail"
                       }
                     },
                     "required": ["with"]
@@ -876,7 +877,7 @@
           ]
         },
         "name": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "notify": {
           "type": "array",
@@ -894,7 +895,7 @@
                     "type": "string"
                   },
                   "if": {
-                    "$ref": "#/definitions/commonOptions/if"
+                    "$ref": "#/definitions/if"
                   }
                 },
                 "additionalProperties": false
@@ -924,7 +925,7 @@
                     ]
                   },
                   "if": {
-                    "$ref": "#/definitions/commonOptions/if"
+                    "$ref": "#/definitions/if"
                   }
                 },
                 "additionalProperties": false
@@ -942,7 +943,7 @@
                     }
                   },
                   "if": {
-                    "$ref": "#/definitions/commonOptions/if"
+                    "$ref": "#/definitions/if"
                   }
                 },
                 "additionalProperties": false
@@ -960,7 +961,7 @@
                     }
                   },
                   "if": {
-                    "$ref": "#/definitions/commonOptions/if"
+                    "$ref": "#/definitions/if"
                   }
                 },
                 "additionalProperties": false
@@ -1002,7 +1003,7 @@
           ]
         },
         "soft_fail": {
-          "$ref": "#/definitions/commonOptions/softFail"
+          "$ref": "#/definitions/softFail"
         },
         "retry": {
           "type": "object",
@@ -1015,12 +1016,12 @@
                   "pattern": "^(true|false)$"
                 },
                 {
-                  "$ref": "#/definitions/commonOptions/automaticRetry"
+                  "$ref": "#/definitions/automaticRetry"
                 },
                 {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/commonOptions/automaticRetry"
+                    "$ref": "#/definitions/automaticRetry"
                   }
                 }
               ],
@@ -1069,7 +1070,7 @@
           }
         },
         "skip": {
-          "$ref": "#/definitions/commonOptions/skip"
+          "$ref": "#/definitions/skip"
         },
         "timeout_in_minutes": {
           "type": "integer",
@@ -1112,26 +1113,26 @@
       "type": "object",
       "properties": {
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
           "type": "boolean"
         },
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "type": {
           "type": "string",
@@ -1170,7 +1171,7 @@
       "type": "object",
       "properties": {
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "async": {
           "type": "boolean",
@@ -1178,7 +1179,7 @@
           "description": "Whether to continue the build without waiting for the triggered step to complete"
         },
         "branches": {
-          "$ref": "#/definitions/commonOptions/branches"
+          "$ref": "#/definitions/branches"
         },
         "build": {
           "type": "object",
@@ -1203,13 +1204,13 @@
               ]
             },
             "env": {
-              "$ref": "#/definitions/commonOptions/env"
+              "$ref": "#/definitions/env"
             },
             "label": {
-              "$ref": "#/definitions/commonOptions/label"
+              "$ref": "#/definitions/label"
             },
             "name": {
-              "$ref": "#/definitions/commonOptions/label"
+              "$ref": "#/definitions/label"
             },
             "message": {
               "type": "string",
@@ -1241,25 +1242,25 @@
           "additionalProperties": false
         },
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "label": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "name": {
-          "$ref": "#/definitions/commonOptions/label"
+          "$ref": "#/definitions/label"
         },
         "type": {
           "type": "string",
@@ -1270,10 +1271,10 @@
           "description": "The slug of the pipeline to create a build"
         },
         "skip": {
-          "$ref": "#/definitions/commonOptions/skip"
+          "$ref": "#/definitions/skip"
         },
         "soft_fail": {
-          "$ref": "#/definitions/commonOptions/softFail"
+          "$ref": "#/definitions/softFail"
         }
       },
       "additionalProperties": false
@@ -1290,7 +1291,7 @@
     "groupStep": {
       "properties": {
         "depends_on": {
-          "$ref": "#/definitions/commonOptions/dependsOn"
+          "$ref": "#/definitions/dependsOn"
         },
         "group": {
           "type": [ "string", "null" ],
@@ -1298,16 +1299,16 @@
           "examples": [ "Tests" ]
         },
         "id": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "identifier": {
-          "$ref": "#/definitions/commonOptions/identifier"
+          "$ref": "#/definitions/identifier"
         },
         "if": {
-          "$ref": "#/definitions/commonOptions/if"
+          "$ref": "#/definitions/if"
         },
         "key": {
-          "$ref": "#/definitions/commonOptions/key"
+          "$ref": "#/definitions/key"
         },
         "label": {
           "$ref": "#/definitions/groupStep/properties/group"
@@ -1316,13 +1317,13 @@
           "$ref": "#/definitions/groupStep/properties/label"
         },
         "allow_dependency_failure": {
-          "$ref": "#/definitions/commonOptions/allowDependencyFailure"
+          "$ref": "#/definitions/allowDependencyFailure"
         },
         "notify": {
-          "$ref": "#/definitions/commonOptions/buildNotify"
+          "$ref": "#/definitions/buildNotify"
         },
         "skip": {
-          "$ref": "#/definitions/commonOptions/skip"
+          "$ref": "#/definitions/skip"
         },
         "steps": {
           "type": "array",
@@ -1355,13 +1356,13 @@
   },
   "properties": {
     "env": {
-      "$ref": "#/definitions/commonOptions/env"
+      "$ref": "#/definitions/env"
     },
     "agents": {
-      "$ref": "#/definitions/commonOptions/agents"
+      "$ref": "#/definitions/agents"
     },
     "notify": {
-      "$ref": "#/definitions/commonOptions/buildNotify"
+      "$ref": "#/definitions/buildNotify"
     },
     "steps": {
       "description": "A list of steps",
