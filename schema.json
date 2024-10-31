@@ -15,6 +15,7 @@
     ".buildkite/pipeline.*.yaml",
     ".buildkite/pipeline.*.json"
   ],
+  "type": "object",
   "required": [
     "steps"
   ],
@@ -1288,6 +1289,7 @@
       "additionalProperties": false
     },
     "groupStep": {
+      "type": "object",
       "properties": {
         "depends_on": {
           "$ref": "#/definitions/commonOptions/dependsOn"
