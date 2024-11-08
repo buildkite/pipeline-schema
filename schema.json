@@ -705,7 +705,7 @@
           "$ref": "#/definitions/cache"
         },
         "cache": {
-          "$ref": "#/definitions/commonOptions/cache"
+          "$ref": "#/definitions/cache"
         },
         "cancel_on_build_failing": {
           "$ref": "#/definitions/cancelOnBuildFailing"
