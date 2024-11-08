@@ -703,6 +703,9 @@
         "branches": {
           "$ref": "#/definitions/commonOptions/branches"
         },
+        "cache": {
+          "$ref": "#/definitions/commonOptions/cache"
+        },
         "cancel_on_build_failing": {
           "$ref": "#/definitions/commonOptions/cancelOnBuildFailing"
         },
