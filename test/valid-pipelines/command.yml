@@ -105,6 +105,11 @@ steps:
       automatic: true
 
   - command: test
+    retry:
+      automatic:
+        exit_status: [1,2,3]
+
+  - command: test
     skip: true
 
   - command: test
