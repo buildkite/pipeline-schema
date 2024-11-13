@@ -1,10 +1,10 @@
 FROM node:18
 
-WORKDIR /app/test
+WORKDIR /app
 
-COPY package.json package-lock.json /app/test/
+COPY package.json package-lock.json /app/
 RUN npm install
 
-COPY . /app/test
+COPY . /app
 
 CMD ["npm", "test"]

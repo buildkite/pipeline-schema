@@ -1,11 +1,33 @@
 {
+  "name": "buildkite-pipeline-schema",
+  "description": "A JSON schema for Buildkite’s pipeline file format",
+  "keywords": [
+    "buildkite",
+    "pipeline",
+    "schema"
+  ],
+  "version": "1.0.0",
+  "homepage": "https://github.com/buildkite/pipeline-schema",
+  "bugs": "https://github.com/buildkite/pipeline-schema/issues",
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "schema.json"
+  ],
+  "main": "schema.json",
+  "license": "MIT",
   "scripts": {
-    "test": "mocha *.test.js"
+    "test": "vitest",
+    "preversion": "vitest --run && prettier --check ."
   },
-  "dependencies": {
+  "devDependencies": {
     "ajv": "^6.12.3",
-    "chai": "^4.2.0",
     "js-yaml": "^3.13.1",
-    "mocha": "^10.2.0"
+    "prettier": "3.2.5",
+    "vitest": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildkite/buildkite-pipeline-schema.git"
   }
 }
