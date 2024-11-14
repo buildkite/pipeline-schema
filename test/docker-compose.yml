@@ -1,5 +1,0 @@
-services:
-  tests:
-    build: .
-    volumes:
-      - "../schema.json:/app/schema.json"

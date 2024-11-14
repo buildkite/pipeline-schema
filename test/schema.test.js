@@ -1,51 +1,36 @@
-const expect = require('chai').expect
-const Ajv = require('ajv')
-const yaml = require('js-yaml')
-const fs = require('fs')
+import { expect, test } from "vitest";
+import Ajv from "ajv";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 
-const schema = require('../schema.json')
+import schema from "../schema.json";
 
-const validate = (name) => {
-  const pipeline = yaml.safeLoad(fs.readFileSync(`./valid-pipelines/${name}`, 'utf8'))
+test.each([
+  ["block steps", "block.yml"],
+  ["input steps", "input.yml"],
+  ["command steps", "command.yml"],
+  ["env blocks", "env.yml"],
+  ["blocks with extra properties", "extra-properties.yml"],
+  ["step groups", "group.yml"],
+  ["trigger steps", "trigger.yml"],
+  ["wait steps", "wait.yml"],
+  ["notify", "notify.yml"],
+  ["matrix", "matrix.yml"],
+])("should validate %s", async (label, file) => {
+  const ajv = new Ajv({ allErrors: true });
 
-  const ajv = new Ajv({ allErrors: true })
-  var validate = ajv.compile(schema)
+  const result = await ajv.validate(schema, await loadFixture(file));
 
-  var valid = validate(pipeline)
-  if (!valid) {
-    expect(ajv.errorsText(validate.errors)).to.eql(undefined)
-  }
+  expect(ajv.errorsText()).to.equal("No errors");
+  expect(result).to.equal(true);
+});
+
+async function loadFixture(filename) {
+  const file = await fs.promises.readFile(
+    path.resolve("test/valid-pipelines/", filename),
+    "utf8",
+  );
+
+  return yaml.load(file);
 }
-
-describe('schema.json', function() {
-  it('should validate block steps', function () {
-    validate('block.yml')
-  })
-  it('should validate input steps', function () {
-    validate('input.yml')
-  })
-  it('should validate command steps', function() {
-    validate('command.yml')
-  })
-  it('should validate env blocks', function () {
-    validate('env.yml')
-  })
-  it('should validate blocks with extra properties', function () {
-    validate('extra-properties.yml')
-  })
-  it('should validate step groups', function () {
-    validate('group.yml')
-  })
-  it('should validate trigger steps', function() {
-    validate('trigger.yml')
-  })
-  it('should validate wait steps', function() {
-    validate('wait.yml')
-  })
-  it('should validate notify', function() {
-    validate('notify.yml')
-  })
-  it('should validate matrix', function() {
-    validate('matrix.yml')
-  })
-})
