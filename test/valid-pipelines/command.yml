@@ -110,6 +110,16 @@ steps:
         exit_status: [1,2,3]
 
   - command: test
+    retry:
+      automatic:
+        signal_reason: [none,agent_stop,cancel]
+
+  - command: test
+    retry:
+      automatic:
+        signal: [kill,int]
+
+  - command: test
     skip: true
 
   - command: test

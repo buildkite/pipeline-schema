@@ -77,7 +77,15 @@
         },
         "signal": {
           "description": "The exit signal, if any, that may be retried",
-          "type": "string",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          ],
           "examples": [
             "*",
             "none",
@@ -87,15 +95,34 @@
         },
         "signal_reason": {
           "description": "The exit signal reason, if any, that may be retried",
-          "type": "string",
-          "enum": [
-            "*",
-            "none",
-            "agent_refused",
-            "agent_stop",
-            "cancel",
-            "process_run_error",
-            "signature_rejected"
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "*",
+                "none",
+                "agent_refused",
+                "agent_stop",
+                "cancel",
+                "process_run_error",
+                "signature_rejected"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "*",
+                  "none",
+                  "agent_refused",
+                  "agent_stop",
+                  "cancel",
+                  "process_run_error",
+                  "signature_rejected"
+                ]
+              }
+            }
           ]
         }
       },
