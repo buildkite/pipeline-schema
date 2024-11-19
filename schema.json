@@ -1214,12 +1214,6 @@
             "env": {
               "$ref": "#/definitions/env"
             },
-            "label": {
-              "$ref": "#/definitions/label"
-            },
-            "name": {
-              "$ref": "#/definitions/label"
-            },
             "message": {
               "type": "string",
               "description": "The message for the build (supports emoji)",
@@ -1234,17 +1228,6 @@
               "examples": [
                 { "server": "i-b244e37160c" }
               ]
-            },
-            "trigger": {
-              "type": "string",
-              "description": "The slug of the pipeline to create a build",
-              "examples": [
-                "myapp-deploy"
-              ]
-            },
-            "type": {
-              "type": "string",
-              "enum": [ "trigger" ]
             }
           },
           "additionalProperties": false
