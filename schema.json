@@ -1322,18 +1322,19 @@
           "description": "A list of steps",
           "items": {
             "anyOf": [
-              { "$ref": "#/definitions/stringBlockStep" },
               { "$ref": "#/definitions/blockStep" },
-              { "$ref": "#/definitions/commandStep" },
-              { "$ref": "#/definitions/nestedCommandStep" },
-              { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" },
-              { "$ref": "#/definitions/stringInputStep" },
+              { "$ref": "#/definitions/nestedBlockStep" },
+              { "$ref": "#/definitions/stringBlockStep" },
               { "$ref": "#/definitions/inputStep" },
               { "$ref": "#/definitions/nestedInputStep" },
+              { "$ref": "#/definitions/stringInputStep" },
+              { "$ref": "#/definitions/commandStep" },
+              { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/nestedWaitStep" }
+              { "$ref": "#/definitions/stringWaitStep" },
+              { "$ref": "#/definitions/triggerStep" },
+              { "$ref": "#/definitions/nestedTriggerStep" },
             ]
           },
           "minSize": 1
