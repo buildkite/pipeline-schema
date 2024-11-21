@@ -1331,8 +1331,8 @@
               { "$ref": "#/definitions/stringInputStep" },
               { "$ref": "#/definitions/inputStep" },
               { "$ref": "#/definitions/nestedInputStep" },
-              { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/waitStep" },
+              { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/nestedWaitStep" }
             ]
           },
@@ -1369,9 +1369,9 @@
           { "$ref": "#/definitions/stringInputStep" },
           { "$ref": "#/definitions/commandStep" },
           { "$ref": "#/definitions/nestedCommandStep" },
-          { "$ref": "#/definitions/stringWaitStep" },
           { "$ref": "#/definitions/waitStep" },
           { "$ref": "#/definitions/nestedWaitStep" },
+          { "$ref": "#/definitions/stringWaitStep" },
           { "$ref": "#/definitions/triggerStep" },
           { "$ref": "#/definitions/nestedTriggerStep" },
           { "$ref": "#/definitions/groupStep" }
