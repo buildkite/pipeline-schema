@@ -48,4 +48,11 @@ describe('schema.json', function() {
   it('should validate matrix', function() {
     validate('matrix.yml')
   })
+  
+  it('should verify groupStep.steps uses the same-ish items as root steps', function () {
+    const mainList = schema.properties.steps.items.anyOf
+    const groupList = schema.definitions.groupStep.properties.steps.items.anyOf
+    expect(mainList.slice(0, -1)).to.eql(groupList)
+    expect(mainList[mainList.length - 1].$ref).to.eql('#/definitions/groupStep')
+  })
 })
