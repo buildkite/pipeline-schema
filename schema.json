@@ -528,25 +528,21 @@
         {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "exit_status": {
-                    "description": "The exit status number that will cause this job to soft-fail",
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "enum": [ "*" ]
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
+            "type": "object",
+            "properties": {
+              "exit_status": {
+                "description": "The exit status number that will cause this job to soft-fail",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [ "*" ]
+                  },
+                  {
+                    "type": "number"
                   }
-                }
+                ]
               }
-            ]
+            }
           }
         }
       ]
