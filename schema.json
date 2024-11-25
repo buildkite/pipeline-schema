@@ -1334,7 +1334,7 @@
               { "$ref": "#/definitions/nestedWaitStep" },
               { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" },
+              { "$ref": "#/definitions/nestedTriggerStep" }
             ]
           },
           "minSize": 1
