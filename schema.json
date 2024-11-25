@@ -578,10 +578,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/blockStep/key"
+          "$ref": "#/definitions/blockStep/properties/key"
         },
         "id": {
-          "$ref": "#/definitions/blockStep/key",
+          "$ref": "#/definitions/blockStep/properties/key",
           "deprecated": true,
         },
         "label": {
@@ -640,10 +640,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/inputStep/key"
+          "$ref": "#/definitions/inputStep/properties/key"
         },
         "id": {
-          "$ref": "#/definitions/inputStep/key",
+          "$ref": "#/definitions/inputStep/properties/key",
           "deprecated": true,
         },
         "label": {
@@ -759,10 +759,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/commandStep/key"
+          "$ref": "#/definitions/commandStep/properties/key"
         },
         "id": {
-          "$ref": "#/definitions/commandStep/key",
+          "$ref": "#/definitions/commandStep/properties/key",
           "deprecated": true,
         },
         "label": {
@@ -1136,10 +1136,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/waitStep/key"
+          "$ref": "#/definitions/waitStep/properties/key"
         },
         "id": {
-          "$ref": "#/definitions/waitStep/key",
+          "$ref": "#/definitions/waitStep/properties/key",
           "deprecated": true,
         },
         "type": {
@@ -1242,10 +1242,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/triggerStep/key"
+          "$ref": "#/definitions/triggerStep/proprties/key"
         },
         "id": {
-          "$ref": "#/definitions/triggerStep/key",
+          "$ref": "#/definitions/triggerStep/properties/key",
           "deprecated": true,
         },
         "label": {
@@ -1298,10 +1298,10 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/groupStep/key"
+          "$ref": "#/definitions/groupStep/properties/key"
         },
         "id": {
-          "$ref": "#/definitions/groupStep/key",
+          "$ref": "#/definitions/groupStep/properties/key",
           "deprecated": true,
         },
         "label": {
