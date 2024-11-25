@@ -1343,6 +1343,7 @@
           "enum": [ "group" ]
         }
       },
+      "required": ["steps"],
       "additionalProperties": false
     }
   },
