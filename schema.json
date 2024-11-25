@@ -1336,7 +1336,7 @@
               { "$ref": "#/definitions/nestedWaitStep" }
             ]
           },
-          "minSize": 1
+          "minItems": 1
         },
         "type": {
           "type": [ "string" ],
