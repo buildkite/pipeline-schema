@@ -1331,7 +1331,7 @@
               { "$ref": "#/definitions/commandStep" },
               { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/nestedWaitStep" }
+              { "$ref": "#/definitions/nestedWaitStep" },
               { "$ref": "#/definitions/stringWaitStep" },
               { "$ref": "#/definitions/triggerStep" },
               { "$ref": "#/definitions/nestedTriggerStep" },
