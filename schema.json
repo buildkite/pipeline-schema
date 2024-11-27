@@ -1230,7 +1230,10 @@
               ]
             }
           },
-          "additionalProperties": false
+          "additionalProperties": false,
+          "required": [
+            "trigger"
+          ]
         },
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
