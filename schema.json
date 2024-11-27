@@ -198,11 +198,6 @@
         { "NODE_ENV": "test" }
       ]
     },
-    "identifier": {
-      "type": "string",
-      "description": "A string identifier",
-      "examples": [ "an-id" ]
-    },
     "if": {
       "type": "string",
       "description": "A boolean expression that omits the step when false",
@@ -211,7 +206,8 @@
     "key": {
       "type": "string",
       "description": "A unique identifier for a step, must not resemble a UUID",
-      "examples": [ "deploy-staging", "test-integration" ]
+      "examples": [ "deploy-staging", "test-integration" ],
+      "pattern": "^(?!^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$).*$"
     },
     "label": {
       "type": "string",
@@ -571,17 +567,18 @@
         "fields": {
           "$ref": "#/definitions/fields"
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/blockStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/blockStep/properties/key",
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -632,17 +629,18 @@
         "fields": {
           "$ref": "#/definitions/fields"
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/inputStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/inputStep/properties/key",
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -750,17 +748,18 @@
         "env": {
           "$ref": "#/definitions/env"
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/commandStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/commandStep/properties/key",
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -1126,17 +1125,18 @@
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/waitStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/waitStep/properties/key",
+          "deprecated": true
         },
         "type": {
           "type": "string",
@@ -1231,17 +1231,18 @@
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/triggerStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/triggerStep/properties/key",
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -1289,17 +1290,18 @@
           "description": "The name to give to this group of steps",
           "examples": [ "Tests" ]
         },
-        "id": {
-          "$ref": "#/definitions/identifier"
-        },
-        "identifier": {
-          "$ref": "#/definitions/identifier"
-        },
         "if": {
           "$ref": "#/definitions/if"
         },
         "key": {
           "$ref": "#/definitions/key"
+        },
+        "identifier": {
+          "$ref": "#/definitions/groupStep/properties/key"
+        },
+        "id": {
+          "$ref": "#/definitions/groupStep/properties/key",
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/groupStep/properties/group"
