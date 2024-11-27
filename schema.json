@@ -1230,10 +1230,7 @@
               ]
             }
           },
-          "additionalProperties": false,
-          "required": [
-            "trigger"
-          ]
+          "additionalProperties": false
         },
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
@@ -1271,7 +1268,10 @@
           "$ref": "#/definitions/softFail"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "trigger"
+      ]
     },
     "nestedTriggerStep": {
       "type": "object",
