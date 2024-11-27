@@ -1138,6 +1138,12 @@
         "key": {
           "$ref": "#/definitions/key"
         },
+        "label": {
+          "$ref": "#/definitions/label"
+        },
+        "name": {
+          "$ref": "#/definitions/label"
+        },
         "type": {
           "type": "string",
           "enum": [ "wait", "waiter" ]
