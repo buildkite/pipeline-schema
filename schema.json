@@ -61,11 +61,11 @@
               "enum": [ "*" ]
             },
             {
-              "type": "number"
+              "type": "integer"
             },
             {
               "type": "array",
-              "items": { "type": "number" }
+              "items": { "type": "integer" }
             }
           ]
         },
@@ -538,7 +538,7 @@
                     "enum": [ "*" ]
                   },
                   {
-                    "type": "number"
+                    "type": "integer"
                   }
                 ]
               }
@@ -1226,7 +1226,10 @@
               ]
             }
           },
-          "additionalProperties": false
+          "additionalProperties": false,
+          "required": [
+            "trigger"
+          ]
         },
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
@@ -1318,27 +1321,29 @@
           "description": "A list of steps",
           "items": {
             "anyOf": [
-              { "$ref": "#/definitions/stringBlockStep" },
               { "$ref": "#/definitions/blockStep" },
-              { "$ref": "#/definitions/commandStep" },
-              { "$ref": "#/definitions/nestedCommandStep" },
-              { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" },
-              { "$ref": "#/definitions/stringInputStep" },
+              { "$ref": "#/definitions/nestedBlockStep" },
+              { "$ref": "#/definitions/stringBlockStep" },
               { "$ref": "#/definitions/inputStep" },
               { "$ref": "#/definitions/nestedInputStep" },
-              { "$ref": "#/definitions/stringWaitStep" },
+              { "$ref": "#/definitions/stringInputStep" },
+              { "$ref": "#/definitions/commandStep" },
+              { "$ref": "#/definitions/nestedCommandStep" },
               { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/nestedWaitStep" }
+              { "$ref": "#/definitions/nestedWaitStep" },
+              { "$ref": "#/definitions/stringWaitStep" },
+              { "$ref": "#/definitions/triggerStep" },
+              { "$ref": "#/definitions/nestedTriggerStep" }
             ]
           },
-          "minSize": 1
+          "minItems": 1
         },
         "type": {
           "type": [ "string" ],
           "enum": [ "group" ]
         }
       },
+      "required": ["steps"],
       "additionalProperties": false
     }
   },
@@ -1365,9 +1370,9 @@
           { "$ref": "#/definitions/stringInputStep" },
           { "$ref": "#/definitions/commandStep" },
           { "$ref": "#/definitions/nestedCommandStep" },
-          { "$ref": "#/definitions/stringWaitStep" },
           { "$ref": "#/definitions/waitStep" },
           { "$ref": "#/definitions/nestedWaitStep" },
+          { "$ref": "#/definitions/stringWaitStep" },
           { "$ref": "#/definitions/triggerStep" },
           { "$ref": "#/definitions/nestedTriggerStep" },
           { "$ref": "#/definitions/groupStep" }
