@@ -644,7 +644,7 @@
         },
         "id": {
           "$ref": "#/definitions/inputStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -763,7 +763,7 @@
         },
         "id": {
           "$ref": "#/definitions/commandStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -1140,7 +1140,7 @@
         },
         "id": {
           "$ref": "#/definitions/waitStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "type": {
           "type": "string",
@@ -1246,7 +1246,7 @@
         },
         "id": {
           "$ref": "#/definitions/triggerStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
@@ -1302,7 +1302,7 @@
         },
         "id": {
           "$ref": "#/definitions/groupStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/groupStep/properties/group"
