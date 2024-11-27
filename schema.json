@@ -1131,6 +1131,12 @@
         "key": {
           "$ref": "#/definitions/key"
         },
+        "label": {
+          "$ref": "#/definitions/label"
+        },
+        "name": {
+          "$ref": "#/definitions/label"
+        },
         "identifier": {
           "$ref": "#/definitions/waitStep/properties/key"
         },
