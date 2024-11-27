@@ -582,7 +582,7 @@
         },
         "id": {
           "$ref": "#/definitions/blockStep/properties/key",
-          "deprecated": true,
+          "deprecated": true
         },
         "label": {
           "$ref": "#/definitions/label"
