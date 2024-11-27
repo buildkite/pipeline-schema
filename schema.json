@@ -1242,7 +1242,7 @@
           "$ref": "#/definitions/key"
         },
         "identifier": {
-          "$ref": "#/definitions/triggerStep/proprties/key"
+          "$ref": "#/definitions/triggerStep/properties/key"
         },
         "id": {
           "$ref": "#/definitions/triggerStep/properties/key",
