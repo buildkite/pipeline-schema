@@ -1343,7 +1343,7 @@
           "minItems": 1
         },
         "type": {
-          "type": [ "string" ],
+          "type": "string",
           "enum": [ "group" ]
         }
       },
