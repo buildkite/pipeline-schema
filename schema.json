@@ -1351,7 +1351,7 @@
           "enum": [ "group" ]
         }
       },
-      "required": ["steps"],
+      "required": ["group", "steps"],
       "additionalProperties": false
     }
   },
