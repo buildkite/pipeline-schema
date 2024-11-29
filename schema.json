@@ -1135,9 +1135,6 @@
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
           "type": ["string", "null"]
-        },
-        "waiter": {
-          "type": ["string", "null"]
         }
       },
       "additionalProperties": false
