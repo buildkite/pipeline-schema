@@ -1146,19 +1146,13 @@
         },
         "type": {
           "type": "string",
-          "enum": [ "wait", "waiter" ]
+          "enum": [ "wait" ]
         },
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
           "anyOf": [
             { "type": "null" },
-            { "type": "string", "enum": [ "" ] }
-          ]
-        },
-        "waiter": {
-          "anyOf": [
-            { "type": "null" },
-            { "type": "string", "enum": [ "" ] }
+            { "type": "string" }
           ]
         }
       },
@@ -1169,9 +1163,6 @@
       "properties": {
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
-          "$ref": "#/definitions/waitStep"
-        },
-        "waiter": {
           "$ref": "#/definitions/waitStep"
         }
       },
