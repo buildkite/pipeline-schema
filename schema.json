@@ -1146,7 +1146,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [ "wait" ]
+          "enum": [ "wait", "waiter" ]
         },
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
