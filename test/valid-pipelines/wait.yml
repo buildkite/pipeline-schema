@@ -12,9 +12,6 @@ steps:
   - wait: ~
     continue_on_failure: true
 
-  - waiter: ~
-    continue_on_failure: true
-
   - wait:
       continue_on_failure: true
 
