@@ -762,7 +762,7 @@
           "deprecated": true
         },
         "label": {
-          "$ref": "#/definitions/label",
+          "$ref": "#/definitions/label"
         },
         "signature": {
           "type": "object",
