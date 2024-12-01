@@ -581,10 +581,10 @@
           "deprecated": true
         },
         "label": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/blockStep/properties/block"
         },
         "name": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/blockStep/properties/block"
         },
         "prompt": {
           "$ref": "#/definitions/prompt"
@@ -643,10 +643,10 @@
           "deprecated": true
         },
         "label": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/inputStep/properties/input"
         },
         "name": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/inputStep/properties/input"
         },
         "prompt": {
           "$ref": "#/definitions/prompt"
@@ -762,7 +762,7 @@
           "deprecated": true
         },
         "label": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/label",
         },
         "signature": {
           "type": "object",
@@ -880,7 +880,7 @@
           ]
         },
         "name": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/commandStep/properties/label"
         },
         "notify": {
           "type": "array",
@@ -1132,10 +1132,10 @@
           "$ref": "#/definitions/key"
         },
         "label": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/waitStep/properties/wait"
         },
         "name": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/waitStep/properties/wait"
         },
         "identifier": {
           "$ref": "#/definitions/waitStep/properties/key"
@@ -1254,7 +1254,7 @@
           "$ref": "#/definitions/label"
         },
         "name": {
-          "$ref": "#/definitions/label"
+          "$ref": "#/definitions/triggerStep/properties/label"
         },
         "type": {
           "type": "string",
@@ -1313,7 +1313,7 @@
           "$ref": "#/definitions/groupStep/properties/group"
         },
         "name": {
-          "$ref": "#/definitions/groupStep/properties/label"
+          "$ref": "#/definitions/groupStep/properties/group"
         },
         "allow_dependency_failure": {
           "$ref": "#/definitions/allowDependencyFailure"
