@@ -1045,12 +1045,12 @@
                   "type": "object",
                   "properties": {
                     "allowed": {
-                      "enum": [true, false, "true", "false"]
+                      "enum": [true, false, "true", "false"],
                       "description": "Whether or not this job can be retried manually",
                       "default": true
                     },
                     "permit_on_passed": {
-                      "enum": [true, false, "true", "false"]
+                      "enum": [true, false, "true", "false"],
                       "description": "Whether or not this job can be retried after it has passed",
                       "default": true
                     },
