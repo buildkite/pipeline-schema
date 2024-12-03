@@ -21,7 +21,7 @@
   ],
   "definitions": {
     "allowDependencyFailure": {
-      "type": "boolean",
+      "enum": [true, false, "true", "false"],
       "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
       "default": false
     },
@@ -161,7 +161,7 @@
       ]
     },
     "cancelOnBuildFailing": {
-      "type": "boolean",
+      "enum": [true, false, "true", "false"],
       "description": "Whether to cancel the job as soon as the build is marked as failing",
       "default": false
     },
@@ -180,7 +180,7 @@
                 "properties": {
                   "step": { "type": "string" },
                   "allow_failure": {
-                    "type": "boolean",
+                    "enum": [true, false, "true", "false"],
                     "default": false
                   }
                 },
@@ -381,7 +381,7 @@
                 ]
               },
               "required": {
-                "type": "boolean",
+                "enum": [true, false, "true", "false"],
                 "default": true,
                 "description": "Whether the field is required for form submission"
               },
@@ -437,7 +437,7 @@
                 ]
               },
               "multiple": {
-                "type": "boolean",
+                "enum": [true, false, "true", "false"],
                 "description": "Whether more than one option may be selected",
                 "default": false
                 },
@@ -464,7 +464,7 @@
                       ]
                     },
                     "required": {
-                      "type": "boolean",
+                      "enum": [true, false, "true", "false"],
                       "default": true,
                       "description": "Whether the field is required for form submission"
                     }
@@ -477,7 +477,7 @@
                 }
               },
               "required": {
-                "type": "boolean",
+                "enum": [true, false, "true", "false"],
                 "default": true,
                 "description": "Whether the field is required for form submission"
               }
@@ -521,7 +521,7 @@
       "description": "The conditions for marking the step as a soft-fail.",
       "anyOf": [
         {
-          "type": "boolean"
+          "enum": [true, false, "true", "false"]
         },
         {
           "type": "array",
@@ -1118,7 +1118,7 @@
         },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
-          "type": "boolean"
+          "enum": [true, false, "true", "false"]
         },
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
@@ -1176,7 +1176,7 @@
           "$ref": "#/definitions/allowDependencyFailure"
         },
         "async": {
-          "type": "boolean",
+          "enum": [true, false, "true", "false"],
           "default": false,
           "description": "Whether to continue the build without waiting for the triggered step to complete"
         },
