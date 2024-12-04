@@ -1116,6 +1116,9 @@
         "allow_dependency_failure": {
           "$ref": "#/definitions/allowDependencyFailure"
         },
+        "branches": {
+          "$ref": "#/definitions/branches"
+        },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
           "enum": [true, false, "true", "false"]
