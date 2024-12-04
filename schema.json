@@ -1121,7 +1121,8 @@
         },
         "continue_on_failure": {
           "description": "Continue to the next steps, even if the previous group of steps fail",
-          "enum": [true, false, "true", "false"]
+          "enum": [true, false, "true", "false"],
+          "default": false
         },
         "depends_on": {
           "$ref": "#/definitions/dependsOn"
