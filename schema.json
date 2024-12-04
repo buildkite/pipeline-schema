@@ -1337,10 +1337,6 @@
             ]
           },
           "minItems": 1
-        },
-        "type": {
-          "type": "string",
-          "enum": [ "group" ]
         }
       },
       "required": ["steps"],

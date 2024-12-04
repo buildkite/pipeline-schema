@@ -5,11 +5,6 @@ steps:
     steps:
       - command: test
 
-  - type: "group"
-    label: "Tests"
-    steps:
-      - command: test
-
   # Null group name
 
   - group: ~
@@ -26,11 +21,6 @@ steps:
 
   - group: "Tests"
     identifier: "an-id"
-    steps:
-      - command: test
-
-  - type: "group"
-    name: "Tests"
     steps:
       - command: test
 
