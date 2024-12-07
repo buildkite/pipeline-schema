@@ -15,6 +15,9 @@ steps:
   - wait:
       continue_on_failure: true
 
+  - waiter:	
+      continue_on_failure: true
+
   # All the options
 
   - type: "waiter"
