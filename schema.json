@@ -877,7 +877,8 @@
                   }
                 }
               },
-              "required": ["setup"]
+              "required": ["setup"],
+              "additionalProperties": false
             }
           ]
         },
