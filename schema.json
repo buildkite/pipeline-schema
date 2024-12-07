@@ -873,7 +873,8 @@
                         "$ref": "#/definitions/softFail"
                       }
                     },
-                    "required": ["with"]
+                    "required": ["with"],
+                    "additionalProperties": false
                   }
                 }
               },
