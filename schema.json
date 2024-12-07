@@ -925,7 +925,8 @@
                           "message": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "additionalProperties": false
                       }
                     ]
                   },
