@@ -1271,7 +1271,9 @@
           "$ref": "#/definitions/skip"
         },
         "soft_fail": {
-          "$ref": "#/definitions/softFail"
+          "enum": [true, false, "true", "false"],
+          "description": "The conditions for marking the step as a soft-fail.",
+          "default": false
         }
       },
       "additionalProperties": false,
