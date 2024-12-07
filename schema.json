@@ -955,6 +955,12 @@
               },
               {
                 "type": "object",
+                "properties": {
+                  "github_check": {
+                    "type": "object",
+                    "additionalProperties": false
+                  }
+                },
                 "additionalProperties": false
               }
             ]
