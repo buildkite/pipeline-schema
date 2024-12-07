@@ -512,7 +512,7 @@
         { "type": "boolean" },
         { "type": "string" }
       ],
-      "description": "Whether this step should be skipped. You can specify a reason for using a string.",
+      "description": "Whether this step should be skipped. Passing a string provides a reason for skipping this command",
       "examples": [
         true,
         false,
