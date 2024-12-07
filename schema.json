@@ -1066,7 +1066,8 @@
                   },
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "default": true
             }
           }
         },
