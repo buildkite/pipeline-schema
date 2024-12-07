@@ -1159,6 +1159,9 @@
         "wait": {
           "description": "Waits for previous steps to pass before continuing",
           "$ref": "#/definitions/waitStep"
+        },
+        "waiter": {
+          "$ref": "#/definitions/waitStep"
         }
       },
       "additionalProperties": false
