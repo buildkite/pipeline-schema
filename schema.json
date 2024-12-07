@@ -313,7 +313,8 @@
                     "description": "GitHub commit status name",
                     "type": "string"
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "if": {
                 "$ref": "#/definitions/if"
@@ -945,7 +946,8 @@
                         "description": "GitHub commit status name",
                         "type": "string"
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   },
                   "if": {
                     "$ref": "#/definitions/if"
