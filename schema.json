@@ -131,13 +131,10 @@
           "type": "object",
           "properties": {
             "paths": {
-              "anyOf": [
-                { "type": "string" },
-                {
-                  "type": "array",
-                  "items": { "type": "string" }
-                }
-              ]
+              "anyOf": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
             },
             "size": {
               "type": "string",
@@ -704,9 +701,6 @@
         },
         "branches": {
           "$ref": "#/definitions/branches"
-        },
-        "cache": {
-          "$ref": "#/definitions/cache"
         },
         "cache": {
           "$ref": "#/definitions/cache"
