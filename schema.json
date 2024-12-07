@@ -845,9 +845,8 @@
                       "with": {
                         "oneOf": [
                           {
-                            "type": "array",
+                            "type": "string",
                             "description": "List of existing or new elements for single-dimension Build Matrix",
-                            "items": { "$ref": "#/definitions/matrixElement" }
                           },
                           {
                             "type": "object",
