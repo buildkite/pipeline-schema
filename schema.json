@@ -1069,7 +1069,8 @@
                 }
               ]
             }
-          }
+          },
+          "additionalProperties": false
         },
         "skip": {
           "$ref": "#/definitions/skip"
