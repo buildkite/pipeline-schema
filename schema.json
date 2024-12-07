@@ -558,6 +558,7 @@
         },
         "blocked_state": {
           "type": "string",
+          "default": "passed",
           "description": "The state that the build is set to when the build is blocked by this block step",
           "enum": [ "passed", "failed", "running" ]
         },
