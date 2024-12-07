@@ -949,24 +949,6 @@
                   }
                 },
                 "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "github_check": {
-                    "type": "object",
-                    "properties": {
-                      "context": {
-                        "description": "GitHub commit status name",
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "if": {
-                    "$ref": "#/definitions/if"
-                  }
-                },
-                "additionalProperties": false
               }
             ]
           }
