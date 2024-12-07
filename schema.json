@@ -952,6 +952,10 @@
                   }
                 },
                 "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "additionalProperties": false
               }
             ]
           }
