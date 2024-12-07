@@ -1071,7 +1071,8 @@
                   },
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "default": true
             }
           },
           "additionalProperties": false
