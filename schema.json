@@ -846,7 +846,7 @@
                         "oneOf": [
                           {
                             "type": "string",
-                            "description": "List of existing or new elements for single-dimension Build Matrix",
+                            "description": "An existing or new element for single-dimension Build Matrix",
                           },
                           {
                             "type": "object",
