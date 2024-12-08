@@ -842,25 +842,24 @@
               "description": "Configuration for multi-dimension Build Matrix",
               "properties": {
                 "setup": {
-                    "type": "object",
-                    "description": "Mapping of Build Matrix dimension names to their lists of elements",
-                    "propertyNames": {
-                      "type": "string",
-                      "description": "Build Matrix dimension name",
-                      "pattern": "^[a-zA-Z0-9_]+$"
-                    },
-                    "additionalProperties": {
-                      "type": "array",
-                      "description": "List of elements for this Build Matrix dimension",
-                      "items": { "$ref": "#/definitions/matrixElement" }
-                    },
-                    "examples": [
-                      {
-                        "os": ["linux", "freebsd"],
-                        "arch": ["arm64", "riscv"]
-                      }
-                    ]
-                  }
+                  "type": "object",
+                  "description": "Mapping of Build Matrix dimension names to their lists of elements",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "Build Matrix dimension name",
+                    "pattern": "^[a-zA-Z0-9_]+$"
+                  },
+                  "additionalProperties": {
+                    "type": "array",
+                    "description": "List of elements for this Build Matrix dimension",
+                    "items": { "$ref": "#/definitions/matrixElement" }
+                  },
+                  "examples": [
+                    {
+                      "os": ["linux", "freebsd"],
+                      "arch": ["arm64", "riscv"]
+                    }
+                  ]
                 },
                 "adjustments": {
                   "type": "array",
