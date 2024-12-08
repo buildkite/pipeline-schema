@@ -813,10 +813,10 @@
                 },
                 "adjustments": {
                   "type": "array",
-                  "description": "List of Build Matrix adjustments",
+                  "description": "List of single-dimension Build Matrix adjustments",
                   "items": {
                     "type": "object",
-                    "description": "An adjustment to a Build Matrix",
+                    "description": "An adjustment to a single-dimension Build Matrix",
                     "properties": {
                       "with": {
                         "type": "string",
@@ -863,10 +863,10 @@
                 },
                 "adjustments": {
                   "type": "array",
-                  "description": "List of Build Matrix adjustments",
+                  "description": "List of multi-dimension Build Matrix adjustments",
                   "items": {
                     "type": "object",
-                    "description": "An adjustment to a Build Matrix",
+                    "description": "An adjustment to a multi-dimension Build Matrix",
                     "properties": {
                       "with": {
                         "type": "object",
@@ -876,7 +876,7 @@
                           "description": "Build Matrix dimension name"
                         },
                         "additionalProperties": {
-                          "type": "string",
+                          "$ref": "#/definitions/matrixElement",
                           "description": "Build Matrix dimension element"
                         },
                         "examples": [
