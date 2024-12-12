@@ -131,10 +131,8 @@
           "type": "object",
           "properties": {
             "paths": {
-              "anyOf": {
-                "type": "array",
-                "items": { "type": "string" }
-              }
+              "type": "array",
+              "items": { "type": "string" }
             },
             "size": {
               "type": "string",
