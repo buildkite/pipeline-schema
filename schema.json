@@ -1000,7 +1000,8 @@
             },
             {
               "type": "object",
-              "description": "A map of plugins for this step. Deprecated: please use the array syntax."
+              "description": "A map of plugins for this step. Deprecated: please use the array syntax.",
+              "deprecated": true
             }
           ]
         },
