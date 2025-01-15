@@ -321,8 +321,7 @@
             "type": "object",
             "properties": {
               "github_check": {
-                "type": "object",
-                "additionalProperties": false
+                "type": "object"
               }
             },
             "additionalProperties": false
@@ -946,8 +945,7 @@
                 "type": "object",
                 "properties": {
                   "github_check": {
-                    "type": "object",
-                    "additionalProperties": false
+                    "type": "object"
                   }
                 },
                 "additionalProperties": false
