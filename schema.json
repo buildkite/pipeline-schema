@@ -25,6 +25,27 @@
       "description": "Whether to proceed with this step and further steps if a step named in the depends_on attribute fails",
       "default": false
     },
+    "envVarString": {
+      "type": "string",
+      "description": "An environment variable reference that will be substituted at runtime",
+      "pattern": "^\\$[A-Z_][A-Z0-9_]*$",
+      "examples": [
+        "$PARALLELISM",
+        "$NUMBER_OF_JOBS"
+      ]
+    },
+    "integerOrEnvVar": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "description": "A literal integer value"
+        },
+        {
+          "$ref": "#/definitions/envVarString"
+        }
+      ],
+      "description": "Either an integer value or an environment variable reference"
+    },
     "agents": {
       "oneOf": [
         { "$ref": "#/definitions/agentsObject" },
@@ -954,10 +975,11 @@
           }
         },
         "parallelism": {
-          "type": "integer",
+          "$ref": "#/definitions/integerOrEnvVar",
           "description": "The number of parallel jobs that will be created based on this step",
           "examples": [
-            42
+            42,
+            "$PARALLELISM"
           ]
         },
         "plugins": {

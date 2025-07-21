@@ -48,6 +48,9 @@ describe('schema.json', function() {
   it('should validate matrix', function() {
     validate('matrix.yml')
   })
+  it('should validate environment variables in parallelism field', function() {
+    validate('parallelism-env-vars.yml')
+  })
   
   it('should verify groupStep.steps uses the same-ish items as root steps', function () {
     const mainList = schema.properties.steps.items.anyOf
