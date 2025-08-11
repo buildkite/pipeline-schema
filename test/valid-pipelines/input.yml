@@ -113,6 +113,15 @@ steps:
         key: "formatted-field-3"
         format: "[0-9a-f]+"
 
+  # Allowed teams
+  - input: "A label"
+    allowed_teams: "team-slug"
+
+  - input: "A label"
+    allowed_teams:
+      - "team-slug"
+      - "9b30da58-3dac-4dbb-89e9-b9748ca76445"
+
   # Key formats
   - input: "Tests for key formatting"
     fields:

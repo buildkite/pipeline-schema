@@ -112,6 +112,14 @@ steps:
           - label: "Option 2"
             value: option-2
 
+  - block: "A label"
+    allowed_teams: "team-slug"
+
+  - block: "A label"
+    allowed_teams:
+      - "team-slug"
+      - "9b30da58-3dac-4dbb-89e9-b9748ca76445"
+
   - group: "Tests"
     steps:
       - block: "A label"
