@@ -237,7 +237,7 @@
       "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
       "examples": [ ":docker: Build" ]
     },
-    "notifySimpleGithub": {
+    "notifySimple": {
       "type": "string",
       "enum": ["github_check", "github_commit_status"]
     },
@@ -356,7 +356,7 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/definitions/notifySimpleGithub"
+            "$ref": "#/definitions/notifySimple"
           },
           {
             "$ref": "#/definitions/notifyEmail"
@@ -938,7 +938,7 @@
           "items": {
             "oneOf": [
               {
-                "$ref": "#/definitions/notifySimpleGithub"
+                "$ref": "#/definitions/notifySimple"
               },
               {
                 "$ref": "#/definitions/notifyBasecamp"
