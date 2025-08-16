@@ -822,69 +822,86 @@
             },
             {
               "type": "object",
+              "description": "Configuration for single-dimension Build Matrix",
+              "properties": {
+                "setup": {
+                  "type": "array",
+                  "description": "List of elements for single-dimension Build Matrix",
+                  "items": { "$ref": "#/definitions/matrixElement" },
+                  "examples": [
+                    ["linux", "freebsd"]
+                  ]
+                },
+                "adjustments": {
+                  "type": "array",
+                  "description": "List of single-dimension Build Matrix adjustments",
+                  "items": {
+                    "type": "object",
+                    "description": "An adjustment to a single-dimension Build Matrix",
+                    "properties": {
+                      "with": {
+                        "type": "string",
+                        "description": "An existing or new element for single-dimension Build Matrix",
+                      },
+                      "skip": {
+                        "$ref": "#/definitions/skip"
+                      },
+                      "soft_fail": {
+                        "$ref": "#/definitions/softFail"
+                      }
+                    },
+                    "required": ["with"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["setup"],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
               "description": "Configuration for multi-dimension Build Matrix",
               "properties": {
                 "setup": {
-                  "oneOf": [
+                  "type": "object",
+                  "description": "Mapping of Build Matrix dimension names to their lists of elements",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "Build Matrix dimension name",
+                    "pattern": "^[a-zA-Z0-9_]+$"
+                  },
+                  "additionalProperties": {
+                    "type": "array",
+                    "description": "List of elements for this Build Matrix dimension",
+                    "items": { "$ref": "#/definitions/matrixElement" }
+                  },
+                  "examples": [
                     {
-                      "type": "array",
-                      "description": "List of elements for single-dimension Build Matrix",
-                      "items": { "$ref": "#/definitions/matrixElement" },
-                      "examples": [
-                        ["linux", "freebsd"]
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "description": "Mapping of Build Matrix dimension names to their lists of elements",
-                      "propertyNames": {
-                        "type": "string",
-                        "description": "Build Matrix dimension name",
-                        "pattern": "^[a-zA-Z0-9_]+$"
-                      },
-                      "additionalProperties": {
-                        "type": "array",
-                        "description": "List of elements for this Build Matrix dimension",
-                        "items": { "$ref": "#/definitions/matrixElement" }
-                      },
-                      "examples": [
-                        {
-                          "os": ["linux", "freebsd"],
-                          "arch": ["arm64", "riscv"]
-                        }
-                      ]
+                      "os": ["linux", "freebsd"],
+                      "arch": ["arm64", "riscv"]
                     }
                   ]
                 },
                 "adjustments": {
                   "type": "array",
-                  "description": "List of Build Matrix adjustments",
+                  "description": "List of multi-dimension Build Matrix adjustments",
                   "items": {
                     "type": "object",
-                    "description": "An adjustment to a Build Matrix",
+                    "description": "An adjustment to a multi-dimension Build Matrix",
                     "properties": {
                       "with": {
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "description": "List of existing or new elements for single-dimension Build Matrix",
-                            "items": { "$ref": "#/definitions/matrixElement" }
-                          },
-                          {
-                            "type": "object",
-                            "description": "Specification of a new or existing Build Matrix combination",
-                            "propertyNames": {
-                              "type": "string",
-                              "description": "Build Matrix dimension name"
-                            },
-                            "additionalProperties": {
-                              "type": "string",
-                              "description": "Build Matrix dimension element"
-                            },
-                            "examples": [
-                              { "os": "linux", "arch": "arm64" }
-                            ]
-                          }
+                        "type": "object",
+                        "description": "Specification of a new or existing Build Matrix combination",
+                        "propertyNames": {
+                          "type": "string",
+                          "description": "Build Matrix dimension name"
+                        },
+                        "additionalProperties": {
+                          "$ref": "#/definitions/matrixElement",
+                          "description": "Build Matrix dimension element"
+                        },
+                        "examples": [
+                          { "os": "linux", "arch": "arm64" }
                         ]
                       },
                       "skip": {
@@ -894,11 +911,13 @@
                         "$ref": "#/definitions/softFail"
                       }
                     },
-                    "required": ["with"]
+                    "required": ["with"],
+                    "additionalProperties": false
                   }
                 }
               },
-              "required": ["setup"]
+              "required": ["setup"],
+              "additionalProperties": false
             }
           ]
         },
