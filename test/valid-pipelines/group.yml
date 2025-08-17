@@ -64,3 +64,10 @@ steps:
       - command: test
     notify:
       - email: dev@acmeinc.com
+
+  # Agent-applied attributes
+
+  - group: "Tests"
+    steps:
+      - command: test
+    if_changed: "*.txt"
