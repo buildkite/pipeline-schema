@@ -505,6 +505,16 @@
         ]
       }
     },
+    "if_changed": {
+      "type": "string",
+      "description": "Agent-applied attribute: A glob pattern that omits the step from a build if it does not match any files changed in the build.",
+      "examples": [
+        "**.go",
+        "go.mod",
+        "go.sum",
+        "fixtures/**"
+      ]
+    },
     "matrixElement": {
       "oneOf": [
         {"type": "string"},
@@ -770,6 +780,9 @@
         },
         "if": {
           "$ref": "#/definitions/if"
+        },
+        "if_changed": {
+          "$ref": "#/definitions/if_changed"
         },
         "key": {
           "$ref": "#/definitions/key"
@@ -1250,6 +1263,9 @@
         "if": {
           "$ref": "#/definitions/if"
         },
+        "if_changed": {
+          "$ref": "#/definitions/if_changed"
+        },
         "key": {
           "$ref": "#/definitions/key"
         },
@@ -1308,6 +1324,9 @@
         },
         "if": {
           "$ref": "#/definitions/if"
+        },
+        "if_changed": {
+          "$ref": "#/definitions/if_changed"
         },
         "key": {
           "$ref": "#/definitions/key"
