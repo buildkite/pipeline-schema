@@ -96,3 +96,8 @@ steps:
   - trigger: "a-slug"
     soft_fail:
       - exit_status: "*"
+
+  # Agent-applied attributes
+
+  - trigger: "a-slug"
+    if_changed: "*.txt"

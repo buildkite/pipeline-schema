@@ -199,3 +199,8 @@ steps:
 
   - command: use cache
     cache: "dist/"
+
+  # Agent-applied attributes
+
+  - command: test
+    if_changed: "*.txt"
