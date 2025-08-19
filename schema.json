@@ -237,120 +237,147 @@
       "description": "The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.",
       "examples": [ ":docker: Build" ]
     },
+    "notifySimple": {
+      "type": "string",
+      "enum": ["github_check", "github_commit_status"]
+    },
+    "notifyEmail": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifyBasecamp": {
+      "type": "object",
+      "properties": {
+        "basecamp_campfire": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifySlackObject": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "notifySlack": {
+      "type": "object",
+      "properties": {
+        "slack": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/notifySlackObject"
+            }
+          ]
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifyWebhook": {
+      "type": "object",
+      "properties": {
+        "webhook": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifyPagerduty": {
+      "type": "object",
+      "properties": {
+        "pagerduty_change_event": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifyGithubCommitStatus": {
+      "type": "object",
+      "properties": {
+        "github_commit_status": {
+          "type": "object",
+          "properties": {
+            "context": {
+              "description": "GitHub commit status name",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "if": {
+          "$ref": "#/definitions/if"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notifyGithubCheck": {
+      "type": "object",
+      "properties": {
+        "github_check": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
     "buildNotify": {
       "type": "array",
       "description": "Array of notification options for this step",
       "items": {
         "oneOf": [
           {
-            "type": "string",
-            "enum": ["github_check", "github_commit_status"]
+            "$ref": "#/definitions/notifySimple"
           },
           {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyEmail"
           },
           {
-            "type": "object",
-            "properties": {
-              "basecamp_campfire": {
-                "type": "string"
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyBasecamp"
           },
           {
-            "type": "object",
-            "properties": {
-              "slack": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "channels": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                ]
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifySlack"
           },
           {
-            "type": "object",
-            "properties": {
-              "webhook": {
-                "type": "string"
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyWebhook"
           },
           {
-            "type": "object",
-            "properties": {
-              "pagerduty_change_event": {
-                "type": "string"
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyPagerduty"
           },
           {
-            "type": "object",
-            "properties": {
-              "github_commit_status": {
-                "type": "object",
-                "properties": {
-                  "context": {
-                    "description": "GitHub commit status name",
-                    "type": "string"
-                  }
-                },
-                "additionalProperties": false
-              },
-              "if": {
-                "$ref": "#/definitions/if"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyGithubCommitStatus"
           },
           {
-            "type": "object",
-            "properties": {
-              "github_check": {
-                "type": "object"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/notifyGithubCheck"
           }
         ]
       }
@@ -924,79 +951,19 @@
           "items": {
             "oneOf": [
               {
-                "type": "string",
-                "enum": ["github_check", "github_commit_status"]
+                "$ref": "#/definitions/notifySimple"
               },
               {
-                "type": "object",
-                "properties": {
-                  "basecamp_campfire": {
-                    "type": "string"
-                  },
-                  "if": {
-                    "$ref": "#/definitions/if"
-                  }
-                },
-                "additionalProperties": false
+                "$ref": "#/definitions/notifyBasecamp"
               },
               {
-                "type": "object",
-                "properties": {
-                  "slack": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "channels": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    ]
-                  },
-                  "if": {
-                    "$ref": "#/definitions/if"
-                  }
-                },
-                "additionalProperties": false
+                "$ref": "#/definitions/notifySlack"
               },
               {
-                "type": "object",
-                "properties": {
-                  "github_commit_status": {
-                    "type": "object",
-                    "properties": {
-                      "context": {
-                        "description": "GitHub commit status name",
-                        "type": "string"
-                      }
-                    },
-                    "additionalProperties": false
-                  },
-                  "if": {
-                    "$ref": "#/definitions/if"
-                  }
-                },
-                "additionalProperties": false
+                "$ref": "#/definitions/notifyGithubCommitStatus"
               },
               {
-                "type": "object",
-                "properties": {
-                  "github_check": {
-                    "type": "object"
-                  }
-                },
-                "additionalProperties": false
+                "$ref": "#/definitions/notifyGithubCheck"
               }
             ]
           }
