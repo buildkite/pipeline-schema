@@ -170,30 +170,31 @@
       "description": "Whether to cancel the job as soon as the build is marked as failing",
       "default": false
     },
+    "dependsOnList": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "properties": {
+              "step": { "type": "string" },
+              "allow_failure": {
+                "enum": [true, false, "true", "false"],
+                "default": false
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
     "dependsOn": {
       "description": "The step keys for a step to depend on",
       "anyOf": [
-        { "type": "null" },
-        { "type": "string" },
-        {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              { "type": "string" },
-              {
-                "type": "object",
-                "properties": {
-                  "step": { "type": "string" },
-                  "allow_failure": {
-                    "enum": [true, false, "true", "false"],
-                    "default": false
-                  }
-                },
-                "additionalProperties": false
-              }
-            ]
-          }
-        }
+        {"type": "null"},
+        {"type": "string"},
+        {"$ref": "#/definitions/dependsOnList"}
       ]
     },
     "env": {
