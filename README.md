@@ -25,6 +25,18 @@ cd test
 docker-compose build && docker-compose run --rm tests
 ```
 
+## Formatting
+
+This project uses [prettier](https://prettier.io/) to format the codebase. To format the codebase, run:
+
+```sh
+cd test
+# verify that formatting is correct
+npm run format:check
+# rewrite files with pretty-printing
+npm run format:write
+```
+
 ## Contributing
 
 See [contributing.md](./contributing.md)
