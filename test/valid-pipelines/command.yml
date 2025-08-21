@@ -107,7 +107,7 @@ steps:
   - command: test
     retry:
       automatic:
-        exit_status: [1,2,3]
+        exit_status: [1, 2, 3]
 
   - command: test
     skip: true

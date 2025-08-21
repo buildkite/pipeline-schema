@@ -1,6 +1,6 @@
 steps:
   - name: ":mocha: Test"
-    command: npm test
+    command: npm test && npm run format:write
     plugins:
       - docker-compose#v4.16.0:
           config: test/docker-compose.yml
