@@ -1,8 +1,8 @@
 {
   "scripts": {
     "test": "mocha *.test.js",
-    "format": "prettier --write ../schema.json **/*.js **/*.yml",
-    "check": "prettier --check ../schema.json **/*.js **/*.yml"
+    "format:write": "prettier --write ../schema.json **/*.js **/*.yml",
+    "format:check": "prettier --check ../schema.json **/*.js **/*.yml"
   },
   "dependencies": {
     "ajv": "^6.12.3",
