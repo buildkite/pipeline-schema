@@ -512,7 +512,13 @@
       "examples": ["Release to production?"]
     },
     "skip": {
-      "anyOf": [{ "type": "boolean" }, { "type": "string" }],
+      "anyOf": [
+        { "type": "boolean" },
+        {
+          "type": "string",
+          "maxLength": 70
+        }
+      ],
       "description": "Whether this step should be skipped. Passing a string provides a reason for skipping this command",
       "examples": [true, false, "My reason"]
     },
