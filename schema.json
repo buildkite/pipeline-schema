@@ -1279,6 +1279,28 @@
       },
       "additionalProperties": false
     },
+    "groupSteps": {
+      "type": "array",
+      "description": "A list of steps",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/blockStep" },
+          { "$ref": "#/definitions/nestedBlockStep" },
+          { "$ref": "#/definitions/stringBlockStep" },
+          { "$ref": "#/definitions/inputStep" },
+          { "$ref": "#/definitions/nestedInputStep" },
+          { "$ref": "#/definitions/stringInputStep" },
+          { "$ref": "#/definitions/commandStep" },
+          { "$ref": "#/definitions/nestedCommandStep" },
+          { "$ref": "#/definitions/waitStep" },
+          { "$ref": "#/definitions/nestedWaitStep" },
+          { "$ref": "#/definitions/stringWaitStep" },
+          { "$ref": "#/definitions/triggerStep" },
+          { "$ref": "#/definitions/nestedTriggerStep" }
+        ]
+      },
+      "minItems": 1
+    },
     "groupStep": {
       "type": "object",
       "properties": {
@@ -1322,30 +1344,33 @@
           "$ref": "#/definitions/skip"
         },
         "steps": {
-          "type": "array",
-          "description": "A list of steps",
-          "items": {
-            "anyOf": [
-              { "$ref": "#/definitions/blockStep" },
-              { "$ref": "#/definitions/nestedBlockStep" },
-              { "$ref": "#/definitions/stringBlockStep" },
-              { "$ref": "#/definitions/inputStep" },
-              { "$ref": "#/definitions/nestedInputStep" },
-              { "$ref": "#/definitions/stringInputStep" },
-              { "$ref": "#/definitions/commandStep" },
-              { "$ref": "#/definitions/nestedCommandStep" },
-              { "$ref": "#/definitions/waitStep" },
-              { "$ref": "#/definitions/nestedWaitStep" },
-              { "$ref": "#/definitions/stringWaitStep" },
-              { "$ref": "#/definitions/triggerStep" },
-              { "$ref": "#/definitions/nestedTriggerStep" }
-            ]
-          },
-          "minItems": 1
+          "$ref": "#/definitions/groupSteps"
         }
       },
       "required": ["group", "steps"],
       "additionalProperties": false
+    },
+    "pipelineSteps": {
+      "description": "A list of steps",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/blockStep" },
+          { "$ref": "#/definitions/nestedBlockStep" },
+          { "$ref": "#/definitions/stringBlockStep" },
+          { "$ref": "#/definitions/inputStep" },
+          { "$ref": "#/definitions/nestedInputStep" },
+          { "$ref": "#/definitions/stringInputStep" },
+          { "$ref": "#/definitions/commandStep" },
+          { "$ref": "#/definitions/nestedCommandStep" },
+          { "$ref": "#/definitions/waitStep" },
+          { "$ref": "#/definitions/nestedWaitStep" },
+          { "$ref": "#/definitions/stringWaitStep" },
+          { "$ref": "#/definitions/triggerStep" },
+          { "$ref": "#/definitions/nestedTriggerStep" },
+          { "$ref": "#/definitions/groupStep" }
+        ]
+      }
     }
   },
   "properties": {
