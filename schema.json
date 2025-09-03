@@ -174,7 +174,7 @@
       "type": "array",
       "items": {
         "anyOf": [
-          {"type": "string"},
+          { "type": "string" },
           {
             "type": "object",
             "properties": {
@@ -192,9 +192,9 @@
     "dependsOn": {
       "description": "The step keys for a step to depend on",
       "anyOf": [
-        {"type": "null"},
-        {"type": "string"},
-        {"$ref": "#/definitions/dependsOnList"}
+        { "type": "null" },
+        { "type": "string" },
+        { "$ref": "#/definitions/dependsOnList" }
       ]
     },
     "env": {
@@ -371,32 +371,24 @@
         "text": {
           "type": "string",
           "description": "The text input name",
-          "examples": [
-            "Release Name"
-          ]
+          "examples": ["Release Name"]
         },
         "key": {
           "type": "string",
           "description": "The meta-data key that stores the field's input",
           "pattern": "^[a-zA-Z0-9-_]+$",
-          "examples": [
-            "release-name"
-          ]
+          "examples": ["release-name"]
         },
         "hint": {
           "type": "string",
           "description": "The explanatory text that is shown after the label",
-          "examples": [
-            "What’s the code name for this release? :name_badge:"
-          ]
+          "examples": ["What’s the code name for this release? :name_badge:"]
         },
         "format": {
           "type": "string",
           "description": "The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the HTML5 pattern attribute.",
           "format": "regex",
-          "examples": [
-            "[0-9a-f]+"
-          ]
+          "examples": ["[0-9a-f]+"]
         },
         "required": {
           "enum": [true, false, "true", "false"],
@@ -406,15 +398,11 @@
         "default": {
           "type": "string",
           "description": "The value that is pre-filled in the text field",
-          "examples": [
-            "Flying Dolphin"
-          ]
+          "examples": ["Flying Dolphin"]
         }
       },
       "additionalProperties": false,
-      "required": [
-        "key"
-      ]
+      "required": ["key"]
     },
     "selectFieldOption": {
       "type": "object",
@@ -422,19 +410,17 @@
         "label": {
           "type": "string",
           "description": "The text displayed on the select list item",
-          "examples": [ "Stable" ]
+          "examples": ["Stable"]
         },
         "value": {
           "type": "string",
           "description": "The value to be stored as meta-data",
-          "examples": [ "stable" ]
+          "examples": ["stable"]
         },
         "hint": {
           "type": "string",
           "description": "The text displayed directly under the select field’s label",
-          "examples": [
-            "Which release stream does this belong in? :fork:"
-          ]
+          "examples": ["Which release stream does this belong in? :fork:"]
         },
         "required": {
           "enum": [true, false, "true", "false"],
@@ -443,10 +429,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "label",
-        "value"
-      ]
+      "required": ["label", "value"]
     },
     "selectField": {
       "type": "object",
@@ -454,17 +437,13 @@
         "select": {
           "type": "string",
           "description": "The text input name",
-          "examples": [
-            "Release Stream"
-          ]
+          "examples": ["Release Stream"]
         },
         "key": {
           "type": "string",
           "description": "The meta-data key that stores the field's input",
           "pattern": "^[a-zA-Z0-9-_]+$",
-          "examples": [
-            "release-stream"
-          ]
+          "examples": ["release-stream"]
         },
         "default": {
           "oneOf": [
@@ -477,24 +456,22 @@
             }
           ],
           "description": "The value of the option(s) that will be pre-selected in the dropdown",
-          "examples": [ "beta" , [ "alpha" , "beta" ] ]
+          "examples": ["beta", ["alpha", "beta"]]
         },
         "hint": {
           "type": "string",
           "description": "The explanatory text that is shown after the label",
-          "examples": [
-            "What’s the code name for this release? :name_badge:"
-          ]
+          "examples": ["What’s the code name for this release? :name_badge:"]
         },
         "multiple": {
           "enum": [true, false, "true", "false"],
           "description": "Whether more than one option may be selected",
           "default": false
-          },
+        },
         "options": {
           "type": "array",
           "minItems": 1,
-          "items": {"$ref": "#/definitions/selectFieldOption"}
+          "items": { "$ref": "#/definitions/selectFieldOption" }
         },
         "required": {
           "enum": [true, false, "true", "false"],
@@ -503,18 +480,15 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "key",
-        "options"
-      ]
+      "required": ["key", "options"]
     },
     "fields": {
       "type": "array",
       "description": "A list of input fields required to be filled out before unblocking the step",
       "items": {
         "oneOf": [
-          {"$ref": "#/definitions/textField"},
-          {"$ref": "#/definitions/selectField"}
+          { "$ref": "#/definitions/textField" },
+          { "$ref": "#/definitions/selectField" }
         ]
       }
     },
@@ -554,7 +528,7 @@
           "anyOf": [
             {
               "type": "string",
-              "enum": [ "*" ]
+              "enum": ["*"]
             },
             {
               "type": "integer"
@@ -726,9 +700,7 @@
       "type": "array",
       "description": "List of elements for single-dimension Build Matrix",
       "items": { "$ref": "#/definitions/matrixElement" },
-      "examples": [
-        ["linux", "freebsd"]
-      ]
+      "examples": [["linux", "freebsd"]]
     },
     "matrixSetup": {
       "oneOf": [
@@ -768,9 +740,7 @@
         "type": "string",
         "description": "Build Matrix dimension element"
       },
-      "examples": [
-        { "os": "linux", "arch": "arm64" }
-      ]
+      "examples": [{ "os": "linux", "arch": "arm64" }]
     },
     "matrixAdjustments": {
       "type": "object",
@@ -863,9 +833,7 @@
           {
             "type": "object",
             "maxProperties": 1,
-            "examples": [
-              { "docker-compose#v1.0.0": { "run": "app" } }
-            ]
+            "examples": [{ "docker-compose#v1.0.0": { "run": "app" } }]
           }
         ]
       }
@@ -927,9 +895,7 @@
         "reason": {
           "type": "string",
           "description": "A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the allowed attribute is set to false.",
-          "examples": [
-            "No retries allowed on deploy steps"
-          ]
+          "examples": ["No retries allowed on deploy steps"]
         }
       },
       "additionalProperties": false

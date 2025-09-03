@@ -19,14 +19,14 @@ const validate = (name) => {
   }
 };
 
-describe("schema.json", function() {
+describe("schema.json", function () {
   it("should validate block steps", function () {
     validate("block.yml");
   });
   it("should validate input steps", function () {
     validate("input.yml");
   });
-  it("should validate command steps", function() {
+  it("should validate command steps", function () {
     validate("command.yml");
   });
   it("should validate env blocks", function () {
@@ -38,16 +38,16 @@ describe("schema.json", function() {
   it("should validate step groups", function () {
     validate("group.yml");
   });
-  it("should validate trigger steps", function() {
+  it("should validate trigger steps", function () {
     validate("trigger.yml");
   });
-  it("should validate wait steps", function() {
+  it("should validate wait steps", function () {
     validate("wait.yml");
   });
-  it("should validate notify", function() {
+  it("should validate notify", function () {
     validate("notify.yml");
   });
-  it("should validate matrix", function() {
+  it("should validate matrix", function () {
     validate("matrix.yml");
   });
 
@@ -55,6 +55,8 @@ describe("schema.json", function() {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
     expect(mainList.slice(0, -1)).to.eql(groupList);
-    expect(mainList[mainList.length - 1].$ref).to.eql("#/definitions/groupStep");
+    expect(mainList[mainList.length - 1].$ref).to.eql(
+      "#/definitions/groupStep",
+    );
   });
-})
+});
