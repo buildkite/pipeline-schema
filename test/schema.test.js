@@ -21,40 +21,40 @@ const validate = (name) => {
 
 describe("schema.json", function() {
   it("should validate block steps", function () {
-    validate("block.yml")
-  })
+    validate("block.yml");
+  });
   it("should validate input steps", function () {
-    validate("input.yml")
-  })
+    validate("input.yml");
+  });
   it("should validate command steps", function() {
-    validate("command.yml")
-  })
+    validate("command.yml");
+  });
   it("should validate env blocks", function () {
-    validate("env.yml")
-  })
+    validate("env.yml");
+  });
   it("should validate blocks with extra properties", function () {
-    validate("extra-properties.yml")
-  })
+    validate("extra-properties.yml");
+  });
   it("should validate step groups", function () {
-    validate("group.yml")
-  })
+    validate("group.yml");
+  });
   it("should validate trigger steps", function() {
-    validate("trigger.yml")
-  })
+    validate("trigger.yml");
+  });
   it("should validate wait steps", function() {
-    validate("wait.yml")
-  })
+    validate("wait.yml");
+  });
   it("should validate notify", function() {
-    validate("notify.yml")
-  })
+    validate("notify.yml");
+  });
   it("should validate matrix", function() {
-    validate("matrix.yml")
-  })
+    validate("matrix.yml");
+  });
 
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
-    const mainList = schema.definitions.pipelineSteps.items.anyOf
-    const groupList = schema.definitions.groupSteps.items.anyOf
-    expect(mainList.slice(0, -1)).to.eql(groupList)
-    expect(mainList[mainList.length - 1].$ref).to.eql("#/definitions/groupStep")
-  })
+    const mainList = schema.definitions.pipelineSteps.items.anyOf;
+    const groupList = schema.definitions.groupSteps.items.anyOf;
+    expect(mainList.slice(0, -1)).to.eql(groupList);
+    expect(mainList[mainList.length - 1].$ref).to.eql("#/definitions/groupStep");
+  });
 })
