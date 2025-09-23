@@ -209,6 +209,7 @@
     "key": {
       "type": "string",
       "description": "A unique identifier for a step, must not resemble a UUID",
+      "maxLength": 100,
       "examples": ["deploy-staging", "test-integration"],
       "not": {
         "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
@@ -380,6 +381,7 @@
               "key": {
                 "type": "string",
                 "description": "The meta-data key that stores the field's input",
+                "maxLength": 100,
                 "pattern": "^[a-zA-Z0-9-_]+$",
                 "examples": ["release-name"]
               },
@@ -420,6 +422,7 @@
               },
               "key": {
                 "type": "string",
+                "maxLength": 100,
                 "description": "The meta-data key that stores the field's input",
                 "pattern": "^[a-zA-Z0-9-_]+$",
                 "examples": ["release-stream"]
