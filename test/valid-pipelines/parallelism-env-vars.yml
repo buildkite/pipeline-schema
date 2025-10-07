@@ -1,0 +1,16 @@
+steps:
+  # Test parallelism with environment variable
+  - command: "echo 'Testing parallelism with env var'"
+    parallelism: $PARALLELISM
+
+  # Test parallelism with literal value
+  - command: "echo 'Testing parallelism with literal'"
+    parallelism: 5
+
+  # Test mixed usage (parallelism with env var, other properties with literals)
+  - command: "echo 'Testing mixed configuration'"
+    parallelism: $PARALLELISM
+    concurrency: 2
+    concurrency_group: "test-group"
+    timeout_in_minutes: 30
+    priority: 1
