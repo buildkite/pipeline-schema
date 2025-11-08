@@ -520,6 +520,14 @@
       "description": "Whether this step should be skipped. Passing a string provides a reason for skipping this command",
       "examples": [true, false, "My reason"]
     },
+    "secrets": {
+      "type": "array",
+      "description": "A list of secret names to be made available to the build or step as environment variables",
+      "items": {
+        "type": "string"
+      },
+      "examples": [["API_ACCESS_TOKEN"], ["API_KEY", "DATABASE_PASSWORD"]]
+    },
     "softFailObject": {
       "type": "object",
       "properties": {
@@ -1068,6 +1076,9 @@
           "type": "integer",
           "description": "Priority of the job, higher priorities are assigned to agents",
           "examples": [-1, 1]
+        },
+        "secrets": {
+          "$ref": "#/definitions/secrets"
         }
       },
       "additionalProperties": false
@@ -1351,6 +1362,9 @@
     },
     "image": {
       "$ref": "#/definitions/image"
+    },
+    "secrets": {
+      "$ref": "#/definitions/secrets"
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"
