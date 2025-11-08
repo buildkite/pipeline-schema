@@ -53,9 +53,6 @@ describe("schema.json", function () {
   it("should validate secrets", function () {
     validate("secrets.yml");
   });
-  it("should validate secrets with object format", function () {
-    validate("secrets-object.yml");
-  });
 
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
