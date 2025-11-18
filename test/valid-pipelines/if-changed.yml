@@ -1,0 +1,47 @@
+steps:
+  # Always runs
+  - command: "always runs"
+
+  # Single string pattern
+  - command: "only runs when files in foo changed"
+    if_changed: "foo/**"
+
+  # Include/exclude object pattern
+  - command: "only runs when files in foo changed, except for baz"
+    if_changed:
+      include: "foo/**"
+      exclude: "foo/baz"
+
+  # Single string pattern for bar
+  - command: "only runs when files in bar changed"
+    if_changed: "bar/**"
+
+  # Array of patterns
+  - command: "only runs when files in foo or bar changed"
+    if_changed:
+      - "foo/**"
+      - "bar/**"
+
+  # Match all files
+  - command: "only runs when any files changed"
+    if_changed: "**"
+
+  # Complex include/exclude with arrays
+  - command: "runs for api and internal, but not api/docs or internal .py files"
+    if_changed:
+      include:
+        - "api/**"
+        - "internal/**"
+      exclude:
+        - "api/docs/**"
+        - "internal/**.py"
+
+  # Braces pattern
+  - command: "runs for Go-related files"
+    if_changed: "{**.go,go.{mod,sum}}"
+
+  # Include/exclude with single exclude pattern
+  - command: "runs for spec/ but not spec/integration/"
+    if_changed:
+      include: "spec/**"
+      exclude: "spec/integration/**"
