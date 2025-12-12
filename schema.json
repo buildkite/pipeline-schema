@@ -1143,6 +1143,7 @@
         "priority": {
           "type": "integer",
           "description": "Priority of the job, higher priorities are assigned to agents",
+          "maximum": 10,
           "examples": [-1, 1]
         },
         "secrets": {
@@ -1433,6 +1434,12 @@
     },
     "secrets": {
       "$ref": "#/definitions/secrets"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Priority of all jobs in the pipeline, higher priorities are assigned to agents. This applies to all steps that do not have their own priority key set.",
+      "maximum": 10,
+      "examples": [-1, 0, 10]
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"
