@@ -1141,10 +1141,7 @@
           "enum": ["script", "command", "commands"]
         },
         "priority": {
-          "type": "integer",
-          "description": "Priority of the job, higher priorities are assigned to agents",
-          "maximum": 10,
-          "examples": [-1, 1]
+          "$ref": "#/definitions/priority"
         },
         "secrets": {
           "$ref": "#/definitions/secrets"
@@ -1417,6 +1414,11 @@
           { "$ref": "#/definitions/groupStep" }
         ]
       }
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Priority of all jobs in the pipeline, higher priorities are assigned to agents. When set pipeline-wide, it applies to all steps that do not have their own priority key set.",
+      "examples": [-1, 0, 10]
     }
   },
   "properties": {
@@ -1436,10 +1438,7 @@
       "$ref": "#/definitions/secrets"
     },
     "priority": {
-      "type": "integer",
-      "description": "Priority of all jobs in the pipeline, higher priorities are assigned to agents. This applies to all steps that do not have their own priority key set.",
-      "maximum": 10,
-      "examples": [-1, 0, 10]
+      "$ref": "#/definitions/priority"
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"
