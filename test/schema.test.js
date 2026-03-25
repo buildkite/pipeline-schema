@@ -57,6 +57,39 @@ describe("schema.json", function() {
     validate("if-changed.yml");
   });
 
+  it("should reject step keys longer than 100 characters", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", key: "a".repeat(101) }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept step keys up to 100 characters", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", key: "a".repeat(100) }
+      ]
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject step keys with invalid characters", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", key: "has spaces" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function() {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
