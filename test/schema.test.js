@@ -79,17 +79,6 @@ describe("schema.json", function() {
     expect(v(pipeline)).to.eql(true);
   });
 
-  it("should reject step keys with invalid characters", function() {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        { command: "echo hello", key: "has spaces" }
-      ]
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
   it("should verify groupStep.steps uses the same-ish items as root steps", function() {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;

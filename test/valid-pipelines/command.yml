@@ -139,6 +139,9 @@ steps:
     key: important-step
 
   - command: test
+    key: "${STEP_KEY_PREFIX:-important}-step"
+
+  - command: test
     depends_on: depend-on-me
 
   - command: test
