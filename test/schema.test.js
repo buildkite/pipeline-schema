@@ -90,6 +90,17 @@ describe("schema.json", function() {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept step keys with interpolation expressions", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", key: "${TPU_VERSION:-tpu6e}_build_docker" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function() {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
