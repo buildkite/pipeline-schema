@@ -8,9 +8,12 @@
     "ajv": "^6.12.3",
     "chai": "^4.2.0",
     "js-yaml": "^3.13.1",
-    "mocha": "^10.8.2"
+    "mocha": "^11.7.5"
   },
   "devDependencies": {
     "prettier": "3.6.2"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.5"
   }
 }
