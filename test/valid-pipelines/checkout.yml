@@ -1,0 +1,15 @@
+# Test pipeline with checkout at both pipeline and step level
+
+# Pipeline-level checkout applies to every step unless the step overrides it
+checkout:
+  skip: true
+
+steps:
+  - command: echo "inherits pipeline-level checkout.skip"
+
+  - command: echo "step-level override"
+    checkout:
+      skip: false
+
+  - command: echo "step-level only, empty object"
+    checkout: {}
