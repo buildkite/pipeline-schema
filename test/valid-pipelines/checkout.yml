@@ -13,3 +13,7 @@ steps:
 
   - command: echo "step-level only, empty object"
     checkout: {}
+
+  - command: echo "shallow clone"
+    checkout:
+      depth: 10
