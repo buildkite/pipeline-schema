@@ -204,3 +204,14 @@ steps:
 
   - command: test
     if_changed: "*.txt"
+
+  - command: test
+    checkout:
+      skip: true
+
+  - command: test
+    checkout:
+      skip: false
+
+  - command: test
+    checkout: {}
