@@ -204,3 +204,27 @@ steps:
 
   - command: test
     if_changed: "*.txt"
+
+  - command: test
+    checkout:
+      skip: true
+
+  - command: test
+    checkout:
+      skip: false
+
+  - command: test
+    checkout: {}
+
+  - command: test
+    checkout:
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      commit_verification: "warn"
+
+  - command: test
+    checkout:
+      skip: false
+      commit_verification: "strict"
