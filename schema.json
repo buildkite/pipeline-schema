@@ -179,9 +179,14 @@
         "skip": {
           "type": "boolean",
           "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+        },
+        "commit_verification": {
+          "type": "string",
+          "enum": ["strict", "warn"],
+          "description": "Verify that the commit being checked out exists on the expected branch. 'strict' fails the job if the commit is provably not on the branch; infrastructure failures are logged as warnings. 'warn' logs a warning on any verification failure but never fails the job. Omitting this field disables verification."
         }
       },
-      "examples": [{ "skip": true }]
+      "examples": [{ "skip": true }, { "commit_verification": "strict" }]
     },
     "dependsOnList": {
       "type": "array",
