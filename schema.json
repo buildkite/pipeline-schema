@@ -179,9 +179,26 @@
         "skip": {
           "type": "boolean",
           "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+        },
+        "sparse": {
+          "type": "object",
+          "description": "Enable sparse checkout - only check out specified paths (requires git 2.25+, cone mode).",
+          "properties": {
+            "paths": {
+              "type": "array",
+              "description": "List of directory paths to include in the sparse checkout (cone mode)",
+              "items": { "type": "string" },
+              "minItems": 1
+            }
+          },
+          "required": ["paths"],
+          "additionalProperties": false
         }
       },
-      "examples": [{ "skip": true }]
+      "examples": [
+        { "skip": true },
+        { "sparse": { "paths": ["src/", "docs/"] } }
+      ]
     },
     "dependsOnList": {
       "type": "array",
