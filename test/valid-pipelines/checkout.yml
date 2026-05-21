@@ -1,0 +1,9 @@
+checkout:
+  flags:
+    clone: "--depth 1 --single-branch"
+    fetch: "--prune --tags"
+    checkout: "--force"
+    clean: "-fxd"
+
+steps:
+  - command: "echo hello"

@@ -172,6 +172,49 @@
       "description": "Whether to cancel the job as soon as the build is marked as failing",
       "default": false
     },
+    "checkout": {
+      "type": "object",
+      "description": "Configuration for how the agent checks out source code",
+      "properties": {
+        "flags": {
+          "type": "object",
+          "description": "Custom flags passed to git commands during checkout.",
+          "properties": {
+            "clone": {
+              "type": "string",
+              "description": "Flags for the git clone command",
+              "default": "-v",
+              "examples": ["--depth 1 --single-branch"]
+            },
+            "fetch": {
+              "type": "string",
+              "description": "Flags for the git fetch command",
+              "default": "-v --prune",
+              "examples": ["--prune --tags"]
+            },
+            "checkout": {
+              "type": "string",
+              "description": "Flags for the git checkout command",
+              "default": "-f",
+              "examples": ["--force"]
+            },
+            "clean": {
+              "type": "string",
+              "description": "Flags for the git clean command",
+              "default": "-ffxdq",
+              "examples": ["-fxd"]
+            }
+          },
+          "additionalProperties": false,
+          "examples": [
+            { "clone": "--depth 1 --single-branch" },
+            { "fetch": "--prune --tags" },
+            { "clone": "", "fetch": "" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
     "dependsOnList": {
       "type": "array",
       "items": {
@@ -1434,6 +1477,9 @@
     },
     "agents": {
       "$ref": "#/definitions/agents"
+    },
+    "checkout": {
+      "$ref": "#/definitions/checkout"
     },
     "notify": {
       "$ref": "#/definitions/buildNotify"
