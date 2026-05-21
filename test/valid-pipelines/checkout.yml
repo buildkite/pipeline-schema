@@ -13,3 +13,11 @@ steps:
 
   - command: echo "step-level only, empty object"
     checkout: {}
+
+  - command: echo "enable Git LFS"
+    checkout:
+      lfs: true
+
+  - command: echo "disable Git LFS explicitly"
+    checkout:
+      lfs: false
