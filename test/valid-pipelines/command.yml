@@ -215,3 +215,10 @@ steps:
 
   - command: test
     checkout: {}
+
+  - command: test
+    checkout:
+      sparse:
+        paths:
+          - src/
+          - docs/

@@ -13,3 +13,17 @@ steps:
 
   - command: echo "step-level only, empty object"
     checkout: {}
+
+  - command: echo "sparse checkout, single path"
+    checkout:
+      sparse:
+        paths:
+          - src/
+
+  - command: echo "sparse checkout, multiple paths"
+    checkout:
+      sparse:
+        paths:
+          - src/
+          - docs/
+          - test/
