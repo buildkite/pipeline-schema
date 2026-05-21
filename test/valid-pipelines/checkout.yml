@@ -13,3 +13,11 @@ steps:
 
   - command: echo "step-level only, empty object"
     checkout: {}
+
+  - command: echo "disable submodules"
+    checkout:
+      submodules: false
+
+  - command: echo "enable submodules explicitly"
+    checkout:
+      submodules: true

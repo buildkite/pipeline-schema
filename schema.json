@@ -179,9 +179,13 @@
         "skip": {
           "type": "boolean",
           "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+        },
+        "submodules": {
+          "type": "boolean",
+          "description": "Control git submodule checkout. When true (default), runs `git submodule update --init --recursive --force` after checkout. When false, skips submodule processing."
         }
       },
-      "examples": [{ "skip": true }]
+      "examples": [{ "skip": true }, { "submodules": false }]
     },
     "dependsOnList": {
       "type": "array",

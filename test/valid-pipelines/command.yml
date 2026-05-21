@@ -215,3 +215,11 @@ steps:
 
   - command: test
     checkout: {}
+
+  - command: test
+    checkout:
+      submodules: true
+
+  - command: test
+    checkout:
+      submodules: false
