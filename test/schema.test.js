@@ -107,6 +107,15 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject checkout.submodules with a non-boolean value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { submodules: "yes" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
