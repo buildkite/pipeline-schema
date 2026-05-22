@@ -98,6 +98,15 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should accept checkout.skip as a stringified boolean", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { skip: "true" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.skip with a non-boolean value", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -105,6 +114,25 @@ describe("schema.json", function () {
       steps: [{ command: "echo hello", checkout: { skip: "yes" } }],
     };
     expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject pipeline-level checkout.skip with a non-boolean value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { skip: "yes" },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: { command: "echo hello", checkout: { skip: true } } }],
+    };
+    expect(v(pipeline)).to.eql(true);
   });
 
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
