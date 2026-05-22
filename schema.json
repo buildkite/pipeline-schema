@@ -189,7 +189,7 @@
         },
         "submodules": {
           "enum": [true, false, "true", "false"],
-          "description": "Whether to initialize, sync, update, and clean submodules recursively as part of checkout; when false, all submodule operations are skipped",
+          "description": "Initialize, sync, update, and clean submodules recursively as part of checkout",
           "default": true
         },
         "commit_verification": {
