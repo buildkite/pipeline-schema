@@ -174,13 +174,15 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set.",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
         "skip": {
           "enum": [true, false, "true", "false"],
-          "description": "Skip the git checkout phase."
+          "description": "Skip the git checkout phase",
+          "default": false
         }
-      }
+      },
+      "additionalProperties": false
     },
     "dependsOnList": {
       "type": "array",
