@@ -194,7 +194,7 @@
         },
         "flags": {
           "type": "object",
-          "description": "Custom flags passed to git commands during checkout.",
+          "description": "Custom flags passed to git commands during checkout",
           "properties": {
             "clone": {
               "type": "string",
@@ -212,7 +212,7 @@
               "type": "string",
               "description": "Flags for the git checkout command",
               "default": "-f",
-              "examples": ["--force"]
+              "examples": ["-q"]
             },
             "clean": {
               "type": "string",
