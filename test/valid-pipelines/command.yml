@@ -226,6 +226,13 @@ steps:
       skip: false
       commit_verification: "strict"
 
+  - command: test
+    checkout:
+      flags:
+        clone: "--depth 1 --single-branch"
+        fetch: "--prune --tags"
+        clean: "-fxd"
+
   # Agent-applied attributes
 
   - command: test
