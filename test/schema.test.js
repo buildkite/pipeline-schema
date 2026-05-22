@@ -351,6 +351,50 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept step-level checkout.flags", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { flags: { clone: "--depth 1", clean: "" } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.flags on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: {
+            command: "echo hello",
+            checkout: { flags: { fetch: "--prune --tags" } },
+          },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject unknown step-level checkout.flags properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { flags: { submodule: "--init" } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should reject unknown checkout properties", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
