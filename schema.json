@@ -198,8 +198,7 @@
           "enum": ["strict", "warn"]
         }
       },
-      "additionalProperties": false,
-      "examples": [{ "skip": true }, { "submodules": false }]
+      "additionalProperties": false
     },
     "dependsOnList": {
       "type": "array",
