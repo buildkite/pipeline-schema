@@ -29,3 +29,8 @@ steps:
     checkout:
       skip: false
       commit_verification: "strict"
+
+  - command: echo "depth with strict verification"
+    checkout:
+      depth: 10
+      commit_verification: "strict"
