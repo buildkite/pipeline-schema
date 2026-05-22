@@ -194,7 +194,7 @@
         },
         "flags": {
           "type": "object",
-          "description": "Custom flags passed to git commands during checkout",
+          "description": "Custom flags passed to git commands during checkout. Flag strings are passed to git verbatim and are not sanitized; do not interpolate untrusted input. See the agent documentation for precedence and defaults: https://buildkite.com/docs/agent/v3/configuration",
           "properties": {
             "clone": {
               "type": "string",
