@@ -163,6 +163,71 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.depth", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: 10 } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.depth of zero", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: 0 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.depth as a negative integer", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: -1 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.depth as a string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: "10" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.depth as a float", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: 1.5 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept pipeline-level checkout.depth", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { depth: 10 },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject pipeline-level checkout.depth of zero", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { depth: 0 },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;

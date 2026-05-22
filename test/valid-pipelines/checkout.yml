@@ -1,5 +1,6 @@
 checkout:
   skip: true
+  depth: 50
 
 steps:
   - command: test
@@ -10,3 +11,7 @@ steps:
 
   - command: test
     checkout: {}
+
+  - command: test
+    checkout:
+      depth: 10
