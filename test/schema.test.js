@@ -181,11 +181,29 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject checkout.depth as a negative integer", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: -1 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should reject checkout.depth as a string", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { depth: "10" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.depth as a float", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: 1.5 } }],
     };
     expect(v(pipeline)).to.eql(false);
   });
