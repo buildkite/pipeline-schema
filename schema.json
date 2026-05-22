@@ -174,19 +174,20 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set.",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
         "skip": {
-          "type": "boolean",
-          "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+          "enum": [true, false, "true", "false"],
+          "description": "Skip the git checkout phase",
+          "default": false
         },
         "depth": {
           "type": "integer",
           "minimum": 1,
-          "description": "Shallow clone depth. Limits git history to the most recent N commits. Requires git 1.9 or newer."
+          "description": "Shallow clone depth, limits git history to the most recent N commits"
         }
       },
-      "examples": [{ "skip": true }, { "depth": 10 }]
+      "additionalProperties": false
     },
     "dependsOnList": {
       "type": "array",
