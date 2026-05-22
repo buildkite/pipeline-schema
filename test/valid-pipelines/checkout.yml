@@ -1,6 +1,7 @@
 checkout:
   skip: true
   depth: 50
+  commit_verification: "strict"
 
 steps:
   - command: test
@@ -15,3 +16,21 @@ steps:
   - command: test
     checkout:
       depth: 10
+
+  - command: test
+    checkout:
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      commit_verification: "warn"
+
+  - command: test
+    checkout:
+      skip: false
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      depth: 10
+      commit_verification: "strict"

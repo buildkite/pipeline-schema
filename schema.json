@@ -186,6 +186,11 @@
           "enum": [true, false, "true", "false"],
           "description": "Skip the git checkout phase",
           "default": false
+        },
+        "commit_verification": {
+          "type": "string",
+          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive mismatch, warn only logs",
+          "enum": ["strict", "warn"]
         }
       },
       "additionalProperties": false
