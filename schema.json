@@ -176,15 +176,16 @@
       "type": "object",
       "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
+        "depth": {
+          "type": "integer",
+          "description": "Number of commits to fetch when performing a shallow clone; omit for full history",
+          "minimum": 1,
+          "examples": [1]
+        },
         "skip": {
           "enum": [true, false, "true", "false"],
           "description": "Skip the git checkout phase",
           "default": false
-        },
-        "depth": {
-          "type": "integer",
-          "minimum": 1,
-          "description": "Shallow clone depth, limits git history to the most recent N commits"
         }
       },
       "additionalProperties": false
