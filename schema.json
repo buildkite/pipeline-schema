@@ -172,6 +172,18 @@
       "description": "Whether to cancel the job as soon as the build is marked as failing",
       "default": false
     },
+    "checkout": {
+      "type": "object",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
+      "properties": {
+        "skip": {
+          "enum": [true, false, "true", "false"],
+          "description": "Skip the git checkout phase",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
     "dependsOnList": {
       "type": "array",
       "items": {
@@ -1026,6 +1038,9 @@
         "cancel_on_build_failing": {
           "$ref": "#/definitions/cancelOnBuildFailing"
         },
+        "checkout": {
+          "$ref": "#/definitions/checkout"
+        },
         "command": {
           "$ref": "#/definitions/commandStepCommand"
         },
@@ -1446,6 +1461,9 @@
     },
     "priority": {
       "$ref": "#/definitions/priority"
+    },
+    "checkout": {
+      "$ref": "#/definitions/checkout"
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"

@@ -200,6 +200,19 @@ steps:
   - command: use cache
     cache: "dist/"
 
+  # Checkout configuration
+
+  - command: test
+    checkout:
+      skip: true
+
+  - command: test
+    checkout:
+      skip: false
+
+  - command: test
+    checkout: {}
+
   # Agent-applied attributes
 
   - command: test

@@ -1,0 +1,12 @@
+checkout:
+  skip: true
+
+steps:
+  - command: test
+
+  - command: test
+    checkout:
+      skip: false
+
+  - command: test
+    checkout: {}
