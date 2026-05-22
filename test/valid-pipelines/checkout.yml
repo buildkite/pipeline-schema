@@ -1,19 +1,21 @@
-# Test pipeline with checkout at both pipeline and step level
-
-# Pipeline-level checkout applies to every step unless the step overrides it
 checkout:
   skip: true
+  depth: 50
   commit_verification: "strict"
 
 steps:
-  - command: echo "inherits pipeline-level checkout.skip"
+  - command: test
 
-  - command: echo "step-level override"
+  - command: test
     checkout:
       skip: false
 
-  - command: echo "step-level only, empty object"
+  - command: test
     checkout: {}
+
+  - command: test
+    checkout:
+      depth: 10
 
   - command: echo "commit verification strict"
     checkout:

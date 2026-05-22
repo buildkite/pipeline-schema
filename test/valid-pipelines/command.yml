@@ -200,10 +200,7 @@ steps:
   - command: use cache
     cache: "dist/"
 
-  # Agent-applied attributes
-
-  - command: test
-    if_changed: "*.txt"
+  # Checkout configuration
 
   - command: test
     checkout:
@@ -228,3 +225,8 @@ steps:
     checkout:
       skip: false
       commit_verification: "strict"
+
+  # Agent-applied attributes
+
+  - command: test
+    if_changed: "*.txt"

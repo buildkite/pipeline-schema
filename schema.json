@@ -174,11 +174,18 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set.",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
+        "depth": {
+          "type": "integer",
+          "description": "Number of commits to fetch when performing a shallow clone; omit for full history",
+          "minimum": 1,
+          "examples": [1]
+        },
         "skip": {
-          "type": "boolean",
-          "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+          "enum": [true, false, "true", "false"],
+          "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true.",
+          "default": false
         },
         "commit_verification": {
           "type": "string",
@@ -186,7 +193,7 @@
           "description": "Verify that the commit being checked out exists on the expected branch. 'strict' fails the job if the commit is provably not on the branch; infrastructure failures are logged as warnings. 'warn' logs a warning on any verification failure but never fails the job. Omitting this field disables verification."
         }
       },
-      "examples": [{ "skip": true }, { "commit_verification": "strict" }]
+      "additionalProperties": false
     },
     "dependsOnList": {
       "type": "array",
