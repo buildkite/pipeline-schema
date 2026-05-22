@@ -189,8 +189,8 @@
         },
         "commit_verification": {
           "type": "string",
-          "enum": ["strict", "warn"],
-          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive verification failure, warn only logs"
+          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive verification failure, warn only logs",
+          "enum": ["strict", "warn"]
         }
       },
       "additionalProperties": false
