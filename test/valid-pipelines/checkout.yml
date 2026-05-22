@@ -1,6 +1,7 @@
 checkout:
   skip: true
   depth: 50
+  submodules: false
   commit_verification: "strict"
 
 steps:
@@ -37,8 +38,14 @@ steps:
 
   - command: test
     checkout:
+      submodules: true
+
+  - command: test
+    checkout:
       submodules: false
 
   - command: test
     checkout:
       submodules: true
+      depth: 10
+      commit_verification: "strict"
