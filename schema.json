@@ -184,7 +184,8 @@
         },
         "skip": {
           "enum": [true, false, "true", "false"],
-          "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+          "description": "Skip the git checkout phase",
+          "default": false
         },
         "submodules": {
           "enum": [true, false, "true", "false"],
