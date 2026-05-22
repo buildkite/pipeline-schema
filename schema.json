@@ -177,11 +177,10 @@
       "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set.",
       "properties": {
         "skip": {
-          "type": "boolean",
-          "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
+          "enum": [true, false, "true", "false"],
+          "description": "Skip the git checkout phase."
         }
-      },
-      "examples": [{ "skip": true }]
+      }
     },
     "dependsOnList": {
       "type": "array",
