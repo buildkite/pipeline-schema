@@ -1497,9 +1497,6 @@
     "agents": {
       "$ref": "#/definitions/agents"
     },
-    "checkout": {
-      "$ref": "#/definitions/checkout"
-    },
     "notify": {
       "$ref": "#/definitions/buildNotify"
     },
