@@ -188,7 +188,8 @@
         },
         "submodules": {
           "enum": [true, false, "true", "false"],
-          "description": "Control git submodule checkout. When true (default), runs `git submodule update --init --recursive --force` after checkout. When false, skips submodule processing."
+          "description": "Whether to initialize, sync, update, and clean submodules recursively as part of checkout; when false, all submodule operations are skipped",
+          "default": true
         },
         "commit_verification": {
           "type": "string",
