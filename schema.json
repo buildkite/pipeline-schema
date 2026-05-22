@@ -174,8 +174,24 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configuration for how the agent checks out source code",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
+        "depth": {
+          "type": "integer",
+          "description": "Number of commits to fetch when performing a shallow clone; omit for full history",
+          "minimum": 1,
+          "examples": [1]
+        },
+        "skip": {
+          "enum": [true, false, "true", "false"],
+          "description": "Skip the git checkout phase",
+          "default": false
+        },
+        "commit_verification": {
+          "type": "string",
+          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive mismatch, warn only logs",
+          "enum": ["strict", "warn"]
+        },
         "flags": {
           "type": "object",
           "description": "Custom flags passed to git commands during checkout.",
@@ -1069,6 +1085,9 @@
         "cancel_on_build_failing": {
           "$ref": "#/definitions/cancelOnBuildFailing"
         },
+        "checkout": {
+          "$ref": "#/definitions/checkout"
+        },
         "command": {
           "$ref": "#/definitions/commandStepCommand"
         },
@@ -1492,6 +1511,9 @@
     },
     "priority": {
       "$ref": "#/definitions/priority"
+    },
+    "checkout": {
+      "$ref": "#/definitions/checkout"
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"
