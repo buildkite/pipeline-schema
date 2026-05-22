@@ -116,11 +116,40 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.submodules as a stringified boolean", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { submodules: "false" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.submodules with a non-boolean value", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { submodules: "yes" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept pipeline-level checkout.submodules", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { submodules: false },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject pipeline-level checkout.submodules with a non-boolean value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { submodules: "yes" },
+      steps: [{ command: "echo hello" }],
     };
     expect(v(pipeline)).to.eql(false);
   });
