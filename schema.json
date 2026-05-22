@@ -174,17 +174,29 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set.",
+      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
       "properties": {
+        "depth": {
+          "type": "integer",
+          "description": "Number of commits to fetch when performing a shallow clone; omit for full history",
+          "minimum": 1,
+          "examples": [1]
+        },
         "skip": {
-          "type": "boolean",
+          "enum": [true, false, "true", "false"],
           "description": "Skip the git checkout phase. An explicit false is preserved and is not equivalent to omitting the field; at pipeline level, false re-enables checkout for steps that would otherwise inherit a pipeline-level true."
         },
         "submodules": {
-          "type": "boolean",
+          "enum": [true, false, "true", "false"],
           "description": "Control git submodule checkout. When true (default), runs `git submodule update --init --recursive --force` after checkout. When false, skips submodule processing."
+        },
+        "commit_verification": {
+          "type": "string",
+          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive mismatch, warn only logs",
+          "enum": ["strict", "warn"]
         }
       },
+      "additionalProperties": false,
       "examples": [{ "skip": true }, { "submodules": false }]
     },
     "dependsOnList": {
