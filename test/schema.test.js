@@ -163,6 +163,15 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.depth", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: 10 } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.depth of zero", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -177,6 +186,26 @@ describe("schema.json", function () {
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { depth: "10" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept pipeline-level checkout.depth", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { depth: 10 },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject pipeline-level checkout.depth of zero", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { depth: 0 },
+      steps: [{ command: "echo hello" }],
     };
     expect(v(pipeline)).to.eql(false);
   });
