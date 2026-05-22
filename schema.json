@@ -190,7 +190,7 @@
         "commit_verification": {
           "type": "string",
           "enum": ["strict", "warn"],
-          "description": "Verify that the commit being checked out exists on the expected branch. 'strict' fails the job if the commit is provably not on the branch; infrastructure failures are logged as warnings. 'warn' logs a warning on any verification failure but never fails the job. Omitting this field disables verification."
+          "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive verification failure, warn only logs"
         }
       },
       "additionalProperties": false
