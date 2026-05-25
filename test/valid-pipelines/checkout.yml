@@ -2,6 +2,11 @@ checkout:
   skip: true
   depth: 50
   commit_verification: "strict"
+  flags:
+    clone: "--depth 1 --single-branch"
+    fetch: "--prune --tags"
+    checkout: "--force"
+    clean: "-fxd"
 
 steps:
   - command: test
@@ -34,3 +39,9 @@ steps:
     checkout:
       depth: 10
       commit_verification: "strict"
+
+  - command: test
+    checkout:
+      flags:
+        clone: "--depth 1"
+        clean: ""
