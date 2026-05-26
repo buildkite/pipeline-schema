@@ -229,8 +229,9 @@
           ]
         },
         "lfs": {
-          "type": "boolean",
-          "description": "Enable Git LFS support. When true, runs `git lfs install --local` and `git lfs pull` after checkout."
+          "enum": [true, false, "true", "false"],
+          "description": "Whether to install Git LFS and fetch LFS objects after checkout",
+          "default": false
         }
       },
       "additionalProperties": false
