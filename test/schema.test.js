@@ -339,6 +339,127 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.flags with a subset of properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { flags: { clone: "--depth 1" } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept empty string checkout.flags values", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { flags: { clone: "", fetch: "" } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject unknown checkout.flags properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { flags: { submodule: "--init" } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject non-string checkout.flags values", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { flags: { clone: ["--depth", "1"] } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject non-object checkout.flags", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { flags: "--depth 1" },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept step-level checkout.flags", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { flags: { clone: "--depth 1", clean: "" } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.flags on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: {
+            command: "echo hello",
+            checkout: { flags: { fetch: "--prune --tags" } },
+          },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject unknown step-level checkout.flags properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { flags: { submodule: "--init" } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject unknown checkout properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { strategy: "shallow" },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should validate checkout.flags examples against the schema", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const flagsSchema = schema.definitions.checkout.properties.flags;
+    const v = ajv.compile(flagsSchema);
+    for (const example of flagsSchema.examples) {
+      expect(v(example), JSON.stringify(example)).to.eql(true);
+    }
+    for (const [key, subSchema] of Object.entries(flagsSchema.properties)) {
+      const vSub = ajv.compile(subSchema);
+      for (const example of subSchema.examples || []) {
+        expect(vSub(example), `${key}: ${JSON.stringify(example)}`).to.eql(
+          true,
+        );
+      }
+    }
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
