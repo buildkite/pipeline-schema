@@ -1,26 +1,58 @@
-# Test pipeline with checkout at both pipeline and step level
-
-# Pipeline-level checkout applies to every step unless the step overrides it
 checkout:
   skip: true
+  depth: 50
+  commit_verification: "strict"
+  flags:
+    clone: "--depth 1 --single-branch"
+    fetch: "--prune --tags"
+    checkout: "--force"
+    clean: "-fxd"
 
 steps:
-  - command: echo "inherits pipeline-level checkout.skip"
+  - command: test
 
-  - command: echo "step-level override"
+  - command: test
     checkout:
       skip: false
 
-  - command: echo "step-level only, empty object"
+  - command: test
     checkout: {}
 
-  - command: echo "sparse checkout, single path"
+  - command: test
+    checkout:
+      depth: 10
+
+  - command: test
+    checkout:
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      commit_verification: "warn"
+
+  - command: test
+    checkout:
+      skip: false
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      depth: 10
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      flags:
+        clone: "--depth 1"
+        clean: ""
+
+  - command: test
     checkout:
       sparse:
         paths:
           - src/
 
-  - command: echo "sparse checkout, multiple paths"
+  - command: test
     checkout:
       sparse:
         paths:
