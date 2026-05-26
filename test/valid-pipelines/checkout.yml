@@ -7,6 +7,10 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
+  sparse:
+    paths:
+      - .buildkite/
+      - src/
 
 steps:
   - command: test

@@ -189,12 +189,16 @@
         },
         "sparse": {
           "type": "object",
-          "description": "Enable sparse checkout, only check out specified paths (requires git 2.25+, cone mode)",
+          "description": "Check out only the specified paths (cone mode, requires git 2.26+)",
           "properties": {
             "paths": {
               "type": "array",
-              "description": "List of directory paths to include in the sparse checkout (cone mode)",
-              "items": { "type": "string" },
+              "description": "Repository-relative directory paths within the worktree",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[^,\\n\\r]+$"
+              },
               "minItems": 1
             }
           },
