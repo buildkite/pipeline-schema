@@ -519,19 +519,26 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should validate checkout.flags examples against the schema", function () {
+  it("should validate checkout examples against the schema", function () {
     const ajv = new Ajv({ allErrors: true });
-    const flagsSchema = schema.definitions.checkout.properties.flags;
-    const v = ajv.compile(flagsSchema);
-    for (const example of flagsSchema.examples) {
-      expect(v(example), JSON.stringify(example)).to.eql(true);
-    }
-    for (const [key, subSchema] of Object.entries(flagsSchema.properties)) {
-      const vSub = ajv.compile(subSchema);
+    const checkoutProperties = schema.definitions.checkout.properties;
+    for (const [key, subSchema] of Object.entries(checkoutProperties)) {
+      const v = ajv.compile(subSchema);
       for (const example of subSchema.examples || []) {
-        expect(vSub(example), `${key}: ${JSON.stringify(example)}`).to.eql(
-          true,
-        );
+        expect(v(example), `${key}: ${JSON.stringify(example)}`).to.eql(true);
+      }
+      if (subSchema.properties) {
+        for (const [nestedKey, nestedSchema] of Object.entries(
+          subSchema.properties,
+        )) {
+          const vNested = ajv.compile(nestedSchema);
+          for (const example of nestedSchema.examples || []) {
+            expect(
+              vNested(example),
+              `${key}.${nestedKey}: ${JSON.stringify(example)}`,
+            ).to.eql(true);
+          }
+        }
       }
     }
   });
