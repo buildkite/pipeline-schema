@@ -227,6 +227,12 @@
             { "fetch": "--prune --tags" },
             { "clone": "", "fetch": "" }
           ]
+        },
+        "ssh_secret": {
+          "type": "string",
+          "description": "Name of SSH private key secret from Buildkite Secrets to use for git clone/fetch operations. The secret must contain a valid SSH private key. The key will be written to a temporary file with 0400 permissions and removed after checkout completes.",
+          "minLength": 1,
+          "examples": ["deploy-key", "github-readonly", "bitbucket-ssh-key"]
         }
       },
       "additionalProperties": false
