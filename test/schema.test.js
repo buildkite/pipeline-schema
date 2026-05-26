@@ -228,6 +228,76 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "github-readonly" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret with an empty string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.ssh_secret with other checkout properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { ssh_secret: "github-readonly", depth: 10 },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should validate special characters in checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { ssh_secret: "my-secret_with.special-characters" },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should validate numeric names in checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "1234567890" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should validate very long names in checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "a".repeat(255) } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should accept checkout.commit_verification with 'strict'", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);

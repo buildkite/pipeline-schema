@@ -33,15 +33,20 @@ steps:
   - command: test
     checkout:
       skip: false
-      commit_verification: "strict"
+      commit_verification: "strict" 
 
   - command: test
     checkout:
       depth: 10
       commit_verification: "strict"
+      ssh_secret: "github-readonly"
 
   - command: test
     checkout:
       flags:
         clone: "--depth 1"
         clean: ""
+
+  - command: test
+    checkout:
+      ssh_secret: "github-readonly"
