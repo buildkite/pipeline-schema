@@ -200,10 +200,7 @@ steps:
   - command: use cache
     cache: "dist/"
 
-  # Agent-applied attributes
-
-  - command: test
-    if_changed: "*.txt"
+  # Checkout configuration
 
   - command: test
     checkout:
@@ -218,8 +215,33 @@ steps:
 
   - command: test
     checkout:
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      commit_verification: "warn"
+
+  - command: test
+    checkout:
+      skip: false
+      commit_verification: "strict"
+
+  - command: test
+    checkout:
+      flags:
+        clone: "--depth 1 --single-branch"
+        fetch: "--prune --tags"
+        clean: "-fxd"
+
+  - command: test
+    checkout:
       lfs: true
 
   - command: test
     checkout:
       lfs: false
+
+  # Agent-applied attributes
+
+  - command: test
+    if_changed: "*.txt"
