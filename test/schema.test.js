@@ -239,6 +239,16 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should accept pipeline-level checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { ssh_secret: "github_readonly" },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.ssh_secret with an empty string", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -389,7 +399,7 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
-  it("should validate numeric names in checkout.ssh_secret", function () {
+  it("should reject numeric names in checkout.ssh_secret", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
@@ -397,10 +407,41 @@ describe("schema.json", function () {
         { command: "echo hello", checkout: { ssh_secret: "1234567890" } },
       ],
     };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with a digit", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "1deploy_key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with an underscore", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "_deploy_key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.ssh_secret with digits after the leading letter", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "key_2024" } }],
+    };
     expect(v(pipeline)).to.eql(true);
   });
 
-  it("should validate very long names in checkout.ssh_secret", function () {
+  it("should accept checkout.ssh_secret at the 255-character maxLength", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
@@ -409,6 +450,17 @@ describe("schema.json", function () {
       ],
     };
     expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret exceeding the 255-character maxLength", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "a".repeat(256) } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
   });
 
   it("should accept checkout.commit_verification with 'strict'", function () {
