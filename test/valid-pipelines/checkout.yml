@@ -33,13 +33,13 @@ steps:
   - command: test
     checkout:
       skip: false
-      commit_verification: "strict" 
+      commit_verification: "strict"
 
   - command: test
     checkout:
       depth: 10
       commit_verification: "strict"
-      ssh_secret: "github-readonly"
+      ssh_secret: "github_readonly"
 
   - command: test
     checkout:
@@ -49,4 +49,4 @@ steps:
 
   - command: test
     checkout:
-      ssh_secret: "github-readonly"
+      ssh_secret: "github_readonly"
