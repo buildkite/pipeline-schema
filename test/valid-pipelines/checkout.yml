@@ -7,6 +7,7 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
+  ssh_secret: "github_readonly"
 
 steps:
   - command: test
