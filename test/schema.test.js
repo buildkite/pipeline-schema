@@ -399,17 +399,6 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
-  it("should reject numeric names in checkout.ssh_secret", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        { command: "echo hello", checkout: { ssh_secret: "1234567890" } },
-      ],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
   it("should reject checkout.ssh_secret starting with a digit", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
