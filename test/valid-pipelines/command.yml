@@ -228,6 +228,14 @@ steps:
 
   - command: test
     checkout:
+      submodules: true
+
+  - command: test
+    checkout:
+      submodules: false
+
+  - command: test
+    checkout:
       flags:
         clone: "--depth 1 --single-branch"
         fetch: "--prune --tags"
@@ -239,6 +247,14 @@ steps:
         paths:
           - src/
           - docs/
+
+  - command: test
+    checkout:
+      lfs: true
+
+  - command: test
+    checkout:
+      lfs: false
 
   # Agent-applied attributes
 
