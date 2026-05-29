@@ -241,6 +241,14 @@ steps:
         fetch: "--prune --tags"
         clean: "-fxd"
 
+  - command: test
+    checkout:
+      lfs: true
+
+  - command: test
+    checkout:
+      lfs: false
+
   # Agent-applied attributes
 
   - command: test

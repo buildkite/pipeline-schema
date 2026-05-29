@@ -232,6 +232,11 @@
             { "fetch": "--prune --tags" },
             { "clone": "", "fetch": "" }
           ]
+        },
+        "lfs": {
+          "enum": [true, false, "true", "false"],
+          "description": "Whether to install Git LFS and fetch LFS objects after checkout",
+          "default": false
         }
       },
       "additionalProperties": false

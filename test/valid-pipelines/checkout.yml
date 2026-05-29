@@ -8,6 +8,7 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
+  lfs: true
 
 steps:
   - command: test
@@ -54,3 +55,11 @@ steps:
       flags:
         clone: "--depth 1"
         clean: ""
+
+  - command: test
+    checkout:
+      lfs: true
+
+  - command: test
+    checkout:
+      lfs: false

@@ -471,6 +471,40 @@ describe("schema.json", function () {
     }
   });
 
+  it("should accept step-level checkout.lfs", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { lfs: true } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.lfs on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: {
+            command: "echo hello",
+            checkout: { lfs: false },
+          },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.lfs with a non-boolean value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { lfs: "yes" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
