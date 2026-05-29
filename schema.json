@@ -187,25 +187,6 @@
           "description": "Skip the git checkout phase",
           "default": false
         },
-        "sparse": {
-          "type": "object",
-          "description": "Check out only the specified paths (cone mode, requires git 2.26+)",
-          "properties": {
-            "paths": {
-              "type": "array",
-              "description": "Repository-relative directory paths within the worktree",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^[^,\\n\\r]+$"
-              },
-              "minItems": 1
-            }
-          },
-          "required": ["paths"],
-          "additionalProperties": false,
-          "examples": [{ "paths": ["src/", "docs/"] }]
-        },
         "submodules": {
           "enum": [true, false, "true", "false"],
           "description": "Initialize, sync, update, and clean submodules recursively as part of checkout",
@@ -256,6 +237,26 @@
           "enum": [true, false, "true", "false"],
           "description": "Whether to install Git LFS and fetch LFS objects after checkout",
           "default": false
+        },
+        "sparse": {
+          "type": "object",
+          "description": "Check out only the specified paths in git cone mode; requires git 2.26+ on the agent",
+          "properties": {
+            "paths": {
+              "type": "array",
+              "description": "Repository-relative directory paths within the worktree; cone mode includes each directory recursively, not file globs",
+              "items": {
+                "type": "string",
+                "pattern": "^[^-\\s,]([^,\\n\\r]*[^\\s,])?$"
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "examples": [["src/", "docs/"]]
+            }
+          },
+          "required": ["paths"],
+          "additionalProperties": false,
+          "examples": [{ "paths": ["src/", "docs/"] }]
         }
       },
       "additionalProperties": false
