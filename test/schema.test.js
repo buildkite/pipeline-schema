@@ -154,6 +154,17 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.submodules on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: { command: "echo hello", checkout: { submodules: true } } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject pipeline-level checkout.skip with a non-boolean value", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);

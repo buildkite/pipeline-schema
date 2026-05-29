@@ -51,12 +51,6 @@ steps:
 
   - command: test
     checkout:
-      submodules: true
-      depth: 10
-      commit_verification: "strict"
-
-  - command: test
-    checkout:
       flags:
         clone: "--depth 1"
         clean: ""
