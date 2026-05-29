@@ -612,6 +612,20 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject checkout.sparse with whitespace-only path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["   "] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should reject checkout.sparse with commas in path items", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
