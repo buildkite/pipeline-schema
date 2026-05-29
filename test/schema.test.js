@@ -212,120 +212,6 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should reject checkout.sparse without paths", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [{ command: "echo hello", checkout: { sparse: {} } }],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should reject checkout.sparse with an empty paths array", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [{ command: "echo hello", checkout: { sparse: { paths: [] } } }],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should reject checkout.sparse with non-string path items", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [{ command: "echo hello", checkout: { sparse: { paths: [42] } } }],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should reject checkout.sparse with empty-string path items", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [{ command: "echo hello", checkout: { sparse: { paths: [""] } } }],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should reject checkout.sparse with commas in path items", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        {
-          command: "echo hello",
-          checkout: { sparse: { paths: ["src,docs"] } },
-        },
-      ],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should accept checkout.sparse with paths", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        {
-          command: "echo hello",
-          checkout: { sparse: { paths: ["src/", "docs/"] } },
-        },
-      ],
-    };
-    expect(v(pipeline)).to.eql(true);
-  });
-
-  it("should accept pipeline-level checkout.sparse", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      checkout: { sparse: { paths: ["src/"] } },
-      steps: [{ command: "echo hello" }],
-    };
-    expect(v(pipeline)).to.eql(true);
-  });
-
-  it("should reject pipeline-level checkout.sparse without paths", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      checkout: { sparse: {} },
-      steps: [{ command: "echo hello" }],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
-  it("should accept checkout.sparse on a nested command step", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        {
-          command: {
-            command: "echo hello",
-            checkout: { sparse: { paths: ["src/"] } },
-          },
-        },
-      ],
-    };
-    expect(v(pipeline)).to.eql(true);
-  });
-
-  it("should reject unknown checkout.sparse properties", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        {
-          command: "echo hello",
-          checkout: { sparse: { paths: ["src/"], mode: "no-cone" } },
-        },
-      ],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
   it("should accept checkout.depth", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -622,6 +508,226 @@ describe("schema.json", function () {
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { lfs: "yes" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse without paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: {} } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject non-object checkout.sparse", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: "src/" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with an empty paths array", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with a non-array paths value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { sparse: { paths: "src/" } } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with non-string path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [42] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with empty-string path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [""] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with leading-dash path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["--no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  // The agent trims surrounding whitespace before passing paths to git, so a
+  // leading space would let a "-flag" slip past the leading-dash guard.
+  it("should reject checkout.sparse with leading-whitespace path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: [" --no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with trailing-whitespace path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/ "] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with commas in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src,docs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with newlines in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\ndocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with carriage returns in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\rdocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with duplicate path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/", "src/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.sparse with paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/", "docs/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept pipeline-level checkout.sparse", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { sparse: { paths: ["src/"] } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject pipeline-level checkout.sparse without paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { sparse: {} },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.sparse on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: {
+            command: "echo hello",
+            checkout: { sparse: { paths: ["src/"] } },
+          },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject unknown checkout.sparse properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/"], unknown: true } },
+        },
+      ],
     };
     expect(v(pipeline)).to.eql(false);
   });
