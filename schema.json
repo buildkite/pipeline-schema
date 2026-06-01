@@ -258,7 +258,10 @@
               "description": "Repository-relative directory paths within the worktree; cone mode includes each directory recursively, not file globs",
               "items": {
                 "type": "string",
-                "pattern": "^[^-\\s,]([^,\\n\\r]*[^\\s,])?$"
+                "pattern": "^[^,\\t\\n\\v\\f\\r]+$",
+                "not": {
+                  "pattern": "^[- ]| $"
+                }
               },
               "minItems": 1,
               "uniqueItems": true,
