@@ -187,6 +187,11 @@
           "description": "Skip the git checkout phase",
           "default": false
         },
+        "submodules": {
+          "enum": [true, false, "true", "false"],
+          "description": "Initialize, sync, update, and clean submodules recursively as part of checkout",
+          "default": true
+        },
         "commit_verification": {
           "type": "string",
           "description": "Verify the checked-out commit is on the expected branch; strict fails the job on a definitive mismatch, warn only logs",
@@ -235,6 +240,11 @@
           "maxLength": 255,
           "pattern": "^(?![Bb][Uu][Ii][Ll][Dd][Kk][Ii][Tt][Ee])(?![Bb][Kk])[A-Za-z][A-Za-z0-9_]*$",
           "examples": ["deploy_key", "github_readonly", "bitbucket_ssh_key"]
+        },
+        "lfs": {
+          "enum": [true, false, "true", "false"],
+          "description": "Whether to install Git LFS and fetch LFS objects after checkout",
+          "default": false
         }
       },
       "additionalProperties": false

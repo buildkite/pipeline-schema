@@ -1,6 +1,7 @@
 checkout:
   skip: true
   depth: 50
+  submodules: false
   commit_verification: "strict"
   flags:
     clone: "--depth 1 --single-branch"
@@ -8,6 +9,7 @@ checkout:
     checkout: "--force"
     clean: "-fxd"
   ssh_secret: "github_readonly"
+  lfs: true
 
 steps:
   - command: test
@@ -44,6 +46,14 @@ steps:
 
   - command: test
     checkout:
+      submodules: true
+
+  - command: test
+    checkout:
+      submodules: false
+
+  - command: test
+    checkout:
       flags:
         clone: "--depth 1"
         clean: ""
@@ -51,3 +61,11 @@ steps:
   - command: test
     checkout:
       ssh_secret: "github_readonly"
+
+  - command: test
+    checkout:
+      lfs: true
+
+  - command: test
+    checkout:
+      lfs: false
