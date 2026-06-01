@@ -854,20 +854,6 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should reject checkout.sparse with whitespace-only path items", function () {
-    const ajv = new Ajv({ allErrors: true });
-    const v = ajv.compile(schema);
-    const pipeline = {
-      steps: [
-        {
-          command: "echo hello",
-          checkout: { sparse: { paths: ["   "] } },
-        },
-      ],
-    };
-    expect(v(pipeline)).to.eql(false);
-  });
-
   it("should reject checkout.sparse with commas in path items", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -910,6 +896,23 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  // Control whitespace is banned everywhere, not just at the edges: the agent
+  // trims with Go's unicode.IsSpace (which strips tab/VT/FF), so an internal
+  // tab is never a real directory name and could mask a "-flag" once trimmed.
+  it("should reject checkout.sparse with tab characters in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\tdocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should reject checkout.sparse with duplicate path items", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -932,6 +935,20 @@ describe("schema.json", function () {
         {
           command: "echo hello",
           checkout: { sparse: { paths: ["src/", "docs/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.sparse with internal spaces in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["my dir/"] } },
         },
       ],
     };
@@ -1009,6 +1026,29 @@ describe("schema.json", function () {
         for (const [key, value] of Object.entries(node)) {
           if (key === "pattern" && typeof value === "string") {
             if (lookaround.test(value)) offending.push(value);
+          }
+          walk(value);
+        }
+      }
+    };
+    walk(schema);
+    expect(offending).to.eql([]);
+  });
+
+  // RE2's \s is only [\t\n\f\r ], but ajv's (ECMA) \s also matches \v and many
+  // Unicode spaces, so a \s in a pattern validates differently across the two
+  // engines. Use explicit character classes instead. (\d, \w and friends are
+  // ASCII in both engines, so only \s/\S diverge.)
+  it("should not use \\s or \\S in any pattern", function () {
+    const divergentClass = /\\[sS]/;
+    const offending = [];
+    const walk = (node) => {
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+      } else if (node && typeof node === "object") {
+        for (const [key, value] of Object.entries(node)) {
+          if (key === "pattern" && typeof value === "string") {
+            if (divergentClass.test(value)) offending.push(value);
           }
           walk(value);
         }
