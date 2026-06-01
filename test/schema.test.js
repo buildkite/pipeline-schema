@@ -277,6 +277,248 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should accept checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "github_readonly" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept pipeline-level checkout.ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { ssh_secret: "github_readonly" },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret with an empty string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.ssh_secret with other checkout properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { ssh_secret: "github_readonly", depth: 10 },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.ssh_secret with underscores", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "my_ssh_key_123" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret containing dashes", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "deploy-key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret containing dots", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "deploy.key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret containing spaces", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "deploy key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'buildkite'", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "buildkite_key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'BUILDKITE' (uppercase)", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "BUILDKITE_KEY" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'Buildkite' (mixed case)", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "Buildkite_thing" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'bk'", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "bk_key" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'BK' (uppercase)", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "BK_secret" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with 'Bk' (mixed case)", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "Bk_thing" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.ssh_secret containing 'bk' not as a prefix", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "my_bk_key" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.ssh_secret containing 'buildkite' not as a prefix", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { ssh_secret: "my_buildkite_thing" },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret starting with a digit", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "1deploy_key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret starting with an underscore", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "_deploy_key" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.ssh_secret with digits after the leading letter", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: "key_2024" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.ssh_secret at the 255-character maxLength", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "a".repeat(255) } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.ssh_secret exceeding the 255-character maxLength", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "a".repeat(256) } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.ssh_secret with a non-string value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: 123 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should validate checkout.ssh_secret examples against the schema", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const sshSecretSchema = schema.definitions.checkout.properties.ssh_secret;
+    const v = ajv.compile(sshSecretSchema);
+    for (const example of sshSecretSchema.examples) {
+      expect(v(example), JSON.stringify(example)).to.eql(true);
+    }
+  });
+
   it("should accept checkout.commit_verification with 'strict'", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -512,5 +754,26 @@ describe("schema.json", function () {
     expect(mainList[mainList.length - 1].$ref).to.eql(
       "#/definitions/groupStep",
     );
+  });
+
+  // Buildkite's schema checker uses Go's regexp (RE2), which rejects lookaround.
+  // ajv (used here) accepts it, so guard against reintroducing patterns RE2 can't compile.
+  it("should not use regex lookaround in any pattern", function () {
+    const lookaround = /\(\?(=|!|<=|<!)/;
+    const offending = [];
+    const walk = (node) => {
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+      } else if (node && typeof node === "object") {
+        for (const [key, value] of Object.entries(node)) {
+          if (key === "pattern" && typeof value === "string") {
+            if (lookaround.test(value)) offending.push(value);
+          }
+          walk(value);
+        }
+      }
+    };
+    walk(schema);
+    expect(offending).to.eql([]);
   });
 });

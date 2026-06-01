@@ -8,6 +8,7 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
+  ssh_secret: "github_readonly"
   lfs: true
 
 steps:
@@ -41,6 +42,7 @@ steps:
     checkout:
       depth: 10
       commit_verification: "strict"
+      ssh_secret: "github_readonly"
 
   - command: test
     checkout:
@@ -55,6 +57,10 @@ steps:
       flags:
         clone: "--depth 1"
         clean: ""
+
+  - command: test
+    checkout:
+      ssh_secret: "github_readonly"
 
   - command: test
     checkout:
