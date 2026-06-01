@@ -501,6 +501,24 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject checkout.ssh_secret with a non-string value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { ssh_secret: 123 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should validate checkout.ssh_secret examples against the schema", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const sshSecretSchema = schema.definitions.checkout.properties.ssh_secret;
+    const v = ajv.compile(sshSecretSchema);
+    for (const example of sshSecretSchema.examples) {
+      expect(v(example), JSON.stringify(example)).to.eql(true);
+    }
+  });
+
   it("should accept checkout.commit_verification with 'strict'", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
