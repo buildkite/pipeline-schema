@@ -8,6 +8,7 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
+  ssh_secret: "github_readonly"
   sparse:
     paths:
       - .buildkite/
@@ -45,6 +46,7 @@ steps:
     checkout:
       depth: 10
       commit_verification: "strict"
+      ssh_secret: "github_readonly"
 
   - command: test
     checkout:
@@ -62,6 +64,7 @@ steps:
 
   - command: test
     checkout:
+      ssh_secret: "github_readonly"
       sparse:
         paths:
           - src/
