@@ -235,10 +235,13 @@
         },
         "ssh_secret": {
           "type": "string",
-          "description": "Name of SSH private key secret from Buildkite Secrets to use for git clone/fetch operations. The secret must contain a valid SSH private key. The name must start with a letter, can only contain letters, numbers, and underscores, and must not start with `buildkite` or `bk` (case-insensitive) — names with those prefixes are reserved and the secret will not be created.",
+          "description": "Name of an SSH private key secret from Buildkite Secrets to use for git clone/fetch operations. The name must start with a letter, contain only letters, numbers, and underscores, and must not start with `buildkite` or `bk` (case-insensitive).",
           "minLength": 1,
           "maxLength": 255,
-          "pattern": "^(?![Bb][Uu][Ii][Ll][Dd][Kk][Ii][Tt][Ee])(?![Bb][Kk])[A-Za-z][A-Za-z0-9_]*$",
+          "pattern": "^[A-Za-z][A-Za-z0-9_]*$",
+          "not": {
+            "pattern": "^([Bb][Uu][Ii][Ll][Dd][Kk][Ii][Tt][Ee]|[Bb][Kk])"
+          },
           "examples": ["deploy_key", "github_readonly", "bitbucket_ssh_key"]
         },
         "lfs": {
