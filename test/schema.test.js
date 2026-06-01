@@ -737,4 +737,25 @@ describe("schema.json", function () {
       "#/definitions/groupStep",
     );
   });
+
+  // Buildkite's schema checker uses Go's regexp (RE2), which rejects lookaround.
+  // ajv (used here) accepts it, so guard against reintroducing patterns RE2 can't compile.
+  it("should not use regex lookaround in any pattern", function () {
+    const lookaround = /\(\?(=|!|<=|<!)/;
+    const offending = [];
+    const walk = (node) => {
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+      } else if (node && typeof node === "object") {
+        for (const [key, value] of Object.entries(node)) {
+          if (key === "pattern" && typeof value === "string") {
+            if (lookaround.test(value)) offending.push(value);
+          }
+          walk(value);
+        }
+      }
+    };
+    walk(schema);
+    expect(offending).to.eql([]);
+  });
 });
