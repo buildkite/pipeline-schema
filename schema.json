@@ -248,6 +248,29 @@
           "enum": [true, false, "true", "false"],
           "description": "Whether to install Git LFS and fetch LFS objects after checkout",
           "default": false
+        },
+        "sparse": {
+          "type": "object",
+          "description": "Check out only the specified paths in git cone mode; requires git 2.26+ on the agent",
+          "properties": {
+            "paths": {
+              "type": "array",
+              "description": "Repository-relative directory paths within the worktree; cone mode includes each directory recursively, not file globs",
+              "items": {
+                "type": "string",
+                "pattern": "^[^,\\t\\n\\v\\f\\r]+$",
+                "not": {
+                  "pattern": "^[- ]| $"
+                }
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "examples": [["src/", "docs/"]]
+            }
+          },
+          "required": ["paths"],
+          "additionalProperties": false,
+          "examples": [{ "paths": ["src/", "docs/"] }]
         }
       },
       "additionalProperties": false

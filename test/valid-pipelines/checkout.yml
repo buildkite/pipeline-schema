@@ -9,6 +9,10 @@ checkout:
     checkout: "--force"
     clean: "-fxd"
   ssh_secret: "github_readonly"
+  sparse:
+    paths:
+      - .buildkite/
+      - src/
   lfs: true
 
 steps:
@@ -61,6 +65,11 @@ steps:
   - command: test
     checkout:
       ssh_secret: "github_readonly"
+      sparse:
+        paths:
+          - src/
+          - docs/
+          - test/
 
   - command: test
     checkout:

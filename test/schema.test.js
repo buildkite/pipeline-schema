@@ -696,19 +696,26 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should validate checkout.flags examples against the schema", function () {
+  it("should validate checkout examples against the schema", function () {
     const ajv = new Ajv({ allErrors: true });
-    const flagsSchema = schema.definitions.checkout.properties.flags;
-    const v = ajv.compile(flagsSchema);
-    for (const example of flagsSchema.examples) {
-      expect(v(example), JSON.stringify(example)).to.eql(true);
-    }
-    for (const [key, subSchema] of Object.entries(flagsSchema.properties)) {
-      const vSub = ajv.compile(subSchema);
+    const checkoutProperties = schema.definitions.checkout.properties;
+    for (const [key, subSchema] of Object.entries(checkoutProperties)) {
+      const v = ajv.compile(subSchema);
       for (const example of subSchema.examples || []) {
-        expect(vSub(example), `${key}: ${JSON.stringify(example)}`).to.eql(
-          true,
-        );
+        expect(v(example), `${key}: ${JSON.stringify(example)}`).to.eql(true);
+      }
+      if (subSchema.properties) {
+        for (const [nestedKey, nestedSchema] of Object.entries(
+          subSchema.properties,
+        )) {
+          const vNested = ajv.compile(nestedSchema);
+          for (const example of nestedSchema.examples || []) {
+            expect(
+              vNested(example),
+              `${key}.${nestedKey}: ${JSON.stringify(example)}`,
+            ).to.eql(true);
+          }
+        }
       }
     }
   });
@@ -747,6 +754,257 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject checkout.sparse without paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: {} } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject non-object checkout.sparse", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: "src/" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with an empty paths array", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with a non-array paths value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { sparse: { paths: "src/" } } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with non-string path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [42] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with empty-string path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: [""] } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with leading-dash path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["--no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  // The agent trims surrounding whitespace before passing paths to git, so a
+  // leading space would let a "-flag" slip past the leading-dash guard.
+  it("should reject checkout.sparse with leading-whitespace path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: [" --no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with trailing-whitespace path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/ "] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with commas in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src,docs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with newlines in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\ndocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with carriage returns in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\rdocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  // Control whitespace is banned everywhere, not just at the edges: the agent
+  // trims with Go's unicode.IsSpace (which strips tab/VT/FF), so an internal
+  // tab is never a real directory name and could mask a "-flag" once trimmed.
+  it("should reject checkout.sparse with tab characters in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src\tdocs"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with duplicate path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/", "src/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.sparse with paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/", "docs/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.sparse with internal spaces in path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["my dir/"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept pipeline-level checkout.sparse", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { sparse: { paths: ["src/"] } },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject pipeline-level checkout.sparse without paths", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { sparse: {} },
+      steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept checkout.sparse on a nested command step", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: {
+            command: "echo hello",
+            checkout: { sparse: { paths: ["src/"] } },
+          },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject unknown checkout.sparse properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/"], unknown: true } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function () {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
@@ -768,6 +1026,29 @@ describe("schema.json", function () {
         for (const [key, value] of Object.entries(node)) {
           if (key === "pattern" && typeof value === "string") {
             if (lookaround.test(value)) offending.push(value);
+          }
+          walk(value);
+        }
+      }
+    };
+    walk(schema);
+    expect(offending).to.eql([]);
+  });
+
+  // RE2's \s is only [\t\n\f\r ], but ajv's (ECMA) \s also matches \v and many
+  // Unicode spaces, so a \s in a pattern validates differently across the two
+  // engines. Use explicit character classes instead. (\d, \w and friends are
+  // ASCII in both engines, so only \s/\S diverge.)
+  it("should not use \\s or \\S in any pattern", function () {
+    const divergentClass = /\\[sS]/;
+    const offending = [];
+    const walk = (node) => {
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+      } else if (node && typeof node === "object") {
+        for (const [key, value] of Object.entries(node)) {
+          if (key === "pattern" && typeof value === "string") {
+            if (divergentClass.test(value)) offending.push(value);
           }
           walk(value);
         }
