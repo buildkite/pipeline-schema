@@ -101,6 +101,90 @@ describe("schema.json", function() {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should reject an empty slack channel string", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: "" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject a slack channel containing whitespace", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: "team #general" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject an empty string in a slack channels array", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: { channels: [""] } }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject an empty slack channels array", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: { channels: [] } }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept a valid slack channel", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: "team#general" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept a slack channel using an interpolation expression", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: "${SLACK_CHANNEL}" }
+      ]
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should verify groupStep.steps uses the same-ish items as root steps", function() {
     const mainList = schema.definitions.pipelineSteps.items.anyOf;
     const groupList = schema.definitions.groupSteps.items.anyOf;
