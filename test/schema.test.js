@@ -157,6 +157,20 @@ describe("schema.json", function() {
     expect(v(pipeline)).to.eql(false);
   });
 
+  it("should reject a slack object with no channels property", function() {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello" }
+      ],
+      notify: [
+        { slack: { message: "CI announcement" } }
+      ]
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
   it("should accept a valid slack channel", function() {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);

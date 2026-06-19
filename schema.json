@@ -267,7 +267,8 @@
         "message": {
           "type": "string"
         }
-      }
+      },
+      "required": ["channels"]
     },
     "notifySlack": {
       "type": "object",
