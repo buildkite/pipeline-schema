@@ -107,6 +107,25 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should accept checkout.skip as an explicit null", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { skip: null } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept step-level checkout.skip null alongside a pipeline-level value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { skip: true },
+      steps: [{ command: "echo hello", checkout: { skip: null } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.skip with a non-boolean value", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
@@ -121,6 +140,15 @@ describe("schema.json", function () {
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { submodules: "false" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.submodules as an explicit null", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { submodules: null } }],
     };
     expect(v(pipeline)).to.eql(true);
   });
@@ -271,6 +299,16 @@ describe("schema.json", function () {
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { depth: 1.5 } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  // null-as-unset applies only to the boolean checkout fields
+  it("should reject checkout.depth as null", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: null } }],
     };
     expect(v(pipeline)).to.eql(false);
   });
@@ -778,6 +816,15 @@ describe("schema.json", function () {
           },
         },
       ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should accept checkout.lfs as an explicit null", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { lfs: null } }],
     };
     expect(v(pipeline)).to.eql(true);
   });

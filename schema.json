@@ -184,13 +184,13 @@
           "examples": [1]
         },
         "skip": {
-          "enum": [true, false, "true", "false"],
-          "description": "Skip the git checkout phase",
+          "enum": [true, false, "true", "false", null],
+          "description": "Skip the git checkout phase. An explicit null is treated as unset",
           "default": false
         },
         "submodules": {
-          "enum": [true, false, "true", "false"],
-          "description": "Initialize, sync, update, and clean submodules recursively as part of checkout",
+          "enum": [true, false, "true", "false", null],
+          "description": "Initialize, sync, update, and clean submodules recursively as part of checkout. An explicit null is treated as unset",
           "default": true
         },
         "commit_verification": {
@@ -246,8 +246,8 @@
           "examples": ["deploy_key", "github_readonly", "bitbucket_ssh_key"]
         },
         "lfs": {
-          "enum": [true, false, "true", "false"],
-          "description": "Whether to install Git LFS and fetch LFS objects after checkout",
+          "enum": [true, false, "true", "false", null],
+          "description": "Whether to install Git LFS and fetch LFS objects after checkout. An explicit null is treated as unset",
           "default": false
         },
         "sparse": {

@@ -82,3 +82,9 @@ steps:
   - command: test
     checkout:
       lfs: false
+
+  - command: test
+    checkout:
+      skip: null
+      submodules: null
+      lfs: null
