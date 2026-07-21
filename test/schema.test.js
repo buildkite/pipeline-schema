@@ -239,11 +239,29 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should reject checkout.depth as a string", function () {
+  it("should accept checkout.depth as a positive integer string", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [{ command: "echo hello", checkout: { depth: "10" } }],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.depth as a non-numeric string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: "abc" } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.depth as a string of zero", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { depth: "0" } }],
     };
     expect(v(pipeline)).to.eql(false);
   });

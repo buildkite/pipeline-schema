@@ -177,9 +177,10 @@
       "description": "Configure git checkout behavior. Pipeline-level values are inherited by each step unless that step overrides the same key",
       "properties": {
         "depth": {
-          "type": "integer",
+          "type": ["integer", "string"],
           "description": "Number of commits to fetch when performing a shallow clone; omit for full history",
           "minimum": 1,
+          "pattern": "^[1-9][0-9]*$",
           "examples": [1]
         },
         "skip": {
