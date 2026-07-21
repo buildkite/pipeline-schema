@@ -306,12 +306,26 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
-  it("should accept pipeline-level checkout.ssh_secret", function () {
+  // ssh_secret is step-level only: the backend reads it from each command
+  // step's checkout and never from the pipeline-level block.
+  it("should reject pipeline-level checkout.ssh_secret", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
       checkout: { ssh_secret: "github_readonly" },
       steps: [{ command: "echo hello" }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should accept pipeline-level checkout alongside step-level ssh_secret", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      checkout: { depth: 10 },
+      steps: [
+        { command: "echo hello", checkout: { ssh_secret: "github_readonly" } },
+      ],
     };
     expect(v(pipeline)).to.eql(true);
   });
@@ -717,8 +731,10 @@ describe("schema.json", function () {
   it("should validate checkout examples against the schema", function () {
     const ajv = new Ajv({ allErrors: true });
     const checkoutProperties = schema.definitions.checkout.properties;
+    // Subschemas are compiled standalone, so carry the document's definitions
+    // along to keep any #/definitions/... refs resolvable.
     for (const [key, subSchema] of Object.entries(checkoutProperties)) {
-      const v = ajv.compile(subSchema);
+      const v = ajv.compile({ ...subSchema, definitions: schema.definitions });
       for (const example of subSchema.examples || []) {
         expect(v(example), `${key}: ${JSON.stringify(example)}`).to.eql(true);
       }
@@ -726,7 +742,10 @@ describe("schema.json", function () {
         for (const [nestedKey, nestedSchema] of Object.entries(
           subSchema.properties,
         )) {
-          const vNested = ajv.compile(nestedSchema);
+          const vNested = ajv.compile({
+            ...nestedSchema,
+            definitions: schema.definitions,
+          });
           for (const example of nestedSchema.examples || []) {
             expect(
               vNested(example),
@@ -799,12 +818,44 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(false);
   });
 
-  it("should reject checkout.sparse with a non-array paths value", function () {
+  it("should accept checkout.sparse with a single path string", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
     const pipeline = {
       steps: [
         { command: "echo hello", checkout: { sparse: { paths: "src/" } } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
+  it("should reject checkout.sparse with a non-string, non-array paths value", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: 42 } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with an empty single path string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [{ command: "echo hello", checkout: { sparse: { paths: "" } } }],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with a leading-dash single path string", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: "--no-cone" } },
+        },
       ],
     };
     expect(v(pipeline)).to.eql(false);
@@ -866,6 +917,53 @@ describe("schema.json", function () {
         {
           command: "echo hello",
           checkout: { sparse: { paths: ["src/ "] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  // Go's strings.TrimSpace trims Unicode whitespace, not just ASCII spaces, so
+  // any trimmed edge character could otherwise expose a leading "-flag" to git.
+  it("should reject checkout.sparse with leading no-break-space path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const noBreakSpace = String.fromCharCode(0x00a0);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: [noBreakSpace + "--no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with leading thin-space path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const thinSpace = String.fromCharCode(0x2009);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: [thinSpace + "--no-cone"] } },
+        },
+      ],
+    };
+    expect(v(pipeline)).to.eql(false);
+  });
+
+  it("should reject checkout.sparse with trailing ideographic-space path items", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const ideographicSpace = String.fromCharCode(0x3000);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo hello",
+          checkout: { sparse: { paths: ["src/" + ideographicSpace] } },
         },
       ],
     };

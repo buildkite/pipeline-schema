@@ -252,21 +252,20 @@
         },
         "sparse": {
           "type": "object",
-          "description": "Check out only the specified paths in git cone mode; requires git 2.26+ on the agent",
+          "description": "Check out only the specified paths in git cone mode; requires git 2.27+ on the agent",
           "properties": {
             "paths": {
-              "type": "array",
-              "description": "Repository-relative directory paths within the worktree; cone mode includes each directory recursively, not file globs",
-              "items": {
-                "type": "string",
-                "pattern": "^[^,\\t\\n\\v\\f\\r]+$",
-                "not": {
-                  "pattern": "^[- ]| $"
+              "description": "Repository-relative directory paths within the worktree, as one path or a list of paths; cone mode includes each directory recursively, not file globs",
+              "anyOf": [
+                { "$ref": "#/definitions/checkoutSparsePath" },
+                {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/checkoutSparsePath" },
+                  "minItems": 1,
+                  "uniqueItems": true
                 }
-              },
-              "minItems": 1,
-              "uniqueItems": true,
-              "examples": [["src/", "docs/"]]
+              ],
+              "examples": ["src/", ["src/", "docs/"]]
             }
           },
           "required": ["paths"],
@@ -275,6 +274,13 @@
         }
       },
       "additionalProperties": false
+    },
+    "checkoutSparsePath": {
+      "type": "string",
+      "pattern": "^[^,\\t\\n\\v\\f\\r]+$",
+      "not": {
+        "pattern": "^[-\\t\\n\\v\\f\\r \u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]|[\\t\\n\\v\\f\\r \u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]$"
+      }
     },
     "dependsOnList": {
       "type": "array",
@@ -1642,7 +1648,11 @@
       "$ref": "#/definitions/priority"
     },
     "checkout": {
-      "$ref": "#/definitions/checkout"
+      "description": "Configure git checkout behavior. Pipeline-level values are inherited by each step unless that step overrides the same key. ssh_secret is step-level only and is not valid here",
+      "allOf": [{ "$ref": "#/definitions/checkout" }],
+      "properties": {
+        "ssh_secret": false
+      }
     },
     "steps": {
       "$ref": "#/definitions/pipelineSteps"

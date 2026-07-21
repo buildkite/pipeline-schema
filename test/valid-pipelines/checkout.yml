@@ -8,7 +8,6 @@ checkout:
     fetch: "--prune --tags"
     checkout: "--force"
     clean: "-fxd"
-  ssh_secret: "github_readonly"
   sparse:
     paths:
       - .buildkite/
@@ -70,6 +69,11 @@ steps:
           - src/
           - docs/
           - test/
+
+  - command: test
+    checkout:
+      sparse:
+        paths: src/
 
   - command: test
     checkout:
