@@ -174,7 +174,7 @@
     },
     "checkout": {
       "type": "object",
-      "description": "Configure git checkout behavior. When set pipeline-wide, it applies to all steps that do not have their own checkout key set",
+      "description": "Configure git checkout behavior. Pipeline-level values are inherited by each step unless that step overrides the same key",
       "properties": {
         "depth": {
           "type": "integer",
