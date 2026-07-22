@@ -9,9 +9,55 @@ See:
 * [schema.json](schema.json)
 * [test/valid-pipelines](test/valid-pipelines)
 
+## Go validation
+
+The repository is also a Go package that embeds `schema.json` and validates pipeline YAML or JSON locally, without network access. The schema version is pinned by the version of this module used by your application.
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"os"
+
+	pipelineschema "github.com/buildkite/pipeline-schema"
+)
+
+func main() {
+	data, err := os.ReadFile(".buildkite/pipeline.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	if err := pipelineschema.Validate(data); err != nil {
+		var validationErr *pipelineschema.ValidationError
+		if errors.As(err, &validationErr) {
+			for _, violation := range validationErr.Violations {
+				location := violation.InstanceLocation
+				if location == "" {
+					location = "/"
+				}
+				fmt.Printf("document %d at %s: %s\n", violation.Document, location, violation.Message)
+			}
+			os.Exit(1)
+		}
+		panic(err)
+	}
+}
+```
+
+Validation covers documented pipeline syntax. Successful validation does not guarantee that the Buildkite API will accept a pipeline, because API-side and semantic checks may also apply.
+
 ## Testing
 
-If you have [Node 10+](https://nodejs.org/en/) installed:
+Run the Go package tests from the repository root:
+
+```shell
+go test ./...
+```
+
+To run the schema tests with [Node.js](https://nodejs.org/en/) installed:
 
 ```shell
 cd test
