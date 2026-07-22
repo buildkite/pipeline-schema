@@ -1,4 +1,10 @@
 services:
+  go-tests:
+    image: golang:1.21.13
+    working_dir: /app
+    volumes:
+      - "..:/app"
+
   tests:
     build: .
     volumes:
