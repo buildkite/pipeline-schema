@@ -7,7 +7,7 @@
   "dependencies": {
     "ajv": "^6.12.3",
     "chai": "^4.2.0",
-    "js-yaml": "^3.13.1",
+    "js-yaml": "^3.15.0",
     "mocha": "^11.7.5"
   },
   "devDependencies": {
