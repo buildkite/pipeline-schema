@@ -611,6 +611,17 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should accept checkout.commit_verification with 'off'", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        { command: "echo hello", checkout: { commit_verification: "off" } },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should reject checkout.commit_verification with an invalid string value", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
