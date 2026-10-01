@@ -98,6 +98,45 @@ describe("schema.json", function () {
     expect(v(pipeline)).to.eql(true);
   });
 
+  it("should reject matrix interpolation and dots in step keys", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    for (const key of [
+      "testpy{{matrix.python_version}}",
+      "testpy{{matrix}}",
+      "testpy3.11",
+    ]) {
+      const pipeline = {
+        steps: [
+          {
+            command: "echo {{matrix.python_version}}",
+            label: "Test {{matrix.python_version}}",
+            key,
+            matrix: { setup: { python_version: ["3.11", "3.12"] } },
+          },
+        ],
+      };
+      expect(v(pipeline), key).to.eql(false);
+    }
+  });
+
+  it("should accept a static matrix step key and dependency", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    const pipeline = {
+      steps: [
+        {
+          command: "echo {{matrix.python_version}}",
+          label: "Test {{matrix.python_version}}",
+          key: "testpy",
+          matrix: { setup: { python_version: ["3.11", "3.12"] } },
+        },
+        { command: "echo done", depends_on: "testpy" },
+      ],
+    };
+    expect(v(pipeline)).to.eql(true);
+  });
+
   it("should accept checkout.skip as a stringified boolean", function () {
     const ajv = new Ajv({ allErrors: true });
     const v = ajv.compile(schema);
