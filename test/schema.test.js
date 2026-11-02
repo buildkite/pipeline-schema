@@ -29,6 +29,56 @@ describe("schema.json", function () {
   it("should validate command steps", function () {
     validate("command.yml");
   });
+  it("should accept legacy and map concurrency without extra cross-field validation", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    for (const concurrency of [
+      1,
+      0,
+      -1,
+      null,
+      {},
+      { limit: 2 },
+      { limit: 0 },
+      { limit: -1 },
+      { limit: null },
+      { group: "deploy" },
+      { method: "ordered" },
+      { limit: 2, group: "deploy", method: "eager" },
+      { limit: null, group: null, method: null },
+    ]) {
+      for (const legacy of [
+        {},
+        { concurrency_group: "legacy", concurrency_method: "ordered" },
+      ]) {
+        const pipeline = {
+          steps: [{ command: "deploy", concurrency, ...legacy }],
+        };
+        expect(v(pipeline), JSON.stringify(pipeline)).to.eql(true);
+      }
+    }
+  });
+  it("should reject invalid concurrency types and unknown map properties", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    for (const concurrency of [
+      "2",
+      1.5,
+      true,
+      [],
+      { limit: "2" },
+      { limit: 1.5 },
+      { limit: false },
+      { group: 2 },
+      { method: "unordered" },
+      { method: false },
+      { limit: 2, group: "deploy", cancel_in_progress: true },
+      { limits: 2 },
+    ]) {
+      const pipeline = { steps: [{ command: "deploy", concurrency }] };
+      expect(v(pipeline), JSON.stringify(pipeline)).to.eql(false);
+    }
+  });
   it("should validate env blocks", function () {
     validate("env.yml");
   });
