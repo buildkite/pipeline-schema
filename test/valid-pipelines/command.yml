@@ -56,6 +56,31 @@ steps:
     concurrency_method: "eager"
 
   - command: test
+    concurrency:
+      limit: 2
+      group: "my-group"
+      method: "eager"
+
+  # Omitted group and method inherit the legacy fields.
+  - command: test
+    concurrency:
+      limit: 2
+    concurrency_group: "my-group"
+    concurrency_method: "ordered"
+
+  # Explicit null overrides legacy fields; null limit disables concurrency.
+  - command: test
+    concurrency:
+      limit: null
+      group: null
+      method: null
+    concurrency_group: "my-group"
+    concurrency_method: "eager"
+
+  - command: test
+    concurrency: null
+
+  - command: test
     env:
       AN_ENV: value
 
