@@ -886,6 +886,12 @@
         "prompt": {
           "$ref": "#/definitions/prompt"
         },
+        "submit": {
+          "type": "string",
+          "description": "The label on the button that submits the dialog and unblocks the step",
+          "default": "Continue",
+          "examples": ["Yes, deploy it!"]
+        },
         "allowed_teams": {
           "$ref": "#/definitions/allowedTeams"
         },
