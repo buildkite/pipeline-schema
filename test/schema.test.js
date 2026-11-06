@@ -46,6 +46,12 @@ describe("schema.json", function () {
       { method: "ordered" },
       { limit: 2, group: "deploy", method: "eager" },
       { limit: null, group: null, method: null },
+      { limit: 2, group: "deploy", cancel_in_progress: true },
+      { limit: 1, cancel_in_progress: true },
+      { cancel_in_progress: true },
+      { cancel_in_progress: false },
+      { limit: null, group: null, cancel_in_progress: false },
+      { limit: 0, group: "", cancel_in_progress: false },
     ]) {
       for (const legacy of [
         {},
@@ -72,10 +78,32 @@ describe("schema.json", function () {
       { group: 2 },
       { method: "unordered" },
       { method: false },
-      { limit: 2, group: "deploy", cancel_in_progress: true },
+      { cancel_in_progress: "true" },
+      { cancel_in_progress: "false" },
+      { cancel_in_progress: 1 },
+      { cancel_in_progress: null },
+      { cancel_in_progress: {} },
+      { cancel_in_progress: [] },
       { limits: 2 },
     ]) {
       const pipeline = { steps: [{ command: "deploy", concurrency }] };
+      expect(v(pipeline), JSON.stringify(pipeline)).to.eql(false);
+    }
+  });
+  it("should reject cancel_in_progress outside the concurrency map", function () {
+    const ajv = new Ajv({ allErrors: true });
+    const v = ajv.compile(schema);
+    for (const cancel_in_progress of [true, false]) {
+      const pipeline = {
+        steps: [
+          {
+            command: "deploy",
+            concurrency: 1,
+            concurrency_group: "deploy",
+            cancel_in_progress,
+          },
+        ],
+      };
       expect(v(pipeline), JSON.stringify(pipeline)).to.eql(false);
     }
   });
