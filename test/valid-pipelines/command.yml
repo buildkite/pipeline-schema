@@ -61,12 +61,23 @@ steps:
       group: "my-group"
       method: "eager"
 
+  - command: deploy
+    concurrency:
+      limit: 1
+      group: "my-pipeline/deploy"
+      cancel_in_progress: true
+
   # Omitted group and method inherit the legacy fields.
   - command: test
     concurrency:
       limit: 2
+      cancel_in_progress: true
     concurrency_group: "my-group"
     concurrency_method: "ordered"
+
+  - command: test
+    concurrency:
+      cancel_in_progress: false
 
   # Explicit null overrides legacy fields; null limit disables concurrency.
   - command: test

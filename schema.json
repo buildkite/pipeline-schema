@@ -1239,7 +1239,7 @@
         },
         "concurrency": {
           "type": ["integer", "null", "object"],
-          "description": "The maximum number of jobs created from this step that are allowed to run at the same time, or an object configuring the limit, group, and method. A positive limit requires a group. An omitted or null limit disables concurrency.",
+          "description": "The maximum number of jobs created from this step that are allowed to run at the same time, or an object configuring the limit, group, method, and cancellation. A positive limit requires a group. An omitted or null limit disables concurrency.",
           "properties": {
             "limit": {
               "type": ["integer", "null"],
@@ -1253,12 +1253,22 @@
               "type": ["string", "null"],
               "enum": ["ordered", "eager", null],
               "description": "Control command order. Overrides concurrency_method when present, including null; inherits concurrency_method when omitted. The default is ordered."
+            },
+            "cancel_in_progress": {
+              "type": "boolean",
+              "default": false,
+              "description": "When true and this job is concurrency-limited, asynchronously cancel blocking command jobs in reverse scheduling order until enough capacity has been requested. Requires a positive limit and a nonempty group, which may be inherited from concurrency_group. Targets do not need to enable this option."
             }
           },
           "additionalProperties": false,
           "examples": [
             1,
-            { "limit": 1, "group": "my-pipeline/deploy", "method": "ordered" }
+            { "limit": 1, "group": "my-pipeline/deploy", "method": "ordered" },
+            {
+              "limit": 1,
+              "group": "my-pipeline/deploy",
+              "cancel_in_progress": true
+            }
           ]
         },
         "concurrency_group": {
