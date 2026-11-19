@@ -34,6 +34,10 @@ steps:
 
   - block: "A label"
     prompt: "A prompt"
+    submit: "Yes, deploy it!"
+
+  - block: "A label"
+    prompt: "A prompt"
     fields:
       - text: "Field 1"
         key: "field-1"
